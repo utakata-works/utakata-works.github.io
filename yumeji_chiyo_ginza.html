@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カルピスと芋娘、銀座の邂逅</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F5EDD6;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #C0392B;
+    --fuji: #8B6CAB;
+    --ai: #2c4a6e;
+    --nezumi: #888;
+    --imo: #8B7355;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: var(--sumi);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .wrapper {
+    background-color: var(--washi);
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 80px rgba(0,0,0,0.7), 0 0 20px rgba(201,168,76,0.1);
+    position: relative;
+  }
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .kinsen { height: 3px; background: linear-gradient(to right, transparent, var(--kin) 20%, var(--kin) 80%, transparent); position: relative; z-index: 2; }
+  header {
+    position: relative; z-index: 1;
+    padding: 2.5rem 2rem 1.8rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.4);
+  }
+  .series-label { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; letter-spacing: 0.5em; color: var(--kin); margin-bottom: 1rem; }
+  h1 { font-family: 'Shippori Mincho B1', serif; font-size: 1.4rem; color: var(--sumi); letter-spacing: 0.15em; line-height: 1.6; }
+  .subtitle-en { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; color: var(--nezumi); letter-spacing: 0.4em; margin-top: 0.6rem; }
+
+  /* タブ */
+  .tabs { position: relative; z-index: 1; display: flex; overflow-x: auto; border-bottom: 1px solid rgba(201,168,76,0.3); background: rgba(0,0,0,0.03); scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--nezumi); padding: 0.6rem 0.8rem; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; flex-shrink: 0; }
+  .tab:hover { color: var(--sumi); }
+  .tab.active { color: var(--kin); border-bottom-color: var(--kin); background: rgba(201,168,76,0.05); }
+
+  /* 縦書き */
+  .tategumi-container { position: relative; z-index: 1; padding: 2rem 1.5rem; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--kin) transparent; }
+  .chapter { display: none; }
+  .chapter.active { display: block; }
+  .tategumi { writing-mode: vertical-rl; text-orientation: mixed; font-family: 'Shippori Mincho B1', serif; font-size: 1rem; line-height: 2.4; color: var(--sumi); min-height: 480px; letter-spacing: 0.06em; }
+  .tategumi p { margin-left: 2.5em; }
+  .tategumi p:last-child { margin-left: 0; }
+
+  .ch-title { font-family: 'Shippori Mincho B1', serif; font-size: 0.72rem; letter-spacing: 0.4em; color: var(--kin); margin-left: 1em; padding-right: 0.3em; border-right: 1px solid var(--kin); }
+  .kushigiri { display: block; color: var(--kin); font-size: 0.9rem; margin: 0 2em; letter-spacing: 0.3em; }
+  .boten { text-emphasis: filled circle; -webkit-text-emphasis: filled circle; }
+  .erika { color: var(--kurenai); }
+  .yumeji { color: var(--ai); }
+  .chiyo { color: var(--imo); }
+  .mio { font-size: 0.85em; color: var(--fuji); font-style: italic; }
+  .kokoro { font-size: 0.9em; color: #555; font-style: italic; }
+
+  /* ナビ */
+  .nav-btns { position: relative; z-index: 1; display: flex; justify-content: space-between; padding: 0.8rem 1.5rem; border-top: 1px solid rgba(201,168,76,0.2); }
+  .btn-nav { font-family: 'Noto Serif JP', serif; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--nezumi); background: none; border: 1px solid rgba(201,168,76,0.3); padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+  .btn-nav:hover:not(:disabled) { color: var(--kin); border-color: var(--kin); }
+  .btn-nav:disabled { opacity: 0.2; cursor: default; }
+  .ch-indicator { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; color: var(--kin); letter-spacing: 0.3em; align-self: center; }
+
+  footer { position: relative; z-index: 1; padding: 1rem 1.5rem; border-top: 1px solid rgba(201,168,76,0.3); display: flex; justify-content: space-between; align-items: center; }
+  .colophon { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; color: var(--nezumi); letter-spacing: 0.2em; }
+  .btn-yomiage { font-family: 'Noto Serif JP', serif; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--washi); background: var(--sumi); border: 1px solid var(--kin); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
+  .btn-yomiage:hover { background: var(--kin); color: var(--sumi); }
+  .btn-yomiage.playing { background: var(--kurenai); border-color: var(--kurenai); }
+  .kazari { text-align: center; font-size: 0.75rem; color: var(--kin); letter-spacing: 0.6em; padding: 0.4rem 0; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="kinsen"></div>
+  <header>
+    <div class="series-label">夢二式美人物語　其の零</div>
+    <h1>カルピスと芋娘、銀座の邂逅</h1>
+    <div class="subtitle-en">CALPIS · IMMUSUME · GINZA ENCOUNTER</div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showChapter(0)">一　王国</div>
+    <div class="tab" onclick="showChapter(1)">二　横顔</div>
+    <div class="tab" onclick="showChapter(2)">三　乱戦</div>
+    <div class="tab" onclick="showChapter(3)">四　独白</div>
+    <div class="tab" onclick="showChapter(4)">五　干し柿</div>
+    <div class="tab" onclick="showChapter(5)">六　夕暮れ</div>
+  </div>
+
+  <div class="tategumi-container">
+
+    <div class="chapter active" id="ch0">
+      <div class="tategumi">
+        <p><span class="ch-title">一　カフェ・ライオン、午後の王国</span></p>
+        <p>大正の銀座には、女がありすぎた。</p>
+        <p>柳の並木を震わせる市電の音、ショウウィンドウに踊る電灯の反射——それらが混ざり合って、街全体がひとつの蓄音機のように鳴り響いていた。</p>
+        <p>カフェ・ライオンの中でも、午後の日差しが最も深く差し込む窓際の席。そこに、江里香はいた。</p>
+        <p>赤い口紅。完璧に整えられた眉。白磁のような肌に、緋色の帯。</p>
+        <p>銀座のモダンボーイたちは彼女を「エリカ様」と呼んだ。近づけば毒舌で斬られ、遠ざかれば未練で死ぬ。カフェ・ライオン随一の女給であり、銀座随一の美貌——誰も手の届かない高嶺の花だった。</p>
+        <p>その江里香の向かいで、竹久夢二はため息をついていた。</p>
+        <p>猫背。情けない顔。しかしその眼だけが、異様に鋭い。</p>
+        <p><span class="yumeji">「エリカ様……君は美しすぎる」</span></p>
+        <p><span class="erika">「当然ね」</span></p>
+        <p>江里香は扇子をひらりと開いた。</p>
+        <p><span class="yumeji">「だから描けないんだ。君の顔は完成品だよ。美しすぎて、僕の筆が滑ってしまう。僕が必要とするのは『崩れた情緒』——そこに、君は一滴も隙を持っていない」</span></p>
+        <p><span class="erika">「……<span class="boten">軟弱絵師</span>！」</span></p>
+        <p>エリカ様の怒声が店内に響いた。モダンボーイたちがどよめく。夢二は「うう、面目ない」と肩をすくめた。</p>
+        <p>その時だった。</p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch1">
+      <div class="tategumi">
+        <p><span class="ch-title">二　カルピスと、名もなき横顔</span></p>
+        <p>窓際の席に、場違いなほど純朴な娘がいた。</p>
+        <p>女将さんから借りた銘仙の着物は、少しだけ丈が長かった。足元の草履には、かすかに泥がついている。信州から持ってきたのだろう——都会の石畳には似合わない、野の花のような娘だった。</p>
+        <p>娘の名は千代。麻布のお屋敷で女中奉公をする、十九の芋娘。今日は一ヶ月ぶりの休日だった。雑誌の切り抜きに載っていた「初恋の味」——カルピスを飲むためだけに、銀座まで来たのだった。</p>
+        <p>運ばれてきた乳白色の液体を前にして、千代は息を止めた。壊れものを扱うように、そっとストローをくわえる。</p>
+        <p><span class="chiyo">「あ……」</span></p>
+        <p>口の中に広がる、甘酸っぱい、どこか懐かしくて、しかし鼻に抜けるような新しい香り。千代は思わず目を丸くした。窓の外の柳を見つめながら、ぽつりと独り言を漏らした。</p>
+        <p><span class="chiyo">「……なんだか、お祭りのあとの、淋しいような、でも温かいような。<span class="boten">初恋、みたいな味</span>」</span></p>
+        <p>その瞬間だった。</p>
+        <p>「エリカ様は完成品だから描けない」と嘆いていた夢二の視線が、千代の横顔に釘づけになった。</p>
+        <p>スケッチブックが、手から滑り落ちた。</p>
+        <p>無防備で、完璧ではないからこそ美しい——その「崩れた情緒」が、カルピスのグラスを前にした芋娘の横顔に、溢れていた。</p>
+        <p><span class="kokoro">……見つけた。</span></p>
+        <p>夢二は椅子を蹴り飛ばす勢いで立ち上がった。</p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch2">
+      <div class="tategumi">
+        <p><span class="ch-title">三　乱戦、カルピスと毒舌の十字路</span></p>
+        <p>夢二が千代の席へ駆け寄ったのと、エリカ様が「ちょっと、どこへ行くのよ！」と立ち上がったのは、ほぼ同時だった。</p>
+        <p><span class="yumeji">「君！　君、名前は！？」</span></p>
+        <p><span class="chiyo">「ひゃっ！」</span></p>
+        <p>千代はカルピスを吹き出しそうになった。</p>
+        <p><span class="chiyo">「な、なじょした（何事ですか）！」</span></p>
+        <p><span class="yumeji">「僕は竹久夢二だ。君の横顔を描かせてほしい！」</span></p>
+        <p><span class="chiyo">「……有名なんですか？」</span></p>
+        <p>千代が隣席のモダンボーイに尋ねると、彼はカンカン帽を回しながら答えた。</p>
+        <p>「ああ、有名だよ。女を泣かせることと、女を描くことに関しては天下一品の『情けない天才』さ。この先生、すぐ心中したがるから気をつけなよ」</p>
+        <p><span class="chiyo">「心中！？　やだ、物騒な！」</span></p>
+        <p>そこへエリカ様が割り込んだ。千代を上から下まで一瞥する。</p>
+        <p><span class="erika">「その銘仙、丈が合っていないわよ。おまけに指先、土の匂いがするわ。銀座の空気を汚さないでもらえる？」</span></p>
+        <p>しかし千代は——恐怖に震えるどころか、エリカ様の顔をじっと見つめて、ぽつりと呟いた。</p>
+        <p><span class="chiyo">「……お姉さん、お人形さんみたい。そのお顔、描いてるんですか？　それとも、最初からそんなに白くて綺麗なんですか？」</span></p>
+        <p><span class="erika">「……えっ？」</span></p>
+        <p>エリカ様の完璧な仮面が、一瞬だけ剥がれた。</p>
+        <p><span class="yumeji">「そうなんだよ千代ちゃん！　エリカ様は『描きすぎた完成品』なんだ。でも君のその驚きで丸くなった目……それこそが僕が追い求めていた『生活の詩（うた）』なんだよ！」</span></p>
+        <p><span class="chiyo">「変な人……でも——毎日カルピスを奢ってくれるんですか？」</span></p>
+        <p><span class="yumeji">「奢るとも！」</span></p>
+        <p>エリカ様は溜息をついた。扇子をゆっくり閉じる。</p>
+        <p><span class="erika">「……いいわ。夢二、その娘を連れて行きなさい」</span></p>
+        <p>そして千代の耳元で、少しだけ優しさを混ぜた声で囁いた。</p>
+        <p><span class="erika">「銀座はね、夢を見る場所よ。でも、目が覚めた時の冷たさは、信州の冬より厳しいわ。覚悟してなさい、芋娘さん」</span></p>
+        <p><span class="chiyo">「……はい！　私、一生懸命、綺麗なものを見て帰ります！」</span></p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch3">
+      <div class="tategumi">
+        <p><span class="ch-title">四　銀座から日本橋へ、夢二の空回り独白</span></p>
+        <p>カフェ・ライオンの喧騒をあとに、夢二は意気揚々と千代を連れ出した。行き先は、日本橋に構える「港屋絵草紙店」——夢二がデザインした便箋や手拭いが並ぶ、彼の城だった。</p>
+        <p><span class="yumeji">「いいかい、千代ちゃん。美というものはね、完成されてはいけないんだ。君のその『少し困ったような眉の寄せ方』、それこそが詩なんだよ！」</span></p>
+        <p>夢二は柳の下を歩きながら、身振り手振りで熱弁を振るった。</p>
+        <p>しかし千代はといえば——</p>
+        <p><span class="chiyo">「……あ、先生。あそこの屋台の焼き芋、いい匂い。信州のより、少し皮が薄いみたい」</span></p>
+        <p><span class="yumeji">「……聞いてるかい？　僕は今、君の魂の輪郭について語っているんだよ」</span></p>
+        <p><span class="chiyo">「あ、あっちの呉服屋さんの看板、猫が寝てます。可愛いなあ」</span></p>
+        <p>いくら高尚な芸術論をぶち上げても、千代の瞳に映るのは道端の小さな幸せばかり。</p>
+        <p><span class="yumeji">「……うう、千代ちゃん。でも、その『無関心』こそがアンニュイ！　素晴らしいよ！」</span></p>
+        <p>夢二は一人で感動し、一人でハンカチを噛んで嬉しがっている。</p>
+        <p>少し後ろを歩いていたモダンボーイ（正一）が、ネタ帳にペンを走らせた。</p>
+        <p><span class="kokoro">「『天才画人、芋娘に敗北の兆し』……これは売れるな」</span></p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch4">
+      <div class="tategumi">
+        <p><span class="ch-title">五　港屋の女たちと、干し柿の奇跡</span></p>
+        <p><span class="yumeji">「さあ、着いたよ。ここが君の新しい居場所だ」</span></p>
+        <p>夢二が胸を張って扉を開けた瞬間——店内に漂っていたのは、おしろいの香りと、ぴりりと張り詰めた空気だった。夢二式美人をそのまま体現したような、柳腰で瞳の大きな女学生たちが、主の帰りを待っていた。</p>
+        <p>「先生、お帰りなさいまし」お袖が歩み寄る。その視線が、千代に突き刺さった。「……その、垢抜けないお方は？」</p>
+        <p>千代は女学生たちの完璧なポーズに気圧され、奉公で染み付いた癖でぺこりと頭を下げた。</p>
+        <p><span class="chiyo">「……信州から参りました、千代と申します」</span></p>
+        <p>修行が始まった。</p>
+        <p><span class="yumeji">「千代ちゃん、こう、柳が風に揺れるように、今にも消えてしまいそうな儚さで……さあ、しなだれて！」</span></p>
+        <p>しかし千代が真似をすると——</p>
+        <p>バキボキッ。</p>
+        <p>「千代さん、音がしてるわよ！」信州の山坂を駆け回り、毎日雑巾がけをしている千代の体は、健康そのものの「鋼」だった。</p>
+        <p><span class="chiyo">「……お袖さん、私、やっぱり無理です。しなだれるより、立ち食い蕎麦を食べるほうが得意だもの」</span></p>
+        <p>「蕎麦！？」</p>
+        <p>その時、ガラリと格子戸が開いた。強烈な香水の香りが、港屋を支配した。</p>
+        <p><span class="erika">「ごめんあそばせ。……あら、やっぱり。貧乏臭い絵を描いているわね、夢二。さあ、芋娘さん。お屋敷に帰って大根でも煮ていなさいな」</span></p>
+        <p>しかし千代は、お腹を「ぐう〜」と鳴らしながら、懐から新聞紙に包まれた干し柿を取り出した。</p>
+        <p><span class="chiyo">「……エリカ様。そんなに怒ってばかりだと、眉間にシワが寄って、せっかくの綺麗な顔が台無しですよ。これ、信州から持ってきた干し柿です。甘いものを食べると、少しは優しくなれますよ」</span></p>
+        <p><span class="erika">「……はぁ？　干し柿……？」</span></p>
+        <p>エリカ様が呆然とする中、夢二がデレデレと手を伸ばした。</p>
+        <p><span class="yumeji">「あ、美味しそう。一個もらおうかな」</span></p>
+        <p><span class="erika">「ちょっと、夢二！　絆されないでよ！」</span></p>
+        <p>扇子が夢二の頭を叩いた。店の外から覗いていた正一が、必死に笑いをこらえながらメモを取った。</p>
+        <p><span class="kokoro">「『美の女王エリカ、干し柿の前に沈黙』……大正最大のスクープだ！」</span></p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch5">
+      <div class="tategumi">
+        <p><span class="ch-title">六　夕暮れのカルピス、最初のスケッチ</span></p>
+        <p>干し柿タイムで場が和んでしまい、ようやく夢二が筆を執ったのは夕暮れ時だった。</p>
+        <p>窓から差し込む斜陽が、千代の横顔をオレンジ色に染める。</p>
+        <p><span class="yumeji">「……いい。千代ちゃん、そのまま。動かないで。君の中に、今、信州の夕焼けが見える……」</span></p>
+        <p>夢二は恍惚の表情で筆を動かした。</p>
+        <p>しかし五分後。</p>
+        <p><span class="chiyo">「……先生。じっとしているのって、お腹が空くのと同じくらい辛いです」</span></p>
+        <p><span class="yumeji">「あと少しだから！　芸術のために耐えておくれ！」</span></p>
+        <p><span class="chiyo">「……先生、さっきから、私の顔じゃなくて、手に持ってるカルピスのグラスばかり描いてませんか？」</span></p>
+        <p><span class="yumeji">「……バレたかい？　君の指先がグラスを包むその仕草が、あまりにも——」</span></p>
+        <p><span class="chiyo">「変質者……。奉公先の旦那様なら、今頃警察を呼んでます」</span></p>
+        <p>夢二は「ひゃああ、ごめんよお！」と筆を放り出して畳に突っ伏した。</p>
+        <p>エリカ様が溜息をつく。お袖が絶望する。</p>
+        <p>千代はカルピスの最後の一滴を、静かに啜った。</p>
+        <p>窓の外、銀座の夕暮れが、橙色に燃えていた。</p>
+        <p>この芋娘が——いつか夢二を完膚なきまでに論破し、「夢二式美人の真のミューズ」として銀座に君臨する日が来ることを、今この瞬間、誰も知らなかった。</p>
+        <p>夢二でさえ。</p>
+        <p><span class="kushigiri">〇</span></p>
+        <p><span class="mio">「おやおや」と澪は後に語る。「あの夕暮れのカルピス一杯が、すべての始まりでしたのよ。……干し柿には笑いましたけれどね」</span></p>
+        <p><span class="kokoro">——了——</span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-nav" id="btnPrev" onclick="prevChapter()" disabled>◀ 前</button>
+    <span class="ch-indicator" id="chIndicator">一 / 六</span>
+    <button class="btn-nav" id="btnNext" onclick="nextChapter()">次 ▶</button>
+  </div>
+
+  <div class="kazari">◆　　◆　　◆</div>
+
+  <footer>
+    <div class="colophon">古稀庵綺譚　夢二式美人物語　© KOKIAN KITAN</div>
+    <button class="btn-yomiage" id="btnYomi" onclick="toggleYomiage()">🔊 読み上げ</button>
+  </footer>
+  <div class="kinsen"></div>
+</div>
+
+<script>
+  let currentChapter = 0;
+  const totalChapters = 6;
+  const chNames = ['一','二','三','四','五','六'];
+  let speaking = false;
+  let utterance = null;
+
+  function showChapter(n) {
+    document.querySelectorAll('.chapter').forEach((el, i) => el.classList.toggle('active', i === n));
+    document.querySelectorAll('.tab').forEach((el, i) => el.classList.toggle('active', i === n));
+    currentChapter = n;
+    document.getElementById('chIndicator').textContent = chNames[n] + ' / 六';
+    document.getElementById('btnPrev').disabled = (n === 0);
+    document.getElementById('btnNext').disabled = (n === totalChapters - 1);
+    if (speaking) { speechSynthesis.cancel(); speaking = false; updateYomiBtn(); }
+    const c = document.querySelector('.tategumi-container');
+    c.scrollLeft = c.scrollWidth;
+  }
+
+  function prevChapter() { if (currentChapter > 0) showChapter(currentChapter - 1); }
+  function nextChapter() { if (currentChapter < totalChapters - 1) showChapter(currentChapter + 1); }
+
+  function updateYomiBtn() {
+    const btn = document.getElementById('btnYomi');
+    btn.textContent = speaking ? '⏹ 停止' : '🔊 読み上げ';
+    btn.classList.toggle('playing', speaking);
+  }
+
+  function toggleYomiage() {
+    if (speaking) { speechSynthesis.cancel(); speaking = false; updateYomiBtn(); return; }
+    const el = document.querySelector('#ch' + currentChapter + ' .tategumi');
+    const text = el.innerText.replace(/[〇◆——]/g, '。').replace(/\n+/g, '　');
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.85;
+    utterance.onend = () => { speaking = false; updateYomiBtn(); };
+    speechSynthesis.speak(utterance);
+    speaking = true;
+    updateYomiBtn();
+  }
+
+  window.addEventListener('load', () => {
+    const c = document.querySelector('.tategumi-container');
+    c.scrollLeft = c.scrollWidth;
+  });
+</script>
+</body>
+</html>

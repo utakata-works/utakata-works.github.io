@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>横顔の値打ち</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F5EDD6;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #C0392B;
+    --fuji: #8B6CAB;
+    --nezumi: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--sumi);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .wrapper {
+    background-color: var(--washi);
+    max-width: 680px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0,0,0,0.6);
+  }
+
+  /* 和紙テクスチャ */
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ヘッダー */
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--kin);
+    text-align: center;
+  }
+
+  .series-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--kin);
+    margin-bottom: 0.8rem;
+  }
+
+  h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.8rem;
+    color: var(--sumi);
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+  }
+
+  .subtitle {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.7rem;
+    color: var(--nezumi);
+    letter-spacing: 0.3em;
+    margin-top: 0.6rem;
+  }
+
+  /* 縦書き本文エリア */
+  .tategumi-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    overflow-x: auto;
+    /* 縦書きは横スクロールになるため右から始まるよう調整 */
+  }
+
+  .tategumi {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1rem;
+    line-height: 2.2;
+    color: var(--sumi);
+    min-height: 480px;
+    /* 右から左へ流れる */
+    direction: ltr;
+    letter-spacing: 0.08em;
+  }
+
+  /* 段落 */
+  .tategumi p {
+    margin-left: 2em;
+  }
+  .tategumi p:last-child {
+    margin-left: 0;
+  }
+
+  /* 台詞 */
+  .serifu {
+    color: var(--sumi);
+  }
+  .serifu-chiyo {
+    color: var(--kurenai);
+  }
+  .serifu-yumeji {
+    color: #3a5a8a;
+  }
+  .serifu-imo {
+    color: var(--fuji);
+    font-size: 0.9em;
+  }
+
+  /* 傍点（強調） */
+  .boten {
+    text-emphasis: filled circle;
+    -webkit-text-emphasis: filled circle;
+    text-emphasis-position: under right;
+    -webkit-text-emphasis-position: under right;
+  }
+
+  /* 章区切り */
+  .kushigiri {
+    display: block;
+    color: var(--kin);
+    font-size: 1.2rem;
+    margin: 0 1.5em;
+    letter-spacing: 0.5em;
+  }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 2rem;
+    border-top: 1px solid var(--kin);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .colophon {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.65rem;
+    color: var(--nezumi);
+    letter-spacing: 0.2em;
+  }
+
+  /* 読み上げボタン */
+  .btn-yomiage {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--washi);
+    background: var(--sumi);
+    border: 1px solid var(--kin);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-yomiage:hover {
+    background: var(--kin);
+    color: var(--sumi);
+  }
+  .btn-yomiage.playing {
+    background: var(--kurenai);
+    border-color: var(--kurenai);
+  }
+
+  /* 飾り罫 */
+  .kazari {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--kin);
+    letter-spacing: 0.5em;
+    padding: 0.5rem 0;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <header>
+    <div class="series-label">夢二式美人物語　其の一</div>
+    <h1>横顔の値打ち</h1>
+    <div class="subtitle">YOKOGAO NO NEUCHI</div>
+  </header>
+
+  <div class="kazari">◆　　◆　　◆</div>
+
+  <div class="tategumi-container">
+    <div class="tategumi" id="honbun">
+
+      <p>カルピスの匂いが先に入って来た。</p>
+
+      <p>汚いアトリエの空気が、一瞬だけ甘くなった。</p>
+
+      <p>夢二は振り向かなかった。<br>
+      芋娘の横顔を、まだ描いている途中だった。</p>
+
+      <p><span class="kushigiri">〇</span></p>
+
+      <p>千代はドアを蹴るように開けた。<br>
+      片手にカルピスの瓶。<br>
+      山の手言葉が、もう口から飛び出していた。</p>
+
+      <p><span class="serifu serifu-chiyo">「先生、聞いてらして？　<span class="boten">夢二式美人</span>が有名になったのは、<span class="boten">私のおかげ</span>よ。そこのお嬢さんじゃなくて」</span></p>
+
+      <p>アトリエの隅で、芋娘がびくりとした。<br>
+      信州の土の匂いがまだ抜けきらない、丸い頬の娘だった。</p>
+
+      <p>夢二は、ようやく顔を上げた。</p>
+
+      <p><span class="serifu serifu-yumeji">「千代」</span></p>
+
+      <p><span class="serifu serifu-chiyo">「なによ」</span></p>
+
+      <p><span class="serifu serifu-yumeji">「そのまま動くな」</span></p>
+
+      <p><span class="serifu serifu-chiyo">「は？」</span></p>
+
+      <p>夢二はもう、新しい紙を出していた。<br>
+      鉛筆の先が、静かに動き始める。</p>
+
+      <p><span class="serifu serifu-yumeji">「イイ。その小生意気な横顔が、詞になるんだ」</span></p>
+
+      <p>千代は、言葉に詰まった。<br>
+      怒ろうとして、怒れなかった。<br>
+      カルピスの瓶を持ったまま、知らず知らず顎を上げていた。</p>
+
+      <p><span class="kushigiri">〇</span></p>
+
+      <p>しばらくして、千代はアトリエの隅へ目をやった。</p>
+
+      <p>芋娘が、壁に寄り添うようにして立っていた。<br>
+      うつむいて、小さくなって。</p>
+
+      <p>千代は、吐き捨てるように言った。</p>
+
+      <p><span class="serifu serifu-chiyo">「ほら、やっぱり。先生は——<span class="boten">私じゃなければ</span>ダメなのよ」</span></p>
+
+      <p>その声が、少しだけ震えていたことに、<br>
+      夢二だけが気づいていた。</p>
+
+      <p>鉛筆は止まらなかった。</p>
+
+      <p><span class="kushigiri">〇</span></p>
+
+      <p><span class="serifu serifu-imo">（アトリエの隅で、芋娘はカルピスの瓶をずっと見つめていた。<br>
+      この匂いは、自分が持って来たものだ、と思いながら。）</span></p>
+
+    </div>
+  </div>
+
+  <div class="kazari">◆　　◆　　◆</div>
+
+  <footer>
+    <div class="colophon">大正浪漫プロジェクト　© KOKIAN KITAN</div>
+    <button class="btn-yomiage" id="btnYomi" onclick="toggleYomiage()">🔊 読み上げ</button>
+  </footer>
+</div>
+
+<script>
+  let utterance = null;
+  let speaking = false;
+
+  function toggleYomiage() {
+    const btn = document.getElementById('btnYomi');
+    if (speaking) {
+      speechSynthesis.cancel();
+      speaking = false;
+      btn.textContent = '🔊 読み上げ';
+      btn.classList.remove('playing');
+      return;
+    }
+
+    const text = document.getElementById('honbun').innerText
+      .replace(/[〇◆]/g, '。')
+      .replace(/\n+/g, '　');
+
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.85;
+    utterance.pitch = 1.0;
+    utterance.onend = () => {
+      speaking = false;
+      btn.textContent = '🔊 読み上げ';
+      btn.classList.remove('playing');
+    };
+
+    speechSynthesis.speak(utterance);
+    speaking = true;
+    btn.textContent = '⏹ 停止';
+    btn.classList.add('playing');
+  }
+</script>
+
+</body>
+</html>

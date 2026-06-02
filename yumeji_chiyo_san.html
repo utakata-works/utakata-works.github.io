@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時代のアイコン、そして芋娘に還る</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F0E8D0;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #C0392B;
+    --fuji: #8B6CAB;
+    --ai: #2c4a6e;
+    --nezumi: #888;
+    --imo: #8B7355;
+    --masaichi: #666;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0e0e0e; display: flex; justify-content: center; min-height: 100vh; padding: 2rem 1rem; }
+  .wrapper { background-color: var(--washi); max-width: 700px; width: 100%; box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 20px rgba(201,168,76,0.1); position: relative; }
+  .wrapper::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+  .kinsen { height: 3px; background: linear-gradient(to right, transparent, var(--kin) 20%, var(--kin) 80%, transparent); position: relative; z-index: 2; }
+  header { position: relative; z-index: 1; padding: 2.5rem 2rem 1.8rem; text-align: center; border-bottom: 1px solid rgba(201,168,76,0.4); }
+  .series-label { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; letter-spacing: 0.5em; color: var(--kin); margin-bottom: 1rem; }
+  h1 { font-family: 'Shippori Mincho B1', serif; font-size: 1.4rem; color: var(--sumi); letter-spacing: 0.15em; line-height: 1.7; }
+  .subtitle-en { font-family: 'Noto Serif JP', serif; font-size: 0.58rem; color: var(--nezumi); letter-spacing: 0.4em; margin-top: 0.6rem; }
+  .tabs { position: relative; z-index: 1; display: flex; overflow-x: auto; border-bottom: 1px solid rgba(201,168,76,0.3); background: rgba(0,0,0,0.03); scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--nezumi); padding: 0.6rem 0.9rem; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; flex-shrink: 0; }
+  .tab:hover { color: var(--sumi); }
+  .tab.active { color: var(--kin); border-bottom-color: var(--kin); background: rgba(201,168,76,0.05); }
+  .tategumi-container { position: relative; z-index: 1; padding: 2rem 1.5rem; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--kin) transparent; }
+  .chapter { display: none; }
+  .chapter.active { display: block; }
+  .tategumi { writing-mode: vertical-rl; text-orientation: mixed; font-family: 'Shippori Mincho B1', serif; font-size: 1rem; line-height: 2.4; color: var(--sumi); min-height: 480px; letter-spacing: 0.06em; }
+  .tategumi p { margin-left: 2.5em; }
+  .tategumi p:last-child { margin-left: 0; }
+  .ch-title { font-family: 'Shippori Mincho B1', serif; font-size: 0.72rem; letter-spacing: 0.4em; color: var(--kin); margin-left: 1em; padding-right: 0.3em; border-right: 1px solid var(--kin); }
+  .kushigiri { display: block; color: var(--kin); font-size: 0.9rem; margin: 0 2em; }
+  .boten { text-emphasis: filled circle; -webkit-text-emphasis: filled circle; }
+  .chiyo { color: var(--imo); }
+  .masaichi { color: var(--masaichi); font-size: 0.92em; }
+  .mio { font-size: 0.85em; color: var(--fuji); font-style: italic; }
+  .kokoro { font-size: 0.9em; color: #555; font-style: italic; }
+  .nav-btns { position: relative; z-index: 1; display: flex; justify-content: space-between; padding: 0.8rem 1.5rem; border-top: 1px solid rgba(201,168,76,0.2); }
+  .btn-nav { font-family: 'Noto Serif JP', serif; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--nezumi); background: none; border: 1px solid rgba(201,168,76,0.3); padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+  .btn-nav:hover:not(:disabled) { color: var(--kin); border-color: var(--kin); }
+  .btn-nav:disabled { opacity: 0.2; cursor: default; }
+  .ch-indicator { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; color: var(--kin); letter-spacing: 0.3em; align-self: center; }
+  footer { position: relative; z-index: 1; padding: 1rem 1.5rem; border-top: 1px solid rgba(201,168,76,0.3); display: flex; justify-content: space-between; align-items: center; }
+  .colophon { font-family: 'Noto Serif JP', serif; font-size: 0.6rem; color: var(--nezumi); letter-spacing: 0.2em; }
+  .btn-yomiage { font-family: 'Noto Serif JP', serif; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--washi); background: var(--sumi); border: 1px solid var(--kin); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s; }
+  .btn-yomiage:hover { background: var(--kin); color: var(--sumi); }
+  .btn-yomiage.playing { background: var(--kurenai); border-color: var(--kurenai); }
+  .kazari { text-align: center; font-size: 0.75rem; color: var(--kin); letter-spacing: 0.6em; padding: 0.4rem 0; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="kinsen"></div>
+  <header>
+    <div class="series-label">夢二式美人物語　其の参</div>
+    <h1>時代のアイコン、<br>そして芋娘に還る</h1>
+    <div class="subtitle-en">THE ICON OF AN ERA · AND RETURN TO IMMUSUME</div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showChapter(0)">一　飛び立つ千代</div>
+    <div class="tab" onclick="showChapter(1)">二　時代のアイコン</div>
+    <div class="tab" onclick="showChapter(2)">三　芋娘に還る</div>
+  </div>
+
+  <div class="tategumi-container">
+
+    <div class="chapter active" id="ch0">
+      <div class="tategumi">
+        <p><span class="ch-title">一　飛び立つ千代</span></p>
+        <p>千代は、追いかけなかった。</p>
+        <p>夢二がアトリエを空けた翌朝、千代は銀座へ出た。いつもの窓際の席ではなく、今日は表通りに面したテーブルに座った。注文したのはコーヒーだった。カルピスは——もう少しだけ、飲みたくなかった。</p>
+        <p>窓の外を、モダンガールたちが歩いていく。整った石畳、電灯の列、完成された銀座。</p>
+        <p>千代はその景色を眺めながら、静かに思った。</p>
+        <p><span class="kokoro">夢二先生は、私を磨いて逃げた。でも——磨いてくれたのは、確かに先生だった。</span></p>
+        <p>油揚げの匂いにつられて浅草へ迷い込んだ芋娘を「これだ」と言って拾い上げてくれた。バキボキッと音を立ててしなだれようとした私を「その健やかさが詩だ」と言ってくれた。エリカ様に干し柿を差し出した時、誰よりも嬉しそうに笑っていたのも先生だった。</p>
+        <p>千代は、コーヒーカップを両手で包んだ。</p>
+        <p><span class="kokoro">ありがとうございました、先生。</span></p>
+        <p>声には出さなかった。出す必要がなかった。</p>
+        <p>カップを置いて、千代は立ち上がった。コートの衿を整えて、銀座の表通りへ歩き出す。</p>
+        <p>振り返らなかった。</p>
+        <p><span class="boten">大正美人</span>と呼ばれた女が、誰にも呼ばれなくても颯爽と歩いていた。</p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch1">
+      <div class="tategumi">
+        <p><span class="ch-title">二　時代のアイコン</span></p>
+        <p>それからの千代は、速かった。</p>
+        <p>帝展の常連画家たちが競うように千代をモデルに指名した。婦人画報の表紙が三度続いた。百貨店の広告に、映画の宣伝に、千代の横顔が帝都に溢れた。</p>
+        <p>「夢二式美人の生きた原型」——そう呼ばれながら、千代は誰の「式」にもならなかった。</p>
+        <p>ある画家が言った。「千代さんは夢二先生の影響が強いですね」</p>
+        <p><span class="chiyo">「そうですか？」</span></p>
+        <p>「佇まいが、どことなく」</p>
+        <p><span class="chiyo">「先生には、カルピスをたくさん奢ってもらいました」</span></p>
+        <p>画家は笑った。千代も笑った。しかし千代の笑い方は、もう誰かに磨かれた笑い方ではなかった。完全に千代自身の笑い方だった。</p>
+        <p>正一が久しぶりに千代を見かけたのは、銀座四丁目の角だった。</p>
+        <p><span class="masaichi">「千代さん、すっかり銀座の人ですね」</span></p>
+        <p><span class="chiyo">「そうですか？　今日も日本橋から来たんですが、途中で油揚げの匂いがして——」</span></p>
+        <p><span class="masaichi">「……浅草の方へ行きましたか」</span></p>
+        <p><span class="chiyo">「少しだけ」</span></p>
+        <p>正一は、大笑いした。</p>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch2">
+      <div class="tategumi">
+        <p><span class="ch-title">三　年月の向こうで、芋娘に還る</span></p>
+        <p>それから、何十年か過ぎた。</p>
+        <p>銀座はさらに変わった。大正が終わり、昭和が来て、戦争が来て、また新しい時代が来た。千代の髪に白いものが混じり始めた頃、彼女はまだ銀座にいた。</p>
+        <p>老舗のカフェの窓際の席。</p>
+        <p>注文したのは——カルピスだった。</p>
+        <p>久しぶりに飲みたくなった。理由はわからなかった。ただ、今日はそんな気がした。</p>
+        <p>運ばれてきた乳白色の液体を前にして、千代はストローをくわえた。</p>
+        <p>口の中に広がる、甘酸っぱい、どこか懐かしい香り。</p>
+        <p><span class="chiyo">「……なんだか、お祭りのあとの、淋しいような、でも温かいような」</span></p>
+        <p>思わず呟いてから、千代はクスリと笑った。</p>
+        <p>隣のテーブルから、澪の声がした。</p>
+        <p><span class="mio">「おやおや、千代さん。また訛ってますよ」</span></p>
+        <p><span class="chiyo">「あら、またやってしまった」</span></p>
+        <p>千代は頬に手を当てた。何十年経っても、気を抜くと信州訛りが顔を出す。カルピスを飲む時だけは駄目だった。</p>
+        <p><span class="chiyo">「先生ったら、あの油揚げの匂いにつられた娘を探しに、今頃どこへ行っているんやら」</span></p>
+        <p><span class="mio">「……今、信州弁で喋りましたよ」</span></p>
+        <p><span class="chiyo">「そうですか？　先生が聞いたら、喜ぶかしら」</span></p>
+        <p><span class="mio">「きっと、すぐスケッチブックを開きますよ」</span></p>
+        <p><span class="chiyo">「二本奢ってもらわないとね」</span></p>
+        <p>二人は静かに笑った。</p>
+        <p>窓の外の銀座に、夕暮れの光が差し込んでいた。</p>
+        <p>千代はカルピスのストローを静かに置いた。甘酸っぱい香りが、まだ鼻の奥に残っていた。</p>
+        <p><span class="kushigiri">〇</span></p>
+        <p><span class="mio">「おやおや」と澪は後に語る。「千代さんは最後まで、カルピスを飲む時だけ芋娘に還りましたのよ。それが——一番可愛かったですけれどね」</span></p>
+        <p><span class="kokoro">——了——</span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-nav" id="btnPrev" onclick="prevChapter()" disabled>◀ 前</button>
+    <span class="ch-indicator" id="chIndicator">一 / 三</span>
+    <button class="btn-nav" id="btnNext" onclick="nextChapter()">次 ▶</button>
+  </div>
+
+  <div class="kazari">◆　　◆　　◆</div>
+
+  <footer>
+    <div class="colophon">古稀庵綺譚　夢二式美人物語　© KOKIAN KITAN</div>
+    <button class="btn-yomiage" id="btnYomi" onclick="toggleYomiage()">🔊 読み上げ</button>
+  </footer>
+  <div class="kinsen"></div>
+</div>
+
+<script>
+  let currentChapter = 0;
+  const totalChapters = 3;
+  const chNames = ['一','二','三'];
+  let speaking = false, utterance = null;
+
+  function showChapter(n) {
+    document.querySelectorAll('.chapter').forEach((el, i) => el.classList.toggle('active', i === n));
+    document.querySelectorAll('.tab').forEach((el, i) => el.classList.toggle('active', i === n));
+    currentChapter = n;
+    document.getElementById('chIndicator').textContent = chNames[n] + ' / 三';
+    document.getElementById('btnPrev').disabled = (n === 0);
+    document.getElementById('btnNext').disabled = (n === totalChapters - 1);
+    if (speaking) { speechSynthesis.cancel(); speaking = false; updateYomiBtn(); }
+    const c = document.querySelector('.tategumi-container');
+    c.scrollLeft = c.scrollWidth;
+  }
+
+  function prevChapter() { if (currentChapter > 0) showChapter(currentChapter - 1); }
+  function nextChapter() { if (currentChapter < totalChapters - 1) showChapter(currentChapter + 1); }
+
+  function updateYomiBtn() {
+    const btn = document.getElementById('btnYomi');
+    btn.textContent = speaking ? '⏹ 停止' : '🔊 読み上げ';
+    btn.classList.toggle('playing', speaking);
+  }
+
+  function toggleYomiage() {
+    if (speaking) { speechSynthesis.cancel(); speaking = false; updateYomiBtn(); return; }
+    const el = document.querySelector('#ch' + currentChapter + ' .tategumi');
+    const text = el.innerText.replace(/[〇◆——]/g, '。').replace(/\n+/g, '　');
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP'; utterance.rate = 0.85;
+    utterance.onend = () => { speaking = false; updateYomiBtn(); };
+    speechSynthesis.speak(utterance);
+    speaking = true; updateYomiBtn();
+  }
+
+  window.addEventListener('load', () => {
+    const c = document.querySelector('.tategumi-container');
+    c.scrollLeft = c.scrollWidth;
+  });
+</script>
+</body>
+</html>
