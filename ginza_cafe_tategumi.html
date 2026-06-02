@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>銀座カフェ・刹那の閃光、そして逃避行</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F0E8D0;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #C0392B;
+    --fuji: #8B6CAB;
+    --ai: #2c4a6e;
+    --nezumi: #777;
+    --kage: #2a2a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--kage);
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.01) 3px,
+        rgba(255,255,255,0.01) 4px
+      );
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 0;
+  }
+
+  .wrapper {
+    background-color: var(--washi);
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 20px rgba(201,168,76,0.15);
+  }
+
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* 金線飾り上下 */
+  .kinsen {
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--kin) 20%, var(--kin) 80%, transparent);
+    position: relative;
+    z-index: 2;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 2rem 1.8rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.4);
+  }
+
+  .series-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.5rem;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    line-height: 1.6;
+  }
+
+  .subtitle-en {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    color: var(--nezumi);
+    letter-spacing: 0.4em;
+    margin-top: 0.6rem;
+  }
+
+  /* 章タブ */
+  .tabs {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    overflow-x: auto;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    background: rgba(0,0,0,0.04);
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--nezumi);
+    padding: 0.6rem 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .tab:hover { color: var(--sumi); }
+  .tab.active {
+    color: var(--kin);
+    border-bottom-color: var(--kin);
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* 縦書き本文 */
+  .tategumi-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--kin) transparent;
+  }
+
+  .chapter { display: none; }
+  .chapter.active { display: block; }
+
+  .tategumi {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1rem;
+    line-height: 2.4;
+    color: var(--sumi);
+    min-height: 500px;
+    letter-spacing: 0.06em;
+  }
+
+  .tategumi p {
+    margin-left: 2.5em;
+  }
+  .tategumi p:last-child {
+    margin-left: 0;
+  }
+
+  /* 章タイトル（縦書き内） */
+  .ch-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--kin);
+    margin-left: 1em;
+    padding-right: 0.3em;
+    border-right: 1px solid var(--kin);
+  }
+
+  /* 区切り */
+  .kushigiri {
+    display: block;
+    color: var(--kin);
+    font-size: 0.9rem;
+    margin: 0 2em;
+    letter-spacing: 0.3em;
+  }
+
+  /* 強調 */
+  .boten {
+    text-emphasis: filled circle;
+    -webkit-text-emphasis: filled circle;
+  }
+
+  /* 台詞・心内 */
+  .italic { font-style: italic; }
+  .waka {
+    font-size: 0.95em;
+    letter-spacing: 0.1em;
+    color: var(--ai);
+  }
+  .kokoro {
+    font-size: 0.9em;
+    color: #555;
+    font-style: italic;
+  }
+  .mio {
+    font-size: 0.85em;
+    color: var(--fuji);
+    font-style: italic;
+  }
+
+  /* ナビボタン */
+  .nav-btns {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .btn-nav {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--nezumi);
+    background: none;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-nav:hover:not(:disabled) {
+    color: var(--kin);
+    border-color: var(--kin);
+  }
+  .btn-nav:disabled { opacity: 0.2; cursor: default; }
+
+  .ch-indicator {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    color: var(--kin);
+    letter-spacing: 0.3em;
+    align-self: center;
+  }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .colophon {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    color: var(--nezumi);
+    letter-spacing: 0.2em;
+  }
+
+  .btn-yomiage {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--washi);
+    background: var(--sumi);
+    border: 1px solid var(--kin);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-yomiage:hover { background: var(--kin); color: var(--sumi); }
+  .btn-yomiage.playing { background: var(--kurenai); border-color: var(--kurenai); }
+
+  .kazari {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--kin);
+    letter-spacing: 0.6em;
+    padding: 0.4rem 0;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="kinsen"></div>
+
+  <header>
+    <div class="series-label">古稀庵綺譚　挿話一</div>
+    <h1>銀座カフェ・刹那の閃光、そして逃避行</h1>
+    <div class="subtitle-en">GINZA CAFÉ · FLASH OF AN INSTANT · THEN FLIGHT</div>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="showChapter(0)">一　貴賓席</div>
+    <div class="tab" onclick="showChapter(1)">二　乱入</div>
+    <div class="tab" onclick="showChapter(2)">三　閃光</div>
+    <div class="tab" onclick="showChapter(3)">四　璋子</div>
+    <div class="tab" onclick="showChapter(4)">五　逃走</div>
+    <div class="tab" onclick="showChapter(5)">六　恋文雨</div>
+    <div class="tab" onclick="showChapter(6)">七　訣別</div>
+  </div>
+
+  <div class="tategumi-container">
+
+    <!-- 一章 -->
+    <div class="chapter active" id="ch0">
+      <div class="tategumi">
+        <p><span class="ch-title">一　カフェー・プランタン、午後の貴賓席</span></p>
+        <p>大正の銀座には、光がありすぎた。</p>
+        <p>煉瓦通りを行き交うモダンボーイたちの白い襟、ショウウィンドウに踊る電灯の反射、路面電車が撒き散らす火花——それらが混ざり合って、街全体がひとつの蓄音機のように鳴り響いていた。</p>
+        <p>カフェー・プランタンの貴賓席は、その喧騒から一段高い場所にあった。まるで桟敷のように。そこに、璋子はいた。</p>
+        <p>薄紫の縮緬に白百合の刺繍。帯は深緋。唐草模様のステンドグラスが窓辺に色を落とし、その斑の光の中で、璋子はキセルをくゆらせていた。煙が細く、白く、天井へ向かって溶けていく。</p>
+        <p>蓄音機がヴェルディを流している。冷めた珈琲茶碗が、卓の上に一つ。</p>
+        <p>璋子は何も見ていなかった。いや、すべてを見ていた——ただ、何一つ彼女の内側に触れるものがなかっただけだ。法皇の古稀庵から抜け出すたびに、この街へ来る。来るたびに、この街は少しずつ変わっていく。けれど璋子の退屈だけは、ちっとも変わらない。</p>
+        <p><span class="kokoro">また、今日も——</span></p>
+        <p>その刹那だった。</p>
+      </div>
+    </div>
+
+    <!-- 二章 -->
+    <div class="chapter" id="ch1">
+      <div class="tategumi">
+        <p><span class="ch-title">二　乱入</span></p>
+        <p>ドアが蹴り開けられる音がした。</p>
+        <p>軍靴の音が三つ、石畳を踏んで入ってくる。不良兵士たちだった——二等兵の階級章をつけながら、酒臭い息を撒き散らし、場の空気など意に介さない類の。女給たちが顔を強張らせた。常連の紳士たちが椅子を引いた。蓄音機の針が、誰かに弾かれたように止まった。</p>
+        <p>「おい、そこの別嬪」</p>
+        <p>男の一人が、貴賓席を仰いだ。</p>
+        <p>璋子は動かなかった。キセルを唇から離しもしない。</p>
+        <p>「法皇の飼い猫が、お一人様とは寂しいじゃないか。俺たちが相手をしてやろう」</p>
+        <p>どっと笑いが起きた。仲間の笑いだ。薄汚れた、仲間だけに向けられた笑い。</p>
+        <p>男の手が伸びた——璋子の白い項へ向けて。</p>
+        <p>テーブルの端に置かれた煙草盆が、かすかに揺れた。それだけだった。</p>
+      </div>
+    </div>
+
+    <!-- 三章 -->
+    <div class="chapter" id="ch2">
+      <div class="tategumi">
+        <p><span class="ch-title">三　閃光</span></p>
+        <p>誰も、見ていなかった。</p>
+        <p>いや、見ていたとしても、あとから思い出せなかった。一瞬のことだったから。</p>
+        <p>空気の断層を裂くような音がした。それから——沈黙。</p>
+        <p>男の手は、璋子の項に届かなかった。男の視界が、上下逆になっていた。</p>
+        <p>気づいたときには床に沈んでいた。二人同時に、糸を切られた人形のように。一人は顎を。もう一人は鳩尾を。抜刀すらしていない。サーベルは鞘に収まったまま——その柄が、正確に、音より早く届いていた。</p>
+        <p>西行だった。</p>
+        <p>いつからそこにいたのか。誰も知らない。貴賓席の三歩手前、ほんの自然な立ち位置に、背広を着た男が立っていた。軍服ではなかった——表向きは。ただ、背広の衿がほんの少しはだけた隙に、<span class="boten">軍の金釦がひとつ</span>、冷たく光を跳ねた。その佇まいだけが、周囲の空気と断絶していた。</p>
+        <p>カフェーの中が、石になった。</p>
+        <p>女給も、紳士も、花瓶の花も、ステンドグラスの光までもが、一瞬だけ呼吸を忘れた。</p>
+        <p>壁際に溶けていた影たちが微かに動いた。しかし、遅かった。すでに事は終わっていた。</p>
+        <p><span class="kokoro">一手——いや、二手、遅れた。</span></p>
+        <p>西行は言わなかった。言う必要がなかった。その沈黙が、すべてを言っていた。</p>
+      </div>
+    </div>
+
+    <!-- 四章 -->
+    <div class="chapter" id="ch3">
+      <div class="tategumi">
+        <p><span class="ch-title">四　璋子、動じず</span></p>
+        <p>璋子は、キセルを灰皿にトントンと叩いた。</p>
+        <p>それだけだった。</p>
+        <p>煙が乱れた。ほんの少し。それを、彼女は眺めた——他人事のように、しかし確かな目で。床に沈んだ男たちを一瞥もしない。騒然とするカフェーの客たちにも、目を向けない。</p>
+        <p>西行の顔を、初めて正面から見た。</p>
+        <p>燃えていた、とあとで璋子は思う。その眼が。本物の炎だった——ただし、その炎が照らしているものが自分なのか、あるいは自分という名の幻なのか、璋子にはまだわからなかった。</p>
+        <p>「……あら」</p>
+        <p>薄い唇が、僅かに弧を描いた。微笑みとも呼べないほどの、ほんの気紛れな筋肉の動き。</p>
+        <p>「少し、煙が乱れましたわ」</p>
+        <p>それだけ。</p>
+        <p>西行の喉が、鳴った。</p>
+      </div>
+    </div>
+
+    <!-- 五章 -->
+    <div class="chapter" id="ch4">
+      <div class="tategumi">
+        <p><span class="ch-title">五　逃走</span></p>
+        <p>「行くぞ」</p>
+        <p>万力のような力で、西行の指が璋子の手首を掴んだ。</p>
+        <p>璋子は、動く必要をまだ感じていなかった。しかし彼女の足は、不思議なことに、男に引かれるまま動き始めた。自分でも、その理由がわからなかった。</p>
+        <p>「舌を噛むぞ」</p>
+        <p>「……乱暴ですこと」</p>
+        <p>璋子が言い終わる前に、ガシャン——ステンドグラスが砕ける音が銀座の夕闇に弾けた。</p>
+        <p>影たちが動き出した。堀河が立ち上がった。憲兵の口笛が、遠く、近く。</p>
+        <p>二人の影は、もうそこにいなかった。</p>
+        <p>唐草模様のステンドグラスの欠片が、床に散らばっていた。夕日を浴びて、虹色に光りながら。</p>
+      </div>
+    </div>
+
+    <!-- 六章 -->
+    <div class="chapter" id="ch5">
+      <div class="tategumi">
+        <p><span class="ch-title">六　銀座裏路地、恋文雨</span></p>
+        <p>走った。</p>
+        <p>銀座の表通りから一本入れば、そこはもう別の世界だった。ガス灯の届かない路地、泥の匂い、剥げかけたペンキの壁——光の銀座の、真裏の影。</p>
+        <p>西行は走りながら、懐から紙を取り出した。筆を走らせる。電柱に貼り付けて、また走る。</p>
+        <p>璋子は受け取った。</p>
+        <p><span class="waka">——春惜しむ　心の奥に　火のごとく　消えぬ想いの　燃え立つらむ——</span></p>
+        <p>破った。また一枚。また破った。</p>
+        <p>七枚目を受け取った瞬間、指の腹に墨の冷たさが触れた。</p>
+        <p>法皇の沈香でも、御所の香でもない匂い。もっと生で、荒削りで——これは人間の匂いだ、と璋子は思った。権力は花が腐る寸前の甘い香りがした。けれどこの男の墨は、焦げた匂いがした。</p>
+        <p>八枚目。</p>
+        <p><span class="waka">——あなたの瞳に　映りたる影は　我が身か　夢か　消えゆく月か——</span></p>
+        <p>破——</p>
+        <p>指が、止まった。</p>
+        <p>「……月、か」</p>
+        <p>声に出したつもりはなかった。</p>
+        <p>法皇は月を所有しようとした。しかしこの男の月は、消えゆく。手が届かないことを知っている者の月だ。</p>
+        <p>璋子は紙を破った。しかし今度は、握ったまま、拳の中に収めた。無意識に。</p>
+        <p><span class="kokoro">これは毒だ。</span></p>
+        <p>冷静に、平静に、他人事のように——思った。</p>
+        <p>夜霧の中で、破り損ねた紙の欠片が、璋子の帯の端にひっそりと貼り付いていた。墨で書かれた一文字だけが、かろうじて読めた。</p>
+        <p><span class="boten kokoro">春</span></p>
+        <p>璋子はそれに、気づかないふりをした。</p>
+      </div>
+    </div>
+
+    <!-- 七章 -->
+    <div class="chapter" id="ch6">
+      <div class="tategumi">
+        <p><span class="ch-title">七　安ホテルの一室、訣別</span></p>
+        <p>逃げ込んだのは、ペンキの剥げた看板が揺れるうらぶれた安ホテルの一室だった。</p>
+        <p>西行は内側から閂を掛けた。</p>
+        <p>外では、軍靴が石畳を叩く不気味なリズムが近づき、サーチライトの光が埃の舞う室内を切り裂いた。しかし西行の瞳には、恐怖が微塵もなかった。</p>
+        <p>窓際に立つ璋子を見つめ、静かに口を開いた。</p>
+        <p><span class="waka">「願はくは　花の下にて　春死なむ　そのきさらぎの　望月のころ」</span></p>
+        <p>死を予覚したような、清冽な調べ。</p>
+        <p>西行はその場で<span class="boten">軍服のボタンを引きちぎり</span>、布地を無造作に破り捨てた。国家への忠誠も、法皇への服従も、すべてをかなぐり捨てる儀式のように。</p>
+        <p>「……西行さん、あなた」</p>
+        <p>常に余裕を崩さなかった璋子の声が、微かに震えた。</p>
+        <p>半裸の西行は、璋子の細い肩を壊さんばかりに強く抱き寄せた。男の熱い鼓動と、破られた軍服の匂い。璋子の瞳に、初めて揺るぎない動揺が走った。</p>
+        <p>魔性と呼ばれた女が、一人の男の「個」としての執着に、圧し潰されそうになった刹那だった。</p>
+        <p>「……璋子。お前を、この泥沼に道連れにはせん」</p>
+        <p>西行はその腕を、断腸の思いで解いた。</p>
+        <p>驚愕に目を見開く璋子を置き去りにし、床板の下の排煙口を蹴り開ける。</p>
+        <p>「生きろ。法皇の箱庭で、毒を撒き散らしてな。……さらばだ」</p>
+        <p>西行の影が闇に吸い込まれた直後、ホテルのドアが激しく蹴り破られた。</p>
+        <p>なだれ込んだ憲兵たちが目にしたのは——破り捨てられた軍服の残骸と、ただ一人、月の光の中で呆然と立ち尽くす、美しすぎる璋子の姿だけだった。</p>
+        <p><span class="kushigiri">〇</span></p>
+        <p>璋子は動かなかった。動く必要を——今度こそ、感じなかった。</p>
+        <p>拳の中に、まだ紙の感触があった。墨が掌に移り、薄く、しかし確実に、線を引いていた。</p>
+        <p>法皇の愛は鎖だった。重さがあったから、存在を確認できた。しかしあの男の言葉は、煙だった。煙は縛らない。ただ肺の中に入って、気づいた時にはもう、内側を染めている。</p>
+        <p><span class="kokoro">私はもう、何枚か、吸い込んでいる。</span></p>
+        <p>璋子はゆっくりと、拳を開いた。</p>
+        <p>破れた紙の欠片が、月の光の中に、散った。</p>
+        <p><span class="kushigiri">〇</span></p>
+        <p><span class="mio">「おやおや」と澪は後に語る。「あの夜から、璋子さんの煙草の煙が——少しだけ、形を変えましたのよ」</span></p>
+        <p><span class="kokoro">——了——</span></p>
+      </div>
+    </div>
+
+  </div><!-- tategumi-container -->
+
+  <div class="nav-btns">
+    <button class="btn-nav" id="btnPrev" onclick="prevChapter()" disabled>◀ 前</button>
+    <span class="ch-indicator" id="chIndicator">一 / 七</span>
+    <button class="btn-nav" id="btnNext" onclick="nextChapter()">次 ▶</button>
+  </div>
+
+  <div class="kazari">◆　　◆　　◆</div>
+
+  <footer>
+    <div class="colophon">古稀庵綺譚　挿話一　© KOKIAN KITAN</div>
+    <button class="btn-yomiage" id="btnYomi" onclick="toggleYomiage()">🔊 読み上げ</button>
+  </footer>
+
+  <div class="kinsen"></div>
+</div>
+
+<script>
+  let currentChapter = 0;
+  const totalChapters = 7;
+  const chNames = ['一','二','三','四','五','六','七'];
+  let speaking = false;
+  let utterance = null;
+
+  function showChapter(n) {
+    document.querySelectorAll('.chapter').forEach((el, i) => {
+      el.classList.toggle('active', i === n);
+    });
+    document.querySelectorAll('.tab').forEach((el, i) => {
+      el.classList.toggle('active', i === n);
+    });
+    currentChapter = n;
+    document.getElementById('chIndicator').textContent = chNames[n] + ' / 七';
+    document.getElementById('btnPrev').disabled = (n === 0);
+    document.getElementById('btnNext').disabled = (n === totalChapters - 1);
+    // 読み上げ中なら止める
+    if (speaking) { speechSynthesis.cancel(); speaking = false; updateYomiBtn(); }
+    // スクロールを右端（冒頭）に
+    const container = document.querySelector('.tategumi-container');
+    container.scrollLeft = container.scrollWidth;
+  }
+
+  function prevChapter() { if (currentChapter > 0) showChapter(currentChapter - 1); }
+  function nextChapter() { if (currentChapter < totalChapters - 1) showChapter(currentChapter + 1); }
+
+  function updateYomiBtn() {
+    const btn = document.getElementById('btnYomi');
+    if (speaking) {
+      btn.textContent = '⏹ 停止'; btn.classList.add('playing');
+    } else {
+      btn.textContent = '🔊 読み上げ'; btn.classList.remove('playing');
+    }
+  }
+
+  function toggleYomiage() {
+    if (speaking) {
+      speechSynthesis.cancel(); speaking = false; updateYomiBtn(); return;
+    }
+    const el = document.querySelector('#ch' + currentChapter + ' .tategumi');
+    const text = el.innerText.replace(/[〇◆——]/g, '。').replace(/\n+/g, '　');
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.82;
+    utterance.pitch = 1.0;
+    utterance.onend = () => { speaking = false; updateYomiBtn(); };
+    speechSynthesis.speak(utterance);
+    speaking = true;
+    updateYomiBtn();
+  }
+
+  // 初期スクロール
+  window.addEventListener('load', () => {
+    const container = document.querySelector('.tategumi-container');
+    container.scrollLeft = container.scrollWidth;
+  });
+</script>
+</body>
+</html>
