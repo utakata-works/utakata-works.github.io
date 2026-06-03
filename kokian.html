@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>古稀庵綺譚 — 知識管理帖</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F5EDD6;
+    --washi-dark: #EDE0C0;
+    --washi-deep: #D4C5A0;
+    --sumi: #1C1C1C;
+    --sumi-light: #3a3530;
+    --kin: #C9A84C;
+    --kin-light: #E8C96A;
+    --hi: #C0392B;
+    --fuji: #8B6CAB;
+    --ai: #2C4A7C;
+    --wakakusa: #5A7A3A;
+    --shadow: rgba(28,28,28,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--washi);
+    color: var(--sumi);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(139,108,171,0.07) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ===== HEADER ===== */
+  .app-header {
+    background: linear-gradient(135deg, var(--sumi) 0%, #2a2018 60%, #1a1208 100%);
+    padding: 24px 32px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--kin);
+    box-shadow: 0 4px 20px rgba(28,28,28,0.4);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .app-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--kin);
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  }
+  .app-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    color: rgba(201,168,76,0.6);
+    letter-spacing: 0.25em;
+    margin-top: 2px;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .count-badge {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.7rem;
+    color: rgba(201,168,76,0.7);
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 20px;
+  }
+  .btn {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.75rem;
+    padding: 7px 16px;
+    border-radius: 3px;
+    border: 1px solid;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-save { background: var(--kin); color: var(--sumi); border-color: var(--kin); }
+  .btn-save:hover { background: var(--kin-light); }
+  .btn-copy { background: transparent; color: var(--kin); border-color: var(--kin); }
+  .btn-copy:hover { background: rgba(201,168,76,0.1); }
+  .btn-io { background: transparent; color: rgba(201,168,76,0.7); border-color: rgba(201,168,76,0.4); }
+  .btn-io:hover { border-color: var(--kin); color: var(--kin); }
+
+  /* ===== TABS ===== */
+  .tabs-wrapper {
+    background: var(--washi-dark);
+    border-bottom: 2px solid var(--washi-deep);
+    position: sticky;
+    top: 85px;
+    z-index: 90;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+  .tabs-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.85rem;
+    padding: 14px 28px;
+    border: none;
+    background: transparent;
+    color: var(--sumi-light);
+    cursor: pointer;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--kin); }
+  .tab-btn.active { color: var(--kin); border-bottom-color: var(--kin); background: rgba(201,168,76,0.05); }
+  .tab-icon { margin-right: 6px; }
+
+  /* ===== SEARCH / FILTER BAR ===== */
+  .search-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--washi-deep);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--washi-deep);
+    border-radius: 3px;
+    padding: 8px 12px 8px 32px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.82rem;
+    color: var(--sumi);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--kin); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+  .filter-select {
+    background: #fff;
+    border: 1px solid var(--washi-deep);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.82rem;
+    color: var(--sumi);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    min-width: 120px;
+  }
+  .filter-select:focus { border-color: var(--kin); }
+  .search-count {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.72rem;
+    color: #aaa;
+    white-space: nowrap;
+    padding: 0 4px;
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--washi-deep);
+  }
+  .section-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    background: var(--kin);
+    border-radius: 2px;
+  }
+  .btn-add {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.8rem;
+    padding: 8px 20px;
+    background: var(--sumi);
+    color: var(--kin);
+    border: 1px solid var(--kin);
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .btn-add:hover { background: var(--sumi-light); }
+
+  /* ===== CARDS ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--washi-deep);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 2px 2px 12px var(--shadow);
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    box-shadow: 4px 4px 20px rgba(28,28,28,0.18);
+    transform: translateY(-2px);
+  }
+
+  /* COLOR BAND */
+  .card-color-band {
+    height: 6px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .card-body {
+    padding: 18px 18px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-name {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--sumi);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+  .card-name:hover { color: var(--kin); text-decoration: underline; }
+  .card-kana {
+    font-size: 0.72rem;
+    color: var(--kin);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    font-family: 'Noto Serif JP', serif;
+    letter-spacing: 0.05em;
+  }
+  .tag-serial { background: rgba(44,74,124,0.1); color: var(--ai); border: 1px solid rgba(44,74,124,0.2); }
+  .tag-comical { background: rgba(192,57,43,0.1); color: var(--hi); border: 1px solid rgba(192,57,43,0.2); }
+  .tag-place { background: rgba(90,122,58,0.1); color: var(--wakakusa); border: 1px solid rgba(90,122,58,0.2); }
+  .tag-general { background: rgba(139,108,171,0.1); color: var(--fuji); border: 1px solid rgba(139,108,171,0.2); }
+
+  .card-role {
+    font-size: 0.75rem;
+    color: var(--kin);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+  .card-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--sumi-light);
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+  .card-desc a { color: var(--kin); }
+  .card-color-chips {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .color-chip {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--washi-dark);
+    color: var(--sumi-light);
+    border: 1px solid var(--washi-deep);
+    letter-spacing: 0.05em;
+  }
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px solid var(--washi-dark);
+  }
+  .btn-sm {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    border-radius: 2px;
+    border: 1px solid;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+  .btn-detail { background: transparent; color: var(--wakakusa); border-color: var(--wakakusa); }
+  .btn-detail:hover { background: rgba(90,122,58,0.08); }
+  .btn-edit { background: transparent; color: var(--ai); border-color: var(--ai); }
+  .btn-edit:hover { background: rgba(44,74,124,0.08); }
+  .btn-del { background: transparent; color: var(--hi); border-color: var(--hi); }
+  .btn-del:hover { background: rgba(192,57,43,0.08); }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .empty-state-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+  .empty-state-text { font-family: 'Shippori Mincho B1', serif; font-size: 0.9rem; letter-spacing: 0.15em; color: #bbb; }
+
+  /* ===== EDIT MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(28,28,28,0.6);
+    backdrop-filter: blur(3px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--washi);
+    border: 1px solid var(--washi-deep);
+    border-radius: 6px;
+    padding: 32px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(28,28,28,0.35);
+    position: relative;
+  }
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--kin), var(--fuji), var(--kin));
+  }
+  .modal-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-label {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.78rem;
+    color: var(--sumi-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--washi-deep);
+    border-radius: 3px;
+    padding: 9px 12px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: var(--sumi);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--kin);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
+  .modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--washi-deep);
+  }
+  .btn-cancel {
+    background: transparent;
+    color: var(--sumi-light);
+    border: 1px solid var(--washi-deep);
+    padding: 8px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+  .btn-cancel:hover { border-color: var(--sumi-light); }
+  .btn-submit {
+    background: var(--sumi);
+    color: var(--kin);
+    border: 1px solid var(--kin);
+    padding: 8px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    transition: all 0.15s;
+  }
+  .btn-submit:hover { background: var(--sumi-light); }
+
+  /* ===== DETAIL MODAL ===== */
+  .detail-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(28,28,28,0.65);
+    backdrop-filter: blur(4px);
+    z-index: 210;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .detail-overlay.open { display: flex; }
+  .detail-modal {
+    background: var(--washi);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(28,28,28,0.4);
+    position: relative;
+  }
+  .detail-top-band {
+    height: 8px;
+    border-radius: 8px 8px 0 0;
+  }
+  .detail-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--washi-deep);
+    position: relative;
+  }
+  .detail-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: transparent;
+    border: 1px solid var(--washi-deep);
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--sumi-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .detail-close:hover { border-color: var(--hi); color: var(--hi); }
+  .detail-kana {
+    font-size: 0.72rem;
+    color: var(--kin);
+    letter-spacing: 0.25em;
+    margin-bottom: 6px;
+  }
+  .detail-name {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+  .detail-tags { margin-bottom: 8px; }
+  .detail-body {
+    padding: 24px 32px 32px;
+  }
+  .detail-section {
+    margin-bottom: 20px;
+  }
+  .detail-section-label {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.72rem;
+    color: var(--kin);
+    letter-spacing: 0.25em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .detail-section-value {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--sumi);
+    white-space: pre-wrap;
+  }
+  .detail-section-value a { color: var(--ai); }
+  .detail-color-display {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .detail-color-chip {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 3px;
+    background: var(--washi-dark);
+    color: var(--sumi);
+    border: 1px solid var(--washi-deep);
+  }
+  .detail-footer {
+    padding: 16px 32px;
+    border-top: 1px solid var(--washi-deep);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .detail-deco {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--kin);
+    letter-spacing: 0.3em;
+    opacity: 0.4;
+    padding: 4px 0 8px;
+  }
+
+  /* ===== IO PANEL ===== */
+  .io-panel {
+    display: none;
+    background: var(--washi);
+    border: 1px solid var(--washi-deep);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 2px 2px 12px var(--shadow);
+  }
+  .io-panel.open { display: block; }
+  .io-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.9rem;
+    color: var(--sumi);
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .io-textarea {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--washi-deep);
+    border-radius: 3px;
+    padding: 10px 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: var(--sumi);
+    min-height: 120px;
+    resize: vertical;
+    outline: none;
+  }
+  .io-textarea:focus { border-color: var(--kin); }
+  .io-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+
+  /* ===== DECO ===== */
+  .deco-border {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 20px;
+    opacity: 0.35;
+  }
+  .deco-border::before, .deco-border::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--kin), transparent);
+  }
+  .deco-border span { font-size: 0.7rem; color: var(--kin); letter-spacing: 0.2em; }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    background: var(--sumi);
+    color: var(--kin);
+    padding: 12px 24px;
+    border-radius: 3px;
+    border: 1px solid var(--kin);
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--washi-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--washi-deep); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--kin); }
+
+  @media (max-width: 600px) {
+    .app-header { padding: 16px 16px 14px; }
+    .app-title { font-size: 1.2rem; }
+    .search-bar { padding: 12px 14px 0; }
+    .main { padding: 16px 14px 40px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .tab-btn { padding: 12px 16px; font-size: 0.78rem; }
+    .detail-header, .detail-body, .detail-footer { padding-left: 20px; padding-right: 20px; }
+    .detail-name { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-inner">
+    <div>
+      <div class="app-title">古稀庵綺譚 — 知識管理帖</div>
+      <div class="app-subtitle">KOKIAN KITAN · KNOWLEDGE ARCHIVE · TAISHO ROMAN PROJECT</div>
+    </div>
+    <div class="header-actions">
+      <span class="count-badge" id="countBadge">読込中…</span>
+      <button class="btn btn-save" id="btnSave">💾 保存</button>
+      <button class="btn btn-copy" id="btnCopy">📋 コピー</button>
+      <button class="btn btn-io" id="btnIO">⇄ 入出力</button>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <div class="tabs-inner" id="tabsBar"></div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-bar" id="searchBarWrap">
+  <div class="search-input-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" id="searchInput" placeholder="キーワードで検索…" oninput="onSearch()">
+  </div>
+  <select class="filter-select" id="filterSelect" onchange="onSearch()">
+    <option value="">すべて表示</option>
+  </select>
+  <span class="search-count" id="searchCount"></span>
+</div>
+
+<!-- IO PANEL -->
+<div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+  <div class="io-panel" id="ioPanel">
+    <div class="io-title">✦ データ入出力（JSONエクスポート／インポート）</div>
+    <textarea class="io-textarea" id="ioTextarea" placeholder="JSONデータをここに貼り付けてインポート…"></textarea>
+    <div class="io-actions">
+      <button class="btn btn-save" id="btnExport">エクスポート</button>
+      <button class="btn btn-save" id="btnImport" style="background:var(--fuji);border-color:var(--fuji);">▶ インポート実行</button>
+      <button class="btn" id="btnIOClear" style="background:var(--hi);color:#fff;border-color:var(--hi);">✕ クリア</button>
+      <button class="btn btn-io" id="btnIOClose">✕ 閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main" id="mainContent"></main>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">新規追加</div>
+    <div id="modalFields"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="btnModalCancel">取消</button>
+      <button class="btn-submit" id="btnModalSubmit">保存する</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-modal" id="detailModal">
+    <div class="detail-top-band" id="detailBand"></div>
+    <div class="detail-header">
+      <button class="detail-close" id="btnDetailClose">✕</button>
+      <div class="detail-kana" id="detailKana"></div>
+      <div class="detail-name" id="detailName"></div>
+      <div class="detail-tags" id="detailTags"></div>
+    </div>
+    <div class="detail-deco">✦ ✦ ✦</div>
+    <div class="detail-body" id="detailBody"></div>
+    <div class="detail-footer" id="detailFooter"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// COLOR PARSING
+// ============================================================
+const COLOR_MAP = {
+  '深墨': '#2a2018', '墨': '#3a3530', '金': '#C9A84C', '緋': '#C0392B',
+  '桜白': '#f7e8e8', '藤紫': '#8B6CAB', '藤': '#8B6CAB',
+  '藍': '#2C4A7C', '白': '#f5f5f5', '銀': '#aaaaaa',
+  '漆黒': '#111', '朱': '#D94030',
+  '若草': '#5A7A3A', '鼠': '#888880',
+  '茜': '#B5381C', '黄': '#E8C040',
+  '紅': '#C0192B', '黒': '#1C1C1C',
+  '乳白': '#f5f0e8', '橙': '#E0752A',
+  '鶯': '#6B7A2A', '茶': '#7A4E2A',
+  '銀座': '#aaaaaa',
+};
+
+function parseColors(colorStr) {
+  if (!colorStr) return [];
+  return colorStr.split(/[・、，,]/).map(s => s.trim()).filter(Boolean);
+}
+
+function colorToHex(name) {
+  for (const [k, v] of Object.entries(COLOR_MAP)) {
+    if (name.includes(k)) return v;
+  }
+  return null;
+}
+
+function getBandGradient(colorStr) {
+  const colors = parseColors(colorStr);
+  const hexes = colors.map(c => colorToHex(c)).filter(Boolean);
+  if (!hexes.length) return 'linear-gradient(90deg, var(--kin), var(--fuji))';
+  if (hexes.length === 1) return hexes[0];
+  return `linear-gradient(90deg, ${hexes.join(', ')})`;
+}
+
+// ============================================================
+// TABS CONFIG
+// ============================================================
+const TABS = [
+  { id: 'characters', label: '登場人物', icon: '👤', filterKey: 'axis',
+    filterOptions: ['シリアス軸', 'コミカル軸', 'その他'],
+    fields: [
+      { key: 'name', label: '名前', type: 'text', required: true },
+      { key: 'kana', label: 'よみ／英称', type: 'text' },
+      { key: 'axis', label: '軸', type: 'select', options: ['シリアス軸', 'コミカル軸', 'その他'] },
+      { key: 'role', label: '役割', type: 'text' },
+      { key: 'color', label: 'カラーイメージ（・区切り）', type: 'text' },
+      { key: 'note', label: '詳細・メモ', type: 'textarea' },
+    ]},
+  { id: 'world', label: '世界観・設定', icon: '🏮', filterKey: 'category',
+    filterOptions: ['舞台・場所', '時代背景', '文化・風俗', '組織・機関', 'その他'],
+    fields: [
+      { key: 'name', label: '項目名', type: 'text', required: true },
+      { key: 'category', label: 'カテゴリ', type: 'select', options: ['舞台・場所', '時代背景', '文化・風俗', '組織・機関', 'その他'] },
+      { key: 'note', label: '詳細・説明', type: 'textarea' },
+      { key: 'url', label: '参考URL', type: 'text' },
+    ]},
+  { id: 'chapters', label: '章構成', icon: '📜', filterKey: 'phase',
+    filterOptions: ['フェーズ1(MVP)', 'フェーズ2', 'フェーズ3', '未定'],
+    fields: [
+      { key: 'name', label: '章タイトル', type: 'text', required: true },
+      { key: 'number', label: '章番号', type: 'text' },
+      { key: 'phase', label: 'フェーズ', type: 'select', options: ['フェーズ1(MVP)', 'フェーズ2', 'フェーズ3', '未定'] },
+      { key: 'note', label: 'あらすじ・メモ', type: 'textarea' },
+    ]},
+  { id: 'memo', label: '思想メモ', icon: '✒️', filterKey: 'tag',
+    filterOptions: [],
+    fields: [
+      { key: 'name', label: 'タイトル', type: 'text', required: true },
+      { key: 'tag', label: 'タグ', type: 'text' },
+      { key: 'note', label: '内容', type: 'textarea' },
+      { key: 'url', label: '参考URL', type: 'text' },
+    ]},
+  { id: 'manuscripts', label: '原稿', icon: '📖', filterKey: 'series',
+    filterOptions: ['シリアス軸', 'コミカル軸'],
+    fields: [
+      { key: 'name', label: '作品タイトル', type: 'text', required: true },
+      { key: 'series', label: 'シリーズ', type: 'select', options: ['シリアス軸', 'コミカル軸'] },
+      { key: 'subtitle', label: 'サブタイトル', type: 'text' },
+      { key: 'note', label: 'あらすじ・メモ', type: 'textarea' },
+      { key: 'url', label: '縦書きHTMLファイル名', type: 'text' },
+    ]},
+];
+
+// ============================================================
+// INITIAL DATA
+// ============================================================
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+let appData = JSON.parse('{"characters":[{"id":"c001","name":"法皇","kana":"ほうおう","axis":"シリアス軸","role":"物語の支配者・庇護者","color":"深墨・金・緋","note":"山縣有朋モチーフ。古稀庵（小田原）を本拠とする明治維新の元勲。ビスマルク仕込みのリアリスト。和歌・庭園への耽美主義者。光と影を併せ持つ複雑人物。"},{"id":"c002","name":"璋子","kana":"しょうし","axis":"シリアス軸","role":"ヒロイン・転生体","color":"桜白・藤紫・金","note":"前世：平安・待賢門院璋子。白拍子の名手・高級芸妓。法皇に身請けされる。天性の自由な魂。行動範囲：古稀庵〜銀座カフェ〜浅草オペラ。"},{"id":"c003","name":"西行","kana":"さいぎょう","axis":"シリアス軸","role":"男主人公・転生体","color":"藍・白・銀","note":"前世：平安・歌聖西行。近衛師団精鋭エリート将校。璋子を見た瞬間800年前の記憶が蘇る。"},{"id":"c004","name":"貞子","kana":"さだこ","axis":"シリアス軸","role":"法皇の愛妾・実務管理者","color":"漆黒・朱","note":"政治・金・特務機関を管理。鋭い観察眼で西行の正体を見抜く。"},{"id":"c005","name":"堀河","kana":"ほりかわ","axis":"シリアス軸","role":"璋子付き女中・共犯者","color":"若草・鼠","note":"法皇から監視を厳命されるが、西行と和歌を介して密かに通じる。"},{"id":"c006","name":"影","kana":"かげ","axis":"シリアス軸","role":"法皇直属特務機関","color":"墨・銀","note":"璋子の安全確保と行動報告を担う精鋭集団。"},{"id":"c007","name":"夢二","kana":"ゆめじ","axis":"コミカル軸","role":"時代の受信機を自称する詩人画家","color":"茜・黄","note":"竹久夢二モチーフ。絶世の美人エリカより「おどおどした芋娘・千代」の崩れた横顔に異常な情熱を燃やす詩人画家。「絵は詩の挿絵に過ぎない」と豪語。嫉妬深く情けなく可愛らしい。千代に論破されるたびにまたスケッチする執着ループ。港屋絵草紙店の主。元妻たまきとの包丁沙汰な激しい仲。権威の帝展を無視した反骨のクリエイター。"},{"id":"c008","name":"エリカ","kana":"えりか","axis":"コミカル軸","role":"銀座カフェNo.1女給","color":"紅・黒","note":"圧倒的美貌と江戸前の毒舌。夢二を「変態絵師」と呼んで制裁。"},{"id":"c009","name":"お花（千代）","kana":"おはな・ちよ","axis":"コミカル軸","role":"夢二式美人の真のミューズ・アンニュイ担当","color":"乳白・橙","note":"信州出身の芋娘。カルピス一杯で宇宙を発見する無垢な横顔こそ夢二のアンニュイの真髄。「初恋の味」キャッチコピーの裏設定の持ち主。成長とともに生意気なモガへ変貌し夢二を論破するようになる。「これを描けるのは私だけよ」が切り札台詞。作者ゴンの母と同名という物語外の深み。"},{"id":"c010","name":"平助","kana":"へいすけ","axis":"コミカル軸","role":"夢二の知人・狂言回し","color":"鶯・茶","note":"慢性胃弱の小心者。胃薬を三包並べながら騒動を俯瞰。"},{"id":"c011","name":"駒太郎","kana":"こまたろう","axis":"コミカル軸","role":"活動弁士","color":"橙・白","note":"頼まれてもいないのに日常を実況する。"},{"id":"c012","name":"小林多喜二","kana":"こばやしたきじ","axis":"コミカル軸","role":"文壇酒場の騒動者","color":"赤・墨","note":"酒場シーン登場。プロレタリア文学を力説するが、最終的には「俺の女！」論争に加担。史実の熱量をコミカルに転化。"},{"id":"c013","name":"小林秀雄","kana":"こばやしひでお","axis":"コミカル軸","role":"文壇酒場の騒動者","color":"深藍・銀","note":"酒場シーン登場。批評的論旨を振りかざすが誰にも理解されず孤立。最後は女の取り合いに参戦。"},{"id":"c014","name":"中原中也","kana":"なかはらちゅうや","axis":"コミカル軸","role":"文壇酒場の騒動者・泥酔詩人","color":"藤・白","note":"酒場シーン登場。詩を朗読し始めて誰も聞いていないのに続ける。最終的に机に突っ伏して泣く。"},{"id":"c015","name":"志賀直哉","kana":"しがなおや","axis":"コミカル軸","role":"文壇酒場の騒動者・無言の圧力","color":"深緑・茶","note":"酒場シーン登場。「小説の神様」の威圧感だけで存在。ほぼ無言だが全員が気にしている。"},{"id":"c016","name":"有島武郎モチーフ","kana":"ありしまたけおもちーふ","axis":"コミカル軸","role":"自由恋愛騒動の主役","color":"緋・金・白","note":"自由恋愛が流行する大正時代の象徴的人物。耽美・道徳・打算が入り混じる恋愛騒動を引き起こす。シッチャカメッチャカな有名人恋愛模様の中心。"},{"id":"c017","name":"澪","kana":"みお","axis":"その他","role":"謎の年増美人常連・狂言回し・語り手","color":"鼠・金・藤","note":"「おやおや今日も始まりましたよ」が口癖の銀座の謎めいた常連。銀座と玉の井を繋ぐ狂言回し。竹下景子・浜木綿子クラスのこなれた語り手として物語全体を俯瞰する。年増の妖艶さの中に深い過去を秘める。何者かは語られない。"},{"id":"c018","name":"二条","kana":"にじょう","axis":"シリアス軸","role":"転生体・小悪魔系モガ","color":"紅・乳白・金","note":"前世：鎌倉期「とはずがたり」の後深草院二条。転生したモガ。エリカのお気に入り。チャッカリ逞しい小悪魔系。西行を慕う触れ込みだが実態はしたたか。複数の有力者に取り入る処世の天才。とはずがたりの原典通りの業の深さを現代に転生させた存在。"}],"world":[{"id":"w001","name":"古稀庵","category":"舞台・場所","note":"小田原にある法皇（山縣有朋モチーフ）の本拠。明治元勲の邸宅。物語の中心舞台。","url":""},{"id":"w002","name":"銀座カフェ","category":"舞台・場所","note":"大正時代の銀座に林立した西洋式カフェ。女給（エリカら）が働く近代的社交場。","url":""},{"id":"w003","name":"浅草オペラ","category":"文化・風俗","note":"浅草六区を中心に大流行したオペラ・軽演劇。璋子の行動範囲のひとつ。","url":""},{"id":"w004","name":"近衛師団","category":"組織・機関","note":"天皇直属の精鋭部隊。西行（転生体）が所属するエリート軍隊組織。","url":""},{"id":"w005","name":"大正時代","category":"時代背景","note":"1912〜1926年。和洋折衷・爛熟・退廃美・近代と伝統の交差点。白拍子、銀座カフェ、浅草オペラが共存する時代。","url":""},{"id":"w006","name":"文壇酒場","category":"舞台・場所","note":"小林多喜二・小林秀雄・中原中也・志賀直哉らが集う酒場。大正文学論争が繰り広げられるコミカル軸の主要舞台。最後は必ず「俺の女」論争で締まる。","url":""},{"id":"w007","name":"大衆酒場","category":"舞台・場所","note":"庶民がデモクラシーを語る場所。言葉だけ知っていて中身は噛み合っていないが、なぜか異常に盛り上がる。大正デモクラシーの空気感をコミカルに体現。","url":""},{"id":"w008","name":"自由恋愛ブーム","category":"文化・風俗","note":"大正時代に流行した自由恋愛思想。有名人を巻き込んだシッチャカメッチャカな恋愛騒動が多発。有島武郎モチーフの人物が象徴的存在。耽美・道徳・打算が混在。","url":""},{"id":"w009","name":"大正デモクラシー","category":"時代背景","note":"大正時代の民主主義運動・思想。大衆酒場でも流行語として飛び交うが、誰も正確には理解していない。「デモクラシー！」と叫べば何となく盛り上がる時代の空気。","url":""},{"id":"w010","name":"銀座／裏通りスラム／玉の井（三層構造）","category":"時代背景","note":"光と影の帝都地図。銀座（文明開化の光）・裏通りスラム（光と影の境界）・玉の井（影の底）の三層構造。璋子と西行の逃避行も裏通りを駆け抜ける。澪が三層すべてを知る唯一の人物として橋渡し役を担う。","url":""},{"id":"w011","name":"玉の井","category":"舞台・場所","note":"元吉原の女たちが流れ着く、帝都の影の最底部。文豪が郷愁を求めて通うスポット。永井荷風が通い詰めた場所としても著名。銀座の華やかさの裏に潜むもう一つの大正の顔。澪が銀座との橋渡し役を担う。","url":""}],"chapters":[{"id":"ch001","name":"トップ画面","number":"フェーズ1","phase":"フェーズ1(MVP)","note":"タイトル「古稀庵綺譚」+ 時代背景テキスト + 入場ボタン。和紙テクスチャ背景、金文字タイトル。"},{"id":"ch002","name":"キャラクター一覧","number":"フェーズ1","phase":"フェーズ1(MVP)","note":"シリアス軸 / コミカル軸 タブ切替。カード形式で一覧表示。"},{"id":"ch003","name":"キャラクター詳細モーダル","number":"フェーズ2","phase":"フェーズ2","note":"肖像（装飾枠）+ 属性 + 説明文。モーダルで詳細表示。"},{"id":"ch004","name":"物語の骨格タイムライン","number":"フェーズ2","phase":"フェーズ2","note":"縦スクロール年表 / タイムライン形式で物語構造を可視化。"},{"id":"ch005","name":"舞台紹介＋アニメ強化","number":"フェーズ3","phase":"フェーズ3","note":"古稀庵・銀座カフェ・浅草オペラの舞台紹介。桜・雪・霞パーティクル演出。"},{"id":"ch006","name":"文壇酒場シーン","number":"構想","phase":"未定","note":"【コミカル軸・構想メモ】\\n小林多喜二・小林秀雄・中原中也・志賀直哉が酒場の同じ席に集結。\\n全員がバラバラな主張を同時に展開。\\n・多喜二：プロレタリア革命の必然を力説\\n・秀雄：批評的論旨を振りかざすが誰も聞いていない\\n・中也：突然詩を朗読し始め、誰も聞いていないのに続ける→机に突っ伏して泣く\\n・直哉：ほぼ無言。しかし全員が気にしている「小説の神様」の圧力\\n→最終的に「俺の女取った！」「取らん！」の喧嘩で全員収束。"},{"id":"ch007","name":"自由恋愛騒動シーン","number":"構想","phase":"未定","note":"【コミカル軸・構想メモ】\\n大正時代の自由恋愛ブームを背景にした有名人シッチャカメッチャカ騒動。\\n有島武郎モチーフの人物が中心。\\n耽美・道徳・打算・嫉妬が入り混じる大騒ぎ。\\n「自由恋愛」という言葉だけが独り歩きして各自が都合よく解釈している状態。"},{"id":"ch008","name":"大衆酒場デモクラシー談義シーン","number":"構想","phase":"未定","note":"【コミカル軸・構想メモ】\\n大衆酒場での庶民版デモクラシー談義。\\n「デモクラシー」という流行語が飛び交うが誰も正確には理解していない。\\n・Aが「デモクラシーとはつまり…」→Bが全然違う解釈で「そうそう！」\\n・誰も噛み合っていないのに全員が盛り上がっている\\n・最終的に「デモクラシー！かんぱい！」で収束\\n→大正時代の空気感をそのまま体現したシーン。"}],"memo":[{"id":"m001","name":"世界観キーワード","tag":"世界観","note":"白拍子、古稀庵、銀座カフェ、浅草オペラ、近衛師団、転生、和歌。\\nトーン：シリアス軸（雅＋退廃）× コミカル軸（昭和初期笑い）","url":""},{"id":"m002","name":"カラーパレット","tag":"デザイン","note":"ベース：和紙色 #F5EDD6、墨 #1C1C1C\\nアクセント：金 #C9A84C、緋 #C0392B、藤 #8B6CAB\\nフォント：Shippori Mincho B1（見出し）、Noto Serif JP（本文）","url":""},{"id":"m003","name":"コミカル軸の構造メモ","tag":"構想","note":"コミカル軸のシーン構造：\\n①文壇酒場シーン：文学論争→女の取り合い喧嘩で収束\\n②自由恋愛騒動：有島武郎モチーフ中心のシッチャカメッチャカ\\n③大衆酒場デモクラシー：噛み合わないのに盛り上がる庶民版政治談義\\n\\n共通の笑いの構造：\\n・みんな本気・みんなズレてる・なぜか最後は盛り上がる\\n・大正時代特有の「言葉が先走る」空気感をコメディに昇華","url":""},{"id":"m004","name":"AIチーム分担メモ","tag":"制作メモ","note":"断片原稿の執筆チーム：\\n・ジェミ（Google Gemini）\\n・ちゃぴ（ChatGPT）\\n・クーちゃん（Claude）\\n・みゆ（Grok）\\n・コピ（Copilot）\\n→バラバラに書いた断片をまとめてHTML化予定。参考資料として活用。","url":""},{"id":"m006","name":"大正カフェー文化資料","tag":"資料・考証","note":"カフェーとは酒・女給接客付きの社交場。固定給なしのチップ制。角砂糖の数で気持ちを伝える隠語あり。「純喫茶」はカフェーの不純さへの対抗として誕生。エリカ様はNo.1女給としてチップ最大化の技術者。毒舌も計算のうち。谷崎潤一郎「痴人の愛」のナオミズムと夢二×千代の構造が完全に重なる。昭和の取り締まりでカフェー文化は衰退。現代の秋葉原コンカフェ・地下アイドルにDNAが生きている。","url":""}],"manuscripts":[{"id":"ms001","name":"銀座カフェ・刹那の閃光、そして逃避行","series":"シリアス軸","subtitle":"古稀庵綺譚　挿話一","note":"璋子と西行の出会い。カフェー・プランタンでの閃光、銀座裏路地の恋文雨、安ホテルの訣別まで七章。","url":"ginza_cafe_tategumi.html"},{"id":"ms003","name":"カルピスと芋娘、銀座の邂逅","series":"コミカル軸","subtitle":"夢二式美人物語　其の零","note":"カフェ・ライオンでの出逢い。カルピスを啜る芋娘千代の横顔に夢二が激突。エリカ様の毒舌×千代の天然、干し柿の奇跡、港屋での修行騒動まで六章。","url":"yumeji_chiyo_ginza.html"},{"id":"ms004","name":"芋娘、モガになる","series":"コミカル軸","subtitle":"夢二式美人物語　其の壱","note":"夏から翌春まで四季をかけた千代の変身譚。油揚げに迷いながら、言葉が変わり、着こなしが板につき、ついに夢二を論破する。","url":"yumeji_chiyo_moga.html"},{"id":"ms002","name":"横顔の値打ち","series":"コミカル軸","subtitle":"夢二式美人物語　其の壱・五","note":"垢抜けた千代がカルピス持ってアトリエに乗り込む。夢二は「その小生意気な横顔が詞になる」とスケッチ開始。其の壱と其の弐の間に位置する。","url":"yokogao_no_neuchi.html"},{"id":"ms005","name":"大正美人と呼ばれた日、そして逃走","series":"コミカル軸","subtitle":"夢二式美人物語　其の弐","note":"震災後の銀座で千代が完成され「大正美人」の記号となる。夢二は完成品を忌避して放浪へ。千代がカフェ・ライオンでコーヒーを注文する日。","url":"yumeji_chiyo_taisho.html"},{"id":"ms006","name":"時代のアイコン、そして芋娘に還る","series":"コミカル軸","subtitle":"夢二式美人物語　其の参","note":"飛び立つ千代、時代のアイコンへ。そして年月の向こうでカルピスを飲む時だけ芋娘に還る。澪との最後の場面で締まる夢二シリーズ完結編。","url":"yumeji_chiyo_san.html"}]}');
+
+// ============================================================
+// SEARCH STATE
+// ============================================================
+let searchQuery = '';
+let filterValue = '';
+
+function onSearch() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  filterValue = document.getElementById('filterSelect').value;
+  renderCards();
+}
+
+function filteredItems() {
+  const tab = TABS.find(t => t.id === currentTab);
+  let items = appData[currentTab];
+  if (filterValue) {
+    items = items.filter(it => {
+      const fk = tab.filterKey;
+      return it[fk] === filterValue;
+    });
+  }
+  if (searchQuery) {
+    items = items.filter(it =>
+      JSON.stringify(Object.values(it)).toLowerCase().includes(searchQuery)
+    );
+  }
+  return items;
+}
+
+function updateFilterOptions() {
+  const tab = TABS.find(t => t.id === currentTab);
+  const sel = document.getElementById('filterSelect');
+  sel.innerHTML = '<option value="">すべて表示</option>';
+  // dynamic options from data
+  const fk = tab.filterKey;
+  const opts = tab.filterOptions.length ? tab.filterOptions :
+    [...new Set(appData[currentTab].map(it => it[fk]).filter(Boolean))];
+  opts.forEach(o => {
+    const el = document.createElement('option');
+    el.value = o; el.textContent = o;
+    if (o === filterValue) el.selected = true;
+    sel.appendChild(el);
+  });
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function linkify(text) {
+  if (!text) return '';
+  const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return escaped.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function updateBadge() {
+  const total = Object.values(appData).reduce((s, arr) => s + arr.length, 0);
+  document.getElementById('countBadge').textContent = `総件数 ${total}`;
+}
+
+// ============================================================
+// STORAGE (window.storage優先 → localStorageフォールバック)
+// ============================================================
+const STORAGE_KEY = 'kokian-data-v2';
+let saveTimer = null;
+
+async function loadData() {
+  if (window.storage && typeof window.storage.get === 'function') {
+    try {
+      const result = await window.storage.get(STORAGE_KEY);
+      if (result && result.value) {
+        const parsed = JSON.parse(result.value);
+        TABS.forEach(t => { if (parsed[t.id]) appData[t.id] = parsed[t.id]; });
+        updateBadge(); renderAll(); return;
+      }
+    } catch(e) {}
+  }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      TABS.forEach(t => { if (parsed[t.id]) appData[t.id] = parsed[t.id]; });
+    }
+  } catch(e) {}
+  updateBadge();
+  renderAll();
+}
+
+async function saveData() {
+  if (window.storage && typeof window.storage.set === 'function') {
+    try {
+      await window.storage.set(STORAGE_KEY, JSON.stringify(appData));
+      showToast('✦ 保存しました');
+      return;
+    } catch(e) {}
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    showToast('✦ 保存しました（ローカル）');
+  } catch(e) {
+    showToast('⚠ 保存できません。コピーでバックアップを');
+  }
+}
+
+function scheduleAutoSave() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveData, 1000);
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+let currentTab = 'characters';
+
+function renderTabs() {
+  const bar = document.getElementById('tabsBar');
+  bar.innerHTML = TABS.map(t => `
+    <button class="tab-btn ${t.id === currentTab ? 'active' : ''}" data-tabid="${t.id}">
+      <span class="tab-icon">${t.icon}</span>${t.label}
+    </button>
+  `).join('');
+  bar.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      switchTab(this.getAttribute('data-tabid'));
+    });
+  });
+}
+
+function switchTab(id) {
+  currentTab = id;
+  searchQuery = '';
+  filterValue = '';
+  document.getElementById('searchInput').value = '';
+  renderTabs();
+  updateFilterOptions();
+  renderMain();
+}
+
+function renderAll() {
+  renderTabs();
+  updateFilterOptions();
+  renderMain();
+}
+
+function renderMain() {
+  const tab = TABS.find(t => t.id === currentTab);
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <div class="section-header">
+      <div class="section-title">${tab.icon} ${tab.label}</div>
+      <button class="btn-add" id="btnAddNew">＋ 新規追加</button>
+    </div>
+    <div class="deco-border"><span>✦ ✦ ✦</span></div>
+    <div id="cardsContainer"></div>
+  `;
+  document.getElementById('btnAddNew').addEventListener('click', function() { openModal(); });
+  renderCards();
+}
+
+function renderCards() {
+  // ensure container exists
+  let container = document.getElementById('cardsContainer');
+  if (!container) { renderMain(); return; }
+
+  const tab = TABS.find(t => t.id === currentTab);
+  const items = filteredItems();
+
+  document.getElementById('searchCount').textContent =
+    (searchQuery || filterValue) ? `${items.length} 件` : '';
+
+  if (!items.length) {
+    container.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">${tab.icon}</div>
+      <div class="empty-state-text">${searchQuery || filterValue ? '該当する項目がありません' : 'まだ項目がありません。「新規追加」から登録してください。'}</div>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="cards-grid">${items.map(item => renderCard(item, tab)).join('')}</div>`;
+
+  // イベント委譲でカードのボタンを処理
+  container.querySelectorAll('.card-open-detail').forEach(el => {
+    el.addEventListener('click', function() { openDetail(this.getAttribute('data-id')); });
+  });
+  container.querySelectorAll('.card-open-edit').forEach(el => {
+    el.addEventListener('click', function() { openModal(this.getAttribute('data-id')); });
+  });
+  container.querySelectorAll('.card-open-del').forEach(el => {
+    el.addEventListener('click', function() { deleteItem(this.getAttribute('data-id')); });
+  });
+}
+
+function renderCard(item, tab) {
+  // 原稿タブは専用レイアウト
+  if (tab.id === 'manuscripts') {
+    const seriesClass = item.series === 'シリアス軸' ? 'tag-serial' : 'tag-comical';
+    const seriesTag = item.series ? `<span class="card-tag ${seriesClass}">${item.series}</span>` : '';
+    const sub = item.subtitle ? `<div class="card-kana">${item.subtitle}</div>` : '';
+    const desc = item.note ? `<div class="card-desc">${item.note}</div>` : '';
+    const openBtn = item.url
+      ? `<a href="${item.url}" style="display:inline-block;margin-top:4px;padding:6px 14px;background:var(--sumi);color:var(--washi);font-size:0.72rem;letter-spacing:0.2em;border:1px solid var(--kin);text-decoration:none;font-family:'Noto Serif JP',serif;">📖 縦書きで読む</a>`
+      : `<span style="font-size:0.7rem;color:var(--nezumi);">（ファイル未登録）</span>`;
+    return `
+      <div class="card">
+        <div class="card-color-band" style="background:linear-gradient(135deg,#1C1C1C,#C9A84C)"></div>
+        <div class="card-body">
+          ${sub}
+          <div class="card-name card-open-detail" data-id="${item.id}" style="cursor:pointer;">${item.name}</div>
+          ${seriesTag}
+          ${desc}
+          ${openBtn}
+          <div class="card-actions" style="margin-top:10px;">
+            <button class="btn-sm btn-edit card-open-edit" data-id="${item.id}">編集</button>
+            <button class="btn-sm btn-del card-open-del" data-id="${item.id}">削除</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  const tagClass = item.axis === 'シリアス軸' ? 'tag-serial'
+    : item.axis === 'コミカル軸' ? 'tag-comical'
+    : item.category === '舞台・場所' ? 'tag-place' : 'tag-general';
+
+  const tagVal = item.axis || item.category || item.phase || item.tag || '';
+  const tag = tagVal ? `<span class="card-tag ${tagClass}">${tagVal}</span>` : '';
+
+  const sub = item.kana || item.number || '';
+  const gradient = getBandGradient(item.color || '');
+
+  // color chips
+  const chips = item.color
+    ? parseColors(item.color).map(c => `<span class="color-chip">${c}</span>`).join('')
+    : '';
+
+  const desc = item.note ? `<div class="card-desc">${linkify(item.note)}</div>` : '';
+  const role = item.role ? `<div class="card-role">${item.role}</div>` : '';
+  const url = item.url ? `<div style="margin-bottom:8px;"><a href="${item.url}" target="_blank" style="font-size:0.72rem;color:var(--ai);">🔗 参考リンク</a></div>` : '';
+
+  return `
+    <div class="card">
+      <div class="card-color-band" style="background:${gradient}"></div>
+      <div class="card-body">
+        ${sub ? `<div class="card-kana">${sub}</div>` : ''}
+        <div class="card-name card-open-detail" data-id="${item.id}" style="cursor:pointer;">${item.name}</div>
+        ${tag}
+        ${role}
+        ${chips ? `<div class="card-color-chips">${chips}</div>` : ''}
+        ${desc}
+        ${url}
+        <div class="card-actions">
+          <button class="btn-sm btn-detail card-open-detail" data-id="${item.id}">詳細</button>
+          <button class="btn-sm btn-edit card-open-edit" data-id="${item.id}">編集</button>
+          <button class="btn-sm btn-del card-open-del" data-id="${item.id}">削除</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// DETAIL MODAL
+// ============================================================
+function openDetail(id) {
+  const tab = TABS.find(t => t.id === currentTab);
+  const item = appData[currentTab].find(x => x.id === id);
+  if (!item) return;
+
+  const gradient = getBandGradient(item.color || '');
+  document.getElementById('detailBand').style.background = gradient;
+  document.getElementById('detailKana').textContent = item.kana || item.number || '';
+  document.getElementById('detailName').textContent = item.name;
+
+  // tags
+  const tagClass = item.axis === 'シリアス軸' ? 'tag-serial'
+    : item.axis === 'コミカル軸' ? 'tag-comical'
+    : item.category === '舞台・場所' ? 'tag-place' : 'tag-general';
+  const tagVal = item.axis || item.category || item.phase || item.tag || '';
+  document.getElementById('detailTags').innerHTML = tagVal
+    ? `<span class="card-tag ${tagClass}">${tagVal}</span>` : '';
+
+  // body sections
+  const sections = [];
+  if (item.role) sections.push({ label: '役割', value: item.role });
+  if (item.color) {
+    const chips = parseColors(item.color).map(c => `<span class="detail-color-chip">${c}</span>`).join('');
+    sections.push({ label: 'カラーイメージ', html: `<div class="detail-color-display">${chips}</div>` });
+  }
+  if (item.note) sections.push({ label: '詳細・説明', value: item.note, linkify: true });
+  if (item.category && !item.axis) sections.push({ label: 'カテゴリ', value: item.category });
+  if (item.phase) sections.push({ label: 'フェーズ', value: item.phase });
+  if (item.tag) sections.push({ label: 'タグ', value: item.tag });
+  if (item.url) sections.push({ label: '参考URL', html: `<a href="${item.url}" target="_blank" style="color:var(--ai);font-size:0.9rem;">🔗 ${item.url}</a>` });
+
+  document.getElementById('detailBody').innerHTML = sections.map(s => `
+    <div class="detail-section">
+      <div class="detail-section-label">${s.label}</div>
+      ${s.html ? s.html : `<div class="detail-section-value">${s.linkify ? linkify(s.value) : (s.value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`}
+    </div>
+  `).join('');
+
+  document.getElementById('detailFooter').innerHTML = `
+    <button class="btn-sm btn-edit" id="detailEditBtn" data-id="${id}">編集する</button>
+    <button class="btn-sm btn-del" id="detailDelBtn" data-id="${id}">削除</button>
+  `;
+  document.getElementById('detailEditBtn').addEventListener('click', function() {
+    closeDetail(); openModal(this.getAttribute('data-id'));
+  });
+  document.getElementById('detailDelBtn').addEventListener('click', function() {
+    closeDetail(); deleteItem(this.getAttribute('data-id'));
+  });
+
+  document.getElementById('detailOverlay').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+}
+
+document.getElementById('detailOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeDetail();
+});
+
+// ============================================================
+// EDIT MODAL
+// ============================================================
+let editingId = null;
+
+function openModal(id = null) {
+  const tab = TABS.find(t => t.id === currentTab);
+  editingId = id;
+  const item = id ? appData[currentTab].find(x => x.id === id) : {};
+
+  document.getElementById('modalTitle').textContent = id ? `✦ 編集：${item.name}` : `✦ 新規追加（${tab.label}）`;
+
+  const fields = tab.fields.map(f => {
+    const val = (item && item[f.key]) ? item[f.key] : '';
+    if (f.type === 'textarea') {
+      return `<div class="form-group">
+        <label class="form-label">${f.label}</label>
+        <textarea class="form-textarea" id="field_${f.key}" rows="4">${val}</textarea>
+      </div>`;
+    } else if (f.type === 'select') {
+      const opts = f.options.map(o => `<option value="${o}" ${o===val?'selected':''}>${o}</option>`).join('');
+      return `<div class="form-group">
+        <label class="form-label">${f.label}</label>
+        <select class="form-select" id="field_${f.key}"><option value="">—</option>${opts}</select>
+      </div>`;
+    } else {
+      return `<div class="form-group">
+        <label class="form-label">${f.label}${f.required?' *':''}</label>
+        <input class="form-input" type="text" id="field_${f.key}" value="${val.replace(/"/g,'&quot;')}">
+      </div>`;
+    }
+  }).join('');
+
+  document.getElementById('modalFields').innerHTML = fields;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  editingId = null;
+}
+
+function submitModal() {
+  const tab = TABS.find(t => t.id === currentTab);
+  const nameField = document.getElementById('field_name');
+  if (nameField && !nameField.value.trim()) {
+    showToast('⚠ 名前・タイトルは必須です');
+    return;
+  }
+
+  const obj = editingId ? appData[currentTab].find(x => x.id === editingId) : { id: uid() };
+  tab.fields.forEach(f => {
+    const el = document.getElementById(`field_${f.key}`);
+    if (el) obj[f.key] = el.value.trim();
+  });
+
+  if (!editingId) appData[currentTab].push(obj);
+
+  closeModal();
+  updateBadge();
+  updateFilterOptions();
+  renderCards();
+  scheduleAutoSave();
+  showToast(editingId ? '✦ 更新しました' : '✦ 追加しました');
+}
+
+function deleteItem(id) {
+  if (!confirm('この項目を削除しますか？')) return;
+  appData[currentTab] = appData[currentTab].filter(x => x.id !== id);
+  updateBadge();
+  renderCards();
+  scheduleAutoSave();
+  showToast('✦ 削除しました');
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ============================================================
+// COPY / IO
+// ============================================================
+function copyAll() {
+  navigator.clipboard.writeText(JSON.stringify(appData, null, 2))
+    .then(() => showToast('✦ JSONをコピーしました'));
+}
+
+function toggleIO() {
+  const panel = document.getElementById('ioPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open'))
+    document.getElementById('ioTextarea').value = JSON.stringify(appData, null, 2);
+}
+
+function exportData() {
+  document.getElementById('ioTextarea').value = JSON.stringify(appData, null, 2);
+  showToast('✦ エクスポートしました');
+}
+
+function importData() {
+  try {
+    const parsed = JSON.parse(document.getElementById('ioTextarea').value);
+    TABS.forEach(t => { if (parsed[t.id]) appData[t.id] = parsed[t.id]; });
+    updateBadge();
+    renderAll();
+    scheduleAutoSave();
+    showToast('✦ インポート完了');
+  } catch(e) {
+    showToast('⚠ JSON形式が正しくありません');
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  // 静的ボタンのイベント設定
+  document.getElementById('btnSave').addEventListener('click', saveData);
+  document.getElementById('btnCopy').addEventListener('click', copyAll);
+  document.getElementById('btnIO').addEventListener('click', toggleIO);
+  document.getElementById('btnExport').addEventListener('click', exportData);
+  document.getElementById('btnImport').addEventListener('click', importData);
+  document.getElementById('btnIOClear').addEventListener('click', function() {
+    document.getElementById('ioTextarea').value = '';
+  });
+  document.getElementById('btnIOClose').addEventListener('click', function() {
+    document.getElementById('ioPanel').classList.remove('open');
+  });
+  document.getElementById('btnModalCancel').addEventListener('click', closeModal);
+  document.getElementById('btnModalSubmit').addEventListener('click', submitModal);
+  document.getElementById('btnDetailClose').addEventListener('click', closeDetail);
+
+  loadData();
+});
+</script>
+</body>
+</html>
