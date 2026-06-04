@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>夢二式美人物語　通し読み — utakata-works</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F5EDD6;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #C0392B;
+    --fuji: #8B6CAB;
+    --ai: #2c4a6e;
+    --nezumi: #888;
+    --imo: #8B7355;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e0e0e;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  .wrapper {
+    background-color: var(--washi);
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 20px rgba(201,168,76,0.1);
+    position: relative;
+  }
+
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* 総扉 */
+  .tobira {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(201,168,76,0.4);
+  }
+
+  .tobira-series {
+    font-size: 0.62rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 1.2rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .tobira h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.6rem;
+    color: var(--sumi);
+    letter-spacing: 0.2em;
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+
+  .tobira-sub {
+    font-size: 0.58rem;
+    color: var(--nezumi);
+    letter-spacing: 0.4em;
+    margin-bottom: 1.6rem;
+  }
+
+  .tobira-divider {
+    width: 200px;
+    margin: 0 auto 1.4rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--kin), transparent);
+    position: relative;
+  }
+
+  .tobira-divider::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--washi);
+    padding: 0 6px;
+    color: var(--kin);
+    font-size: 0.6rem;
+  }
+
+  /* 目次 */
+  .mokuji {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    background: rgba(0,0,0,0.02);
+  }
+
+  .mokuji-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 0.8rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .mokuji-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .mokuji-list li a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--sumi);
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    transition: color 0.2s;
+  }
+
+  .mokuji-list li a:hover { color: var(--kin); }
+
+  .mokuji-num {
+    font-size: 0.6rem;
+    color: var(--kin);
+    letter-spacing: 0.3em;
+    flex-shrink: 0;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  /* 金線 */
+  .kinsen {
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--kin) 20%, var(--kin) 80%, transparent);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 各作品ヘッダー */
+  .work-section {
+    position: relative;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 2rem 1.8rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.4);
+  }
+
+  .series-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.4rem;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    line-height: 1.7;
+  }
+
+  .subtitle-en {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.58rem;
+    color: var(--nezumi);
+    letter-spacing: 0.4em;
+    margin-top: 0.6rem;
+  }
+
+  /* 縦書き */
+  .tategumi-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--kin) transparent;
+  }
+
+  .tategumi {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1rem;
+    line-height: 2.4;
+    color: var(--sumi);
+    min-height: 480px;
+    letter-spacing: 0.06em;
+  }
+
+  .tategumi p { margin-left: 2.5em; }
+  .tategumi p:last-child { margin-left: 0; }
+
+  .ch-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    color: var(--kin);
+    margin-left: 1em;
+    padding-right: 0.3em;
+    border-right: 1px solid var(--kin);
+  }
+
+  .kushigiri {
+    display: block;
+    color: var(--kin);
+    font-size: 0.9rem;
+    margin: 0 2em;
+    letter-spacing: 0.3em;
+  }
+
+  .boten {
+    text-emphasis: filled circle;
+    -webkit-text-emphasis: filled circle;
+  }
+
+  /* キャラ色 */
+  .erika  { color: var(--kurenai); }
+  .yumeji { color: var(--ai); }
+  .chiyo  { color: var(--imo); }
+  .mio    { font-size: 0.85em; color: var(--fuji); font-style: italic; }
+  .kokoro { font-size: 0.9em; color: #555; font-style: italic; }
+  .masaichi { color: #666; font-size: 0.92em; }
+
+  /* 章区切り */
+  .chapter-sep {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--kin);
+    letter-spacing: 0.6em;
+    padding: 0.6rem 0;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  /* 作品間区切り */
+  .work-sep {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 2rem;
+    background: rgba(0,0,0,0.04);
+    border-top: 2px solid rgba(201,168,76,0.3);
+    border-bottom: 2px solid rgba(201,168,76,0.3);
+  }
+
+  .work-sep::before,
+  .work-sep::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+  }
+
+  .work-sep::after {
+    background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+  }
+
+  .work-sep-text {
+    font-size: 0.6rem;
+    color: var(--kin);
+    letter-spacing: 0.5em;
+    white-space: nowrap;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  /* ページトップに戻る */
+  .back-top {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0.6rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .back-top a {
+    font-size: 0.6rem;
+    color: var(--nezumi);
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    font-family: 'Noto Serif JP', serif;
+    transition: color 0.2s;
+  }
+
+  .back-top a:hover { color: var(--kin); }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 1.5rem;
+    border-top: 2px solid rgba(201,168,76,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .colophon {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.58rem;
+    color: var(--nezumi);
+    letter-spacing: 0.2em;
+    line-height: 1.8;
+  }
+
+  .btn-top {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--washi);
+    background: var(--sumi);
+    border: 1px solid var(--kin);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-top:hover { background: var(--kin); color: var(--sumi); }
+
+  /* スムーズスクロール */
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- 総扉 -->
+  <div class="tobira" id="top">
+    <div class="tobira-series">夢二式美人物語　全五篇　通し読み</div>
+    <h1>夢二と千代</h1>
+    <div class="tobira-sub">YUMEJI & CHIYO · COMPLETE EDITION</div>
+    <div class="tobira-divider"></div>
+    <div class="tobira-sub">大正銀座。カルピスの香り。芋娘と天才絵師。</div>
+  </div>
+
+  <!-- 目次 -->
+  <div class="mokuji">
+    <div class="mokuji-label">— 目次 —</div>
+    <ul class="mokuji-list">
+      <li><a href="#work0"><span class="mokuji-num">其の零</span>カルピスと芋娘、銀座の邂逅</a></li>
+      <li><a href="#work1"><span class="mokuji-num">其の壱</span>芋娘、モガになる</a></li>
+      <li><a href="#work2"><span class="mokuji-num">其の弐</span>横顔の値打ち</a></li>
+      <li><a href="#work3"><span class="mokuji-num">其の参</span>大正美人と呼ばれた日、そして逃走</a></li>
+      <li><a href="#work4"><span class="mokuji-num">其の四</span>時代のアイコン、そして芋娘に還る</a></li>
+    </ul>
+  </div>
+
+
+  <!-- ===== 其の零 ===== -->
+  <div class="work-section" id="work0">
+    <div class="kinsen"></div>
+    <header>
+      <div class="series-label">夢二式美人物語　其の零</div>
+      <h2>カルピスと芋娘、銀座の邂逅</h2>
+      <div class="subtitle-en">CALPIS · IMMUSUME · GINZA ENCOUNTER</div>
+    </header>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">一　カフェ・ライオン、午後の王国</span></p>
+        <p>大正の銀座には、女がありすぎた。</p>
+        <p>柳の並木を震わせる市電の音、ショウウィンドウに踊る電灯の反射——それらが混ざり合って、街全体がひとつの蓄音機のように鳴り響いていた。</p>
+        <p>カフェ・ライオンの中でも、午後の日差しが最も深く差し込む窓際の席。そこに、江里香はいた。</p>
+        <p>赤い口紅。完璧に整えられた眉。白磁のような肌に、緋色の帯。</p>
+        <p>銀座のモダンボーイたちは彼女を「エリカ様」と呼んだ。近づけば毒舌で斬られ、遠ざかれば未練で死ぬ。カフェ・ライオン随一の女給であり、銀座随一の美貌——誰も手の届かない高嶺の花だった。</p>
+        <p>その江里香の向かいで、竹久夢二はため息をついていた。</p>
+        <p>猫背。情けない顔。しかしその眼だけが、異様に鋭い。</p>
+        <p><span class="yumeji">「エリカ様……君は美しすぎる」</span></p>
+        <p><span class="erika">「当然ね」</span></p>
+        <p>江里香は扇子をひらりと開いた。</p>
+        <p><span class="yumeji">「だから描けないんだ。君の顔は完成品だよ。美しすぎて、僕の筆が滑ってしまう。僕が必要とするのは『崩れた情緒』——そこに、君は一滴も隙を持っていない」</span></p>
+        <p><span class="erika">「……<span class="boten">軟弱絵師</span>！」</span></p>
+        <p>エリカ様の怒声が店内に響いた。モダンボーイたちがどよめく。夢二は「うう、面目ない」と肩をすくめた。</p>
+        <p>その時だった。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">二　カルピスと、名もなき横顔</span></p>
+        <p>窓際の席に、場違いなほど純朴な娘がいた。</p>
+        <p>女将さんから借りた銘仙の着物は、少しだけ丈が長かった。足元の草履には、かすかに泥がついている。信州から持ってきたのだろう——都会の石畳には似合わない、野の花のような娘だった。</p>
+        <p>娘の名は千代。麻布のお屋敷で女中奉公をする、十九の芋娘。今日は一ヶ月ぶりの休日だった。雑誌の切り抜きに載っていた「初恋の味」——カルピスを飲むためだけに、銀座まで来たのだった。</p>
+        <p>運ばれてきた乳白色の液体を前にして、千代は息を止めた。壊れものを扱うように、そっとストローをくわえる。</p>
+        <p><span class="chiyo">「あ……」</span></p>
+        <p>口の中に広がる、甘酸っぱい、どこか懐かしくて、しかし鼻に抜けるような新しい香り。千代は思わず目を丸くした。窓の外の柳を見つめながら、ぽつりと独り言を漏らした。</p>
+        <p><span class="chiyo">「……なんだか、お祭りのあとの、淋しいような、でも温かいような。<span class="boten">初恋、みたいな味</span>」</span></p>
+        <p>その瞬間だった。</p>
+        <p>「エリカ様は完成品だから描けない」と嘆いていた夢二の視線が、千代の横顔に釘づけになった。</p>
+        <p>スケッチブックが、手から滑り落ちた。</p>
+        <p>無防備で、完璧ではないからこそ美しい——その「崩れた情緒」が、カルピスのグラスを前にした芋娘の横顔に、溢れていた。</p>
+        <p><span class="kokoro">……見つけた。</span></p>
+        <p>夢二は椅子を蹴り飛ばす勢いで立ち上がった。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">三　乱戦、カルピスと毒舌の十字路</span></p>
+        <p>夢二が千代の席へ駆け寄ったのと、エリカ様が「ちょっと、どこへ行くのよ！」と立ち上がったのは、ほぼ同時だった。</p>
+        <p><span class="yumeji">「君！　君、名前は！？」</span></p>
+        <p><span class="chiyo">「ひゃっ！」</span></p>
+        <p>千代はカルピスを吹き出しそうになった。</p>
+        <p><span class="chiyo">「な、なじょした（何事ですか）！」</span></p>
+        <p><span class="yumeji">「僕は竹久夢二だ。君の横顔を描かせてほしい！」</span></p>
+        <p><span class="chiyo">「……有名なんですか？」</span></p>
+        <p>千代が隣席のモダンボーイに尋ねると、彼はカンカン帽を回しながら答えた。</p>
+        <p>「ああ、有名だよ。女を泣かせることと、女を描くことに関しては天下一品の『情けない天才』さ。この先生、すぐ心中したがるから気をつけなよ」</p>
+        <p><span class="chiyo">「心中！？　やだ、物騒な！」</span></p>
+        <p>そこへエリカ様が割り込んだ。千代を上から下まで一瞥する。</p>
+        <p><span class="erika">「その銘仙、丈が合っていないわよ。おまけに指先、土の匂いがするわ。銀座の空気を汚さないでもらえる？」</span></p>
+        <p>しかし千代は——恐怖に震えるどころか、エリカ様の顔をじっと見つめて、ぽつりと呟いた。</p>
+        <p><span class="chiyo">「……お姉さん、お人形さんみたい。そのお顔、描いてるんですか？　それとも、最初からそんなに白くて綺麗なんですか？」</span></p>
+        <p><span class="erika">「……えっ？」</span></p>
+        <p>エリカ様の完璧な仮面が、一瞬だけ剥がれた。</p>
+        <p><span class="yumeji">「そうなんだよ千代ちゃん！　エリカ様は『描きすぎた完成品』なんだ。でも君のその驚きで丸くなった目……それこそが僕が追い求めていた『生活の詩（うた）』なんだよ！」</span></p>
+        <p><span class="chiyo">「変な人……でも——毎日カルピスを奢ってくれるんですか？」</span></p>
+        <p><span class="yumeji">「奢るとも！」</span></p>
+        <p>エリカ様は溜息をついた。扇子をゆっくり閉じる。</p>
+        <p><span class="erika">「……いいわ。夢二、その娘を連れて行きなさい」</span></p>
+        <p>そして千代の耳元で、少しだけ優しさを混ぜた声で囁いた。</p>
+        <p><span class="erika">「銀座はね、夢を見る場所よ。でも、目が覚めた時の冷たさは、信州の冬より厳しいわ。覚悟してなさい、芋娘さん」</span></p>
+        <p><span class="chiyo">「……はい！　私、一生懸命、綺麗なものを見て帰ります！」</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">四　銀座から日本橋へ、夢二の空回り独白</span></p>
+        <p>カフェ・ライオンの喧騒をあとに、夢二は意気揚々と千代を連れ出した。行き先は、日本橋に構える「港屋絵草紙店」——夢二がデザインした便箋や手拭いが並ぶ、彼の城だった。</p>
+        <p><span class="yumeji">「いいかい、千代ちゃん。美というものはね、完成されてはいけないんだ。君のその『少し困ったような眉の寄せ方』、それこそが詩なんだよ！」</span></p>
+        <p>夢二は柳の下を歩きながら、身振り手振りで熱弁を振るった。</p>
+        <p>しかし千代はといえば——</p>
+        <p><span class="chiyo">「……あ、先生。あそこの屋台の焼き芋、いい匂い。信州のより、少し皮が薄いみたい」</span></p>
+        <p><span class="yumeji">「……聞いてるかい？　僕は今、君の魂の輪郭について語っているんだよ」</span></p>
+        <p><span class="chiyo">「あ、あっちの呉服屋さんの看板、猫が寝てます。可愛いなあ」</span></p>
+        <p>夢二は天を仰いだ。</p>
+        <p><span class="yumeji">「……君はなんと、詩心のない……いや、違う。これこそが詩なんだ！　焼き芋と猫と柳の並木——これが千代ちゃんの宇宙だ！」</span></p>
+        <p><span class="chiyo">「は、はぁ……（先生、少し変わった方ですね）」</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">五　港屋の女たちと、干し柿の奇跡</span></p>
+        <p><span class="kokoro">港屋には、女たちがいた。</span></p>
+        <p>彼女たちは夢二の絵から抜け出してきたような、憂いを帯びた目をしていた。着物の色が鮮やかで、しかし笑顔がどこか翳っている。</p>
+        <p>千代は圧倒されながら、それでも挨拶をした。</p>
+        <p><span class="chiyo">「あの、千代と申します。信州から出てきまして……」</span></p>
+        <p>女たちはしばらく千代を眺め、それからくすくすと笑い始めた。</p>
+        <p>「まあ、ずいぶん素朴な子ね」</p>
+        <p>「先生の趣味、また変わったの？」</p>
+        <p>夢二はむきになった。</p>
+        <p><span class="yumeji">「違う違う！　千代ちゃんはモデルだ。インスピレーションの源泉だ！」</span></p>
+        <p>そこで千代が、風呂敷からおもむろに何かを取り出した。</p>
+        <p><span class="chiyo">「あの、これ、信州から持ってきた干し柿です。よかったら皆さんで」</span></p>
+        <p>干し柿。白い粉を吹いた、素朴な干し柿。</p>
+        <p>港屋の女たちは、一瞬だけ黙った。</p>
+        <p>それから——一人が手を伸ばした。齧った。目を細めた。</p>
+        <p>「……甘い」</p>
+        <p>「故郷の味がする」</p>
+        <p>夢二は静かにスケッチブックを開いた。干し柿を配る千代の、無邪気な横顔を、素早く描き留めた。</p>
+        <p><span class="kokoro">これだ。これが生きている絵だ。</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">六　夕暮れのカルピス、最初のスケッチ</span></p>
+        <p>干し柿タイムが終わって、港屋に夕暮れが差し込んできた頃。</p>
+        <p>夢二は千代を窓際の椅子に座らせ、スケッチブックを手にした。</p>
+        <p><span class="yumeji">「千代ちゃん、カルピスを一口飲んで、窓の外を見て」</span></p>
+        <p><span class="chiyo">「こう、ですか？」</span></p>
+        <p>千代がストローをくわえ、柳並木を眺める。橙色の光の中で、まだ少しよそよそしい横顔が浮かぶ。</p>
+        <p>夢二の手が、止まった。</p>
+        <p>描けない。</p>
+        <p>カフェ・ライオンで一瞬だけ見えたあの輝きが、今は少し曇っている。緊張しているからだ。意識されているからだ。</p>
+        <p><span class="yumeji">「千代ちゃん、信州の一番好きな景色は？」</span></p>
+        <p><span class="chiyo">「……田植えの後の水田に、夕焼けが映るところです。全部が橙色になって、蛙がうるさくて、でもなんか、泣きたいような気持ちになって」</span></p>
+        <p>そこだ。</p>
+        <p>夢二の手が動き出した。</p>
+        <p>千代の目が、遠くなった。信州の田んぼを見ている目になった。その「遠さ」こそが、夢二の求めていたものだった。</p>
+        <p>スケッチが、生きた。</p>
+        <p><span class="chiyo">「……先生、できましたか？」</span></p>
+        <p><span class="yumeji">「できた。千代ちゃん——君は、僕のミューズだよ」</span></p>
+        <p><span class="chiyo">「みゅーず……食べ物ですか？」</span></p>
+        <p>夢二は、生まれて初めて、声を出して笑った。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+  </div>
+
+
+  <div class="work-sep"><span class="work-sep-text">其の壱へ</span></div>
+
+
+  <!-- ===== 其の壱 ===== -->
+  <div class="work-section" id="work1">
+    <div class="kinsen"></div>
+    <header>
+      <div class="series-label">夢二式美人物語　其の壱</div>
+      <h2>芋娘、モガになる</h2>
+      <div class="subtitle-en">IMMUSUME BECOMES A MOGA</div>
+    </header>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">一　夏　港屋の芋娘</span></p>
+        <p>千代が港屋に来た最初の夏、夢二は毎日のようにスケッチを続けた。</p>
+        <p>千代はといえば、相変わらずだった。カルピスを飲み、焼き芋の話をし、時々干し柿を差し入れ、港屋の女たちと仲良くなっていた。</p>
+        <p><span class="yumeji">「千代ちゃん、もう少し憂いを持って。憂鬱な顔をして」</span></p>
+        <p><span class="chiyo">「憂鬱……うーん。昨日、奉公先で漬物を全部食べてしまって、お叱りを受けました。その顔でいいですか？」</span></p>
+        <p><span class="yumeji">「……それは違う」</span></p>
+        <p>しかし夢二は気づいていた。千代の「普通の顔」の中に、時々、とんでもないものが宿ることを。それは計算では出せない、生の感情の輝きだった。</p>
+        <p>ある夏の日、港屋の女の一人——みおが千代に銀座を案内した。初めて見る百貨店の食堂、初めて乗る市電、初めて嗅ぐコーヒーの香り。</p>
+        <p>千代の目が、次々と変わっていく。驚きの顔、喜びの顔、困惑の顔——その全てが、夢二の求める「崩れた情緒」に満ちていた。</p>
+        <p><span class="mio">「千代ちゃん、銀座はどう？」</span></p>
+        <p><span class="chiyo">「……信州より、空が狭いです。でも、なんかキラキラしてて、怖くて、でも目が離せなくて」</span></p>
+        <p><span class="kokoro">それが千代の、銀座との出会いだった。</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">二　秋　言葉が少しずつ変わる</span></p>
+        <p>秋になると、千代の言葉が少しずつ変わり始めた。</p>
+        <p>信州訛りが薄れ、東京弁が混じる。「なじょした」が「どうしたんですか」になる。でも時々、興奮すると「ほんに！」と飛び出した。</p>
+        <p>夢二はそれが好きだった。</p>
+        <p><span class="yumeji">「千代ちゃん、訛りが出るとき、目が輝くよね」</span></p>
+        <p><span class="chiyo">「もう、先生ったら。恥ずかしいじゃないですか」</span></p>
+        <p><span class="yumeji">「恥ずかしくない。それが一番いい顔だ」</span></p>
+        <p>ある秋の夕方、千代がエリカ様のいるカフェ・ライオンに一人で来た。</p>
+        <p>エリカ様は千代を一瞥して、珍しく先に声をかけた。</p>
+        <p><span class="erika">「眉の描き方、変えた？」</span></p>
+        <p><span class="chiyo">「み、みおさんに教えてもらいました」</span></p>
+        <p><span class="erika">「……悪くないわ」</span></p>
+        <p>それがエリカ様の、精一杯の褒め言葉だった。千代はその夜、布団の中で少しだけ泣いた。嬉しくて。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">三　冬　着こなしが板についてくる</span></p>
+        <p>冬になると、千代の着こなしが板についてきた。</p>
+        <p>みおに教わった帯の結び方、エリカ様が一度だけ直してくれた衿の合わせ方。港屋の女たちが「これ似合うよ」と分けてくれた小物たち。</p>
+        <p>丈の合わない銘仙は、もう着なかった。</p>
+        <p>夢二は複雑な顔をしていた。</p>
+        <p><span class="yumeji">「千代ちゃん……綺麗になったね」</span></p>
+        <p><span class="chiyo">「ありがとうございます！」</span></p>
+        <p><span class="yumeji">「……でも、最初に会った時の、草履に泥のついた千代ちゃんも、描いておけばよかった」</span></p>
+        <p><span class="chiyo">「先生、失礼ですよ」</span></p>
+        <p>しかし千代は、その言葉の意味を少しだけわかっていた。</p>
+        <p>変わることは、何かを失うことでもある。銀座はそういう場所だ——エリカ様が最初に言っていた通り。</p>
+        <p>でも千代は、変わることを恐れなかった。信州の田んぼを見ていた目は、今も胸の中にある。それだけは、誰にも取られない。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">四　春の終わり　夢二だけが知っている</span></p>
+        <p>その夜、千代は奉公先を辞めた。</p>
+        <p>理由は単純だった。女中では、もう銀座に来られなくなる。港屋に来られなくなる。カルピスが飲めなくなる。</p>
+        <p>夢二に告げると、彼は珍しく真剣な顔をした。</p>
+        <p><span class="yumeji">「千代ちゃん、君はこれからどうするんだ」</span></p>
+        <p><span class="chiyo">「……働きます。銀座で」</span></p>
+        <p><span class="yumeji">「女給か」</span></p>
+        <p><span class="chiyo">「はい。カフェ・ライオンで雇ってもらえるか、聞いてみようと思って」</span></p>
+        <p>夢二はしばらく黙った。スケッチブックを閉じた。</p>
+        <p><span class="yumeji">「エリカ様に話しておく」</span></p>
+        <p><span class="chiyo">「え？　先生が？」</span></p>
+        <p><span class="yumeji">「君が銀座にいてくれないと、僕が困るんだ」</span></p>
+        <p>それだけ言って、夢二はそっぽを向いた。耳が赤かった。</p>
+        <p><span class="kokoro">千代は、その背中を見て、初めて夢二という人間が少しだけわかった気がした。</span></p>
+        <p>大正の銀座に、芋娘の春が終わり——モガの夏が始まろうとしていた。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+  </div>
+
+
+  <div class="work-sep"><span class="work-sep-text">其の弐へ</span></div>
+
+
+  <!-- ===== 其の弐 ===== -->
+  <div class="work-section" id="work2">
+    <div class="kinsen"></div>
+    <header>
+      <div class="series-label">夢二式美人物語　其の弐</div>
+      <h2>横顔の値打ち</h2>
+      <div class="subtitle-en">YOKOGAO NO NEUCHI</div>
+    </header>
+
+    <div class="tategumi-container"><div class="tategumi">
+      <p>カルピスの匂いが先に入って来た。</p>
+      <p>汚いアトリエの空気が、一瞬だけ甘くなった。</p>
+      <p>夢二は振り向かなかった。芋娘の横顔を、まだ描いている途中だった。</p>
+      <p><span class="kushigiri">〇</span></p>
+      <p>千代はドアを蹴るように開けた。片手にカルピスの瓶、もう片方に風呂敷包み。</p>
+      <p><span class="chiyo">「先生！　また締め切り破ったんですか。編集の方が玄関で待ってますよ」</span></p>
+      <p><span class="yumeji">「……千代ちゃん、今いいところなんだ」</span></p>
+      <p><span class="chiyo">「よくないです。ほら、今日の分のカルピス。甘いもの飲んで気合い入れてください」</span></p>
+      <p>千代がカルピスをコップに注ぐ。その横顔を、夢二はちらりと見た。</p>
+      <p>描けない。</p>
+      <p>千代の横顔は、何度描いても描けない。最初に出会った時から、ずっとそうだ。</p>
+      <p>描き始めると、必ずどこかがずれる。目が違う、鼻の角度が違う、口元の微かな緊張が違う——完成させようとするたびに、絵の中の千代が千代でなくなっていく。</p>
+      <p><span class="kushigiri">〇</span></p>
+      <p><span class="chiyo">「先生、また私の顔、描いてたんですか」</span></p>
+      <p><span class="yumeji">「……描けないんだよ、毎回」</span></p>
+      <p><span class="chiyo">「なんで描けないんですか。毎日会ってるのに」</span></p>
+      <p><span class="yumeji">「それが問題なんだ」</span></p>
+      <p>夢二はスケッチブックを裏返した。</p>
+      <p><span class="yumeji">「エリカ様は描けない——完成品すぎて、僕の筆が滑る。でも君は逆だ。君の顔は、毎回違う。怒っている顔、笑っている顔、カルピスを飲んでいる顔、干し柿を配っている顔——全部が違う千代ちゃんで、全部が本物だ。だから一枚に収まらない」</span></p>
+      <p><span class="chiyo">「……それって、描きにくいってことですよね」</span></p>
+      <p><span class="yumeji">「描きにくい。でも、やめられない」</span></p>
+      <p><span class="kushigiri">〇</span></p>
+      <p>千代は少しの間、黙ってカルピスを飲んだ。</p>
+      <p>窓の外に柳が見える。大正の銀座が、夕暮れに溶けていく。</p>
+      <p><span class="chiyo">「先生」</span></p>
+      <p><span class="yumeji">「なんだい」</span></p>
+      <p><span class="chiyo">「私の横顔、値打ちがあるんですか」</span></p>
+      <p>夢二は答えなかった。</p>
+      <p>答える代わりに、スケッチブックを開いて、また描き始めた。</p>
+      <p>千代がカルピスを飲みながら窓の外を見ている、その横顔を。</p>
+      <p>今夜も、完成しないとわかっていながら。</p>
+      <p><span class="kokoro">それが夢二の、千代への答えだった。</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+  </div>
+
+
+  <div class="work-sep"><span class="work-sep-text">其の参へ</span></div>
+
+
+  <!-- ===== 其の参 ===== -->
+  <div class="work-section" id="work3">
+    <div class="kinsen"></div>
+    <header>
+      <div class="series-label">夢二式美人物語　其の参</div>
+      <h2>大正美人と呼ばれた日、<br>そして逃走</h2>
+      <div class="subtitle-en">THE DAY SHE WAS CALLED TAISHO BIJIN · AND FLIGHT</div>
+    </header>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">一　震災の夜明け、銀座が生まれ直す</span></p>
+        <p>大正十二年、九月一日。</p>
+        <p>関東大震災が、東京を揺らした。</p>
+        <p>カフェ・ライオンは半壊した。港屋は焼けた。銀座の柳並木は、何本か根元から折れた。</p>
+        <p>千代は、麻布のお屋敷が潰れる前に飛び出した。瓦礫の中を走りながら、頭の中にあったのは——港屋の女たちのことと、夢二のことだった。</p>
+        <p>全員が無事だとわかったのは、三日後のことだった。</p>
+        <p>焼け跡の銀座で、千代は夢二と再会した。夢二は無傷だったが、スケッチブックを全部失っていた。千代の横顔を描いた絵も、全部。</p>
+        <p><span class="yumeji">「……描き直す。最初から」</span></p>
+        <p>その目が、震災の前より鋭くなっていた。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">二　大正美人という名の呪い</span></p>
+        <p>震災から二年が過ぎ、銀座が生まれ直した頃。</p>
+        <p>千代は、変わっていた。</p>
+        <p>カフェ・ライオンが再建され、女給として戻った千代の前には、毎日客が並んだ。信州訛りはほぼ消え、着こなしは完璧になり、笑顔は計算されていた。</p>
+        <p>ある日、雑誌記者が来た。</p>
+        <p>「大正美人を特集したい。千代さん、表紙になりませんか」</p>
+        <p>千代は少し迷って——引き受けた。</p>
+        <p>雑誌が出た翌日から、カフェ・ライオンの前に行列ができた。</p>
+        <p><span class="erika">「……やったわね」</span></p>
+        <p>エリカ様が言った。褒めているのか、警告しているのか、わからない声で。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">三　千代、記号になる</span></p>
+        <p>一方の千代は、変わっていた。</p>
+        <p>「大正美人」という言葉が、千代に貼りついた。</p>
+        <p>客は千代の話を聞かなくなった。千代の横顔を見るだけになった。千代がカルピスを飲んでも、誰も「初恋みたいな味」なんて言わなくなった。</p>
+        <p>千代は気づいていた。自分が、記号になっていることに。</p>
+        <p>エリカ様が最初に言っていた通りだった。</p>
+        <p><span class="erika">「銀座はね、夢を見る場所よ。でも、目が覚めた時の冷たさは、信州の冬より厳しいわ」</span></p>
+        <p>千代の中の信州の田んぼが、少しずつ遠くなっていた。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">四　完成品の千代、論破、そして忌避</span></p>
+        <p>ある秋の午後、夢二がカフェ・ライオンに来た。</p>
+        <p>久しぶりだった。震災後、夢二は旅が多くなっていた。</p>
+        <p>千代は笑顔で迎えた。計算された笑顔で。</p>
+        <p>夢二は千代を見て、スケッチブックを開かなかった。</p>
+        <p><span class="yumeji">「……千代ちゃん」</span></p>
+        <p><span class="chiyo">「先生、お久しぶりです。カルピスはいかがですか」</span></p>
+        <p><span class="yumeji">「描けなくなった」</span></p>
+        <p>千代の手が、止まった。</p>
+        <p><span class="yumeji">「君が『大正美人』になってしまった。エリカ様と同じだ。完成品になってしまった。描こうとすると、筆が滑る」</span></p>
+        <p><span class="chiyo">「……それは、私が悪いんですか」</span></p>
+        <p><span class="yumeji">「違う。僕が悪い。君を見続けていたくせに、守れなかった」</span></p>
+        <p>千代は少しの間、夢二を見た。それから静かに言った。</p>
+        <p><span class="chiyo">「先生。私はまだ、信州の田んぼを覚えてます。夕焼けが水田に映って、蛙がうるさくて、泣きたいような——あれを、まだ持ってます」</span></p>
+        <p><span class="yumeji">「……そうか」</span></p>
+        <p><span class="chiyo">「でも、お客さんには見せられない。見せたら、壊れる気がして」</span></p>
+        <p>夢二はしばらく黙っていた。それからゆっくり立ち上がった。</p>
+        <p><span class="yumeji">「僕は旅に出る。また、描けない誰かを探しに」</span></p>
+        <p><span class="chiyo">「……行ってらっしゃい」</span></p>
+        <p>千代は笑顔で見送った。計算された笑顔ではなく、少しだけ本物の笑顔で。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">五　放浪、次の芋娘を求めて</span></p>
+        <p>夢二は旅に出た。</p>
+        <p>京都、大阪、九州——どこへ行っても、「崩れた情緒」を持つ娘を探した。</p>
+        <p>何人かの娘を描いた。何枚かは良い絵になった。</p>
+        <p>でも、カルピスを初めて飲んだ千代の横顔には、敵わなかった。</p>
+        <p>夢二はそれを認めたくなかった。</p>
+        <p>旅の途中、ある港町で夕暮れを見た。水面が橙色に染まって、遠くで船の汽笛が鳴った。</p>
+        <p><span class="kokoro">千代ちゃんの、信州の田んぼに似ているな。</span></p>
+        <p>夢二はスケッチブックを開いた。</p>
+        <p>港の夕暮れを描こうとして——千代の横顔を描いていた。</p>
+        <p>また、完成しなかった。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">六　千代の独白、銀座の秋</span></p>
+        <p>千代は、泣かなかった。</p>
+        <p>夢二が去ってから、カフェ・ライオンでの日々は続いた。客は来る。笑顔を作る。カルピスを運ぶ。</p>
+        <p>ある秋の夜、閉店後に一人でカルピスを飲んだ。</p>
+        <p>甘酸っぱい味が、口の中に広がった。</p>
+        <p><span class="chiyo">「……まだ、初恋の味がする」</span></p>
+        <p>誰もいない店内で、千代は小さく笑った。</p>
+        <p>記号になっても、「大正美人」と呼ばれても、この味だけは変わらない。信州の田んぼの夕暮れも、変わらない。夢二が描けなくなっても、千代の中の千代は、ちゃんとここにいる。</p>
+        <p>エリカ様が現れた。閉店後も残っていたらしい。</p>
+        <p><span class="erika">「一人で飲んでるの、珍しいわね」</span></p>
+        <p><span class="chiyo">「エリカ様も、残ってたんですね」</span></p>
+        <p><span class="erika">「……たまにはね」</span></p>
+        <p>エリカ様は千代の向かいに座って、カルピスを一口飲んだ。</p>
+        <p><span class="erika">「……甘いわね」</span></p>
+        <p><span class="chiyo">「初恋の味、だそうです」</span></p>
+        <p><span class="erika">「……そう」</span></p>
+        <p>二人は、しばらく黙っていた。</p>
+        <p>銀座の夜が、窓の外を流れていった。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+  </div>
+
+
+  <div class="work-sep"><span class="work-sep-text">其の四へ</span></div>
+
+
+  <!-- ===== 其の四 ===== -->
+  <div class="work-section" id="work4">
+    <div class="kinsen"></div>
+    <header>
+      <div class="series-label">夢二式美人物語　其の四</div>
+      <h2>時代のアイコン、<br>そして芋娘に還る</h2>
+      <div class="subtitle-en">THE ICON OF AN ERA · AND RETURN TO IMMUSUME</div>
+    </header>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">一　飛び立つ千代</span></p>
+        <p>千代は、追いかけなかった。</p>
+        <p>夢二が旅に出た後、千代はカフェ・ライオンで働き続けた。でも、何かが変わり始めた。</p>
+        <p>「大正美人」という記号を、逆に使うことにしたのだ。</p>
+        <p>雑誌の仕事を引き受けた。広告の仕事も引き受けた。信州の農家の娘が、大正の銀座で顔を売る——笑ってしまうような話だが、千代には戦略があった。</p>
+        <p>稼いだ金で、信州の父母に仕送りをした。</p>
+        <p>残った金で、カルピスをたくさん買った。</p>
+        <p><span class="chiyo">（散るなら、咲いてるうちに稼がないと）</span></p>
+        <p>それが千代の、銀座での哲学になっていた。</p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">二　時代のアイコン</span></p>
+        <p>それからの千代は、速かった。</p>
+        <p>カフェ・ライオンの看板娘から、銀座の顔へ。雑誌の表紙から、広告のモデルへ。「大正美人・千代」という名前が、一人歩きし始めた。</p>
+        <p>エリカ様は、相変わらずだった。</p>
+        <p><span class="erika">「調子に乗らないことね」</span></p>
+        <p><span class="chiyo">「乗ってません。仕事してるだけです」</span></p>
+        <p><span class="erika">「……そういう顔が一番危ないのよ」</span></p>
+        <p>でも時々、エリカ様は千代の仕事を手伝った。着物の選び方、立ち居振る舞い、断るべき仕事と受けるべき仕事の見分け方。</p>
+        <p>言葉ではなく、背中で教えた。</p>
+        <p>千代はそれを、全部盗んだ。</p>
+        <p><span class="kokoro">銀座で生き残る術を、千代は少しずつ覚えていった。</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+        <p><span class="ch-title">三　年月の向こうで、芋娘に還る</span></p>
+        <p>それから、何十年が過ぎた。</p>
+        <p>大正が昭和になり、銀座が変わり、カフェ・ライオンも形を変えた。</p>
+        <p>千代は、年を取った。</p>
+        <p>「大正美人」という言葉は、時代とともに薄れた。でも千代は気にしなかった。最初から、記号に本気じゃなかった。</p>
+        <p>ある秋の日、久しぶりに信州に帰った。</p>
+        <p>父も母も、もういない。田んぼは甥が継いでいた。</p>
+        <p>千代は畦道に立って、夕暮れの水田を見た。</p>
+        <p>橙色の光が、水面に映っている。遠くで蛙が鳴いている。</p>
+        <p><span class="chiyo">「……泣きたいような気持ち、まだある」</span></p>
+        <p>千代は笑った。信州訛りで、独り言を言った。</p>
+        <p><span class="chiyo">「ほんに。変わらんもんだ」</span></p>
+        <p>東京に戻る前の夜、千代は一人でカルピスを飲んだ。</p>
+        <p>甘酸っぱい味が、口の中に広がった。</p>
+        <p><span class="kokoro">初恋の味。</span></p>
+        <p>夢二が最後に言っていた言葉を、千代は今も覚えていた。</p>
+        <p>「千代ちゃん——君は、僕のミューズだよ」</p>
+        <p>「みゅーず……食べ物ですか？」</p>
+        <p>あの時の自分の返しを思い出して、千代はまた笑った。</p>
+        <p>銀座の芋娘は、最後まで芋娘だった。</p>
+        <p>それが、一番の自慢だった。</p>
+        <p><span class="kushigiri">——了——</span></p>
+    </div></div>
+    <div class="chapter-sep">◆　　◆　　◆</div>
+  </div>
+
+
+  <!-- ページトップ -->
+  <div class="back-top"><a href="#top">▲　目次に戻る</a></div>
+
+  <!-- フッター -->
+  <footer>
+    <div class="colophon">
+      夢二式美人物語　全五篇<br>
+      utakata-works　／　© 2026　私的創作　非公開
+    </div>
+    <a href="#top" class="btn-top">▲ TOP</a>
+  </footer>
+
+</div>
+</body>
+</html>
