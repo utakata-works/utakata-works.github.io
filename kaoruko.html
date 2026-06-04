@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>薫子転生物語　第一部　柳風庵の光と影 — utakata-works</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #F5EDD6;
+    --sumi: #1C1C1C;
+    --kin: #C9A84C;
+    --kurenai: #8b2020;
+    --fuji: #8B6CAB;
+    --nezumi: #888;
+    --imo: #8B7355;
+    --yami: #2a1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e0e0e;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  .wrapper {
+    background-color: var(--washi);
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 20px rgba(201,168,76,0.1);
+    position: relative;
+  }
+
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .kinsen {
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--kin) 20%, var(--kin) 80%, transparent);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* 総扉 */
+  .tobira {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(201,168,76,0.4);
+  }
+
+  .tobira-series {
+    font-size: 0.62rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 1.2rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .tobira h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.5rem;
+    color: var(--sumi);
+    letter-spacing: 0.2em;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .tobira-sub {
+    font-size: 0.58rem;
+    color: var(--nezumi);
+    letter-spacing: 0.4em;
+    margin-bottom: 1.4rem;
+  }
+
+  .tobira-divider {
+    width: 200px;
+    margin: 0 auto 1.2rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--kin), transparent);
+    position: relative;
+  }
+
+  .tobira-divider::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--washi);
+    padding: 0 6px;
+    color: var(--kin);
+    font-size: 0.6rem;
+  }
+
+  .tobira-desc {
+    font-size: 0.75rem;
+    color: #7a6e5c;
+    letter-spacing: 0.2em;
+    line-height: 2.2;
+    font-weight: 300;
+  }
+
+  /* 目次 */
+  .mokuji {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    background: rgba(0,0,0,0.02);
+  }
+
+  .mokuji-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 0.8rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .mokuji-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .mokuji-list li a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--sumi);
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    transition: color 0.2s;
+  }
+
+  .mokuji-list li a:hover { color: var(--kin); }
+
+  .mokuji-num {
+    font-size: 0.58rem;
+    color: var(--kin);
+    letter-spacing: 0.3em;
+    flex-shrink: 0;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  /* 章ヘッダー */
+  .chapter-header {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 2rem 1.4rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .ch-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--kin);
+    margin-bottom: 0.6rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .ch-title-main {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1.2rem;
+    color: var(--sumi);
+    letter-spacing: 0.15em;
+    line-height: 1.7;
+  }
+
+  .ch-title-main.yami-title {
+    color: var(--kurenai);
+  }
+
+  /* 縦書き */
+  .tategumi-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--kin) transparent;
+  }
+
+  .tategumi {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 1rem;
+    line-height: 2.4;
+    color: var(--sumi);
+    min-height: 480px;
+    letter-spacing: 0.06em;
+  }
+
+  .tategumi p { margin-left: 2.5em; }
+  .tategumi p:last-child { margin-left: 0; }
+
+  .ch-subtitle {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.4em;
+    color: var(--kin);
+    margin-left: 1em;
+    padding-right: 0.3em;
+    border-right: 1px solid var(--kin);
+  }
+
+  .kushigiri {
+    display: block;
+    color: var(--kin);
+    font-size: 0.9rem;
+    margin: 0 2em;
+    letter-spacing: 0.3em;
+  }
+
+  .boten {
+    text-emphasis: filled circle;
+    -webkit-text-emphasis: filled circle;
+  }
+
+  /* 暗転シーン用 */
+  .yami-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1.5rem;
+    background: rgba(30,10,10,0.06);
+    border-top: 1px solid rgba(139,32,32,0.2);
+    border-bottom: 1px solid rgba(139,32,32,0.2);
+    overflow-x: auto;
+  }
+
+  .yami-container .tategumi {
+    color: #3a2020;
+  }
+
+  .yami-line {
+    color: var(--kurenai);
+    font-size: 0.9em;
+  }
+
+  .kokoro {
+    font-size: 0.9em;
+    color: #555;
+    font-style: italic;
+  }
+
+  .koe-kaoruko { color: #7a4a20; }
+  .koe-ki塚 { color: var(--kurenai); font-size: 0.92em; }
+  .koe-kaheei { color: #4a5a3a; }
+
+  /* 区切り */
+  .sep {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--kin);
+    letter-spacing: 0.6em;
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .sep.yami-sep {
+    color: rgba(139,32,32,0.5);
+    border-top-color: rgba(139,32,32,0.15);
+  }
+
+  /* 章区切り */
+  .work-sep {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.03);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .work-sep::before,
+  .work-sep::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3));
+  }
+
+  .work-sep::after {
+    background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+  }
+
+  .work-sep-text {
+    font-size: 0.58rem;
+    color: var(--kin);
+    letter-spacing: 0.5em;
+    white-space: nowrap;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  /* 核心台詞 */
+  .key-line {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 0.9rem;
+    color: var(--kurenai);
+    letter-spacing: 0.15em;
+    padding: 1rem 2rem;
+    border-top: 1px solid rgba(139,32,32,0.2);
+    border-bottom: 1px solid rgba(139,32,32,0.2);
+    background: rgba(139,32,32,0.03);
+  }
+
+  /* TOPへ */
+  .back-top {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0.6rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .back-top a {
+    font-size: 0.6rem;
+    color: var(--nezumi);
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .back-top a:hover { color: var(--kin); }
+
+  /* フッター */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 1.5rem;
+    border-top: 2px solid rgba(201,168,76,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .colophon {
+    font-size: 0.58rem;
+    color: var(--nezumi);
+    letter-spacing: 0.2em;
+    line-height: 1.8;
+  }
+
+  .btn-top {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--washi);
+    background: var(--sumi);
+    border: 1px solid var(--kin);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .btn-top:hover { background: var(--kin); color: var(--sumi); }
+
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="kinsen"></div>
+
+  <!-- 総扉 -->
+  <div class="tobira" id="top">
+    <div class="tobira-series">薫子転生物語　第一部</div>
+    <h1>柳風庵の光と影</h1>
+    <div class="tobira-sub">YANAGIKAZE-AN · LIGHT AND SHADOW</div>
+    <div class="tobira-divider"></div>
+    <div class="tobira-desc">
+      文化文政の江戸。水茶屋の陽だまり。<br>
+      散るなら咲いてるうちに——
+    </div>
+  </div>
+
+  <!-- 目次 -->
+  <div class="mokuji">
+    <div class="mokuji-label">— 目次 —</div>
+    <ul class="mokuji-list">
+      <li><a href="#ch1"><span class="mokuji-num">一</span>水茶屋アイドル薫子　絶頂期</a></li>
+      <li><a href="#ch2"><span class="mokuji-num">二</span>町の陽だまり</a></li>
+      <li><a href="#ch3"><span class="mokuji-num">三</span>柳風庵、江戸一の門</a></li>
+      <li><a href="#ch4"><span class="mokuji-num">四</span>鬼塚の影</a></li>
+      <li><a href="#ch5"><span class="mokuji-num">五</span>狙われた柳風庵</a></li>
+      <li><a href="#ch6"><span class="mokuji-num">六</span>店主の苦渋</a></li>
+      <li><a href="#ch7"><span class="mokuji-num">七</span>仕組まれた夜</a></li>
+      <li><a href="#ch9"><span class="mokuji-num">八</span>江戸の夜明け</a></li>
+    </ul>
+  </div>
+
+
+  <!-- 一 -->
+  <div id="ch1">
+    <div class="chapter-header">
+      <div class="ch-num">第一章</div>
+      <div class="ch-title-main">水茶屋アイドル薫子　絶頂期</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>朝の陽ざしが瓦屋根に跳ね返り、通りはほんのりと金色に染まる。</p>
+      <p>朱塗りの暖簾を少し持ち上げる薫子の手は、白磁のようにしなやかで、まだ朝露の残る石畳をそっと掃く所作にも、少女特有の初々しい艶がにじんでいる。</p>
+      <p>艶やかな黒髪は肩先でゆるく波を描き、ほのかに桜色を帯びた頬に、えくぼが小さく揺れる。柑橘の皮をきゅっとひねったような瑞々しい笑顔が、町の男たちの心をくすぐった。</p>
+      <p><span class="koe-kaoruko">「ありがとございます」</span></p>
+      <p>魚河岸帰りの若旦那が声をかければ、薫子は首をかしげ、長い睫毛の奥で微笑んだ。</p>
+      <p>水茶屋は江戸随一の"流行（はやり）"の場。祭り囃子が遠くで鳴り、小間物売りや行商の声がにぎやかに響くなか、薫子のまわりには男たちの輪が絶えなかった。</p>
+      <p>茶を注ぐ手首の返しには無邪気さとしなやかさが混じり、客の目をまっすぐ見つめて「おかわりいかがです？」と問いかける。</p>
+      <p>町衆は「水茶屋の陽だまり」と呼ばれるこの空間に酔いしれた。</p>
+      <p>薫子は自分がどれほど眩しいかをまだ知らない。だが、その無垢な輝きこそが、江戸男たちの胸を甘く焦がし、水茶屋を"江戸一番の舞台"へと変えていた。</p>
+    </div></div>
+    <div class="sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">次の章へ</span></div>
+
+
+  <!-- 二 -->
+  <div id="ch2">
+    <div class="chapter-header">
+      <div class="ch-num">第二章</div>
+      <div class="ch-title-main">町の陽だまり</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>水茶屋の庭先には、夏の朝の陽が溢れ、青葉を揺らす風が涼やかに流れる。</p>
+      <p>薫子は竹の箒を手に、ゆっくりと店の石畳を掃き始める。</p>
+      <p>その日の薫子は薄手の小袖に柑橘色の帯。朝の動作に揺れる裾と、健康的な肢体の輪郭が、朝の光の中にほのかに透けて見える。</p>
+      <p>男たちはその瞬間を夢のように網膜に焼き付ける。しかし薫子はただ、自然体でそこにいた。その無邪気な仕草ひとつひとつが、江戸の朝をいっそう鮮やかに染めていくのだった。</p>
+      <p>店内は朝から賑やか。朱塗りの卓に湯気の立つ茶碗が並び、町人たちの笑い声と下駄の音が響く。その中心で、薫子はキュートな仕草で茶を注ぐ。</p>
+      <p>頬にえくぼを浮かべ、弾むような瞳で客の目を見上げると、瑞々しい笑顔がぐっと近づき、ほんのり汗ばんだ前髪からはかすかな香りが立ちのぼる。</p>
+      <p>誰もが「自分だけに向けられたのでは」と錯覚し、ひととき大人の恋と、淡い初恋のはざまに揺れるのだった。</p>
+    </div></div>
+    <div class="sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">次の章へ</span></div>
+
+
+  <!-- 三 -->
+  <div id="ch3">
+    <div class="chapter-header">
+      <div class="ch-num">第三章</div>
+      <div class="ch-title-main">柳風庵、江戸一の門</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>薫子の水茶屋「柳風庵」の暖簾は、今や江戸で一番の"憧れの門"となった。</p>
+      <p>朝な朝な、店先には町の若者から隠居の旦那衆までずらりと行列。</p>
+      <p><span class="koe-kaheei">「うちの薫子は町一番の看板娘や」</span></p>
+      <p>店主の嘉兵衛も鼻高々。賑わう店内で忙しさに目を回しながらも、嬉し涙を隠すのに必死だった。</p>
+      <p>評判は江戸中に広まり、一流絵師・泉川春秀が直々に「薫子ブロマイド制作」を申し出る。小袖姿で微笑む薫子、湯呑を手に振り返る薫子——描かれた絵札は、たちまち町中で争奪戦になった。</p>
+      <p>人気はついに武家屋敷まで届き、羽織袴の若侍が家来を連れて「柳風庵」を訪れた日には、店の前は朝から人垣で膨れ上がった。</p>
+      <p><span class="kokoro">「あの子の笑顔は、江戸一番の宝や」</span></p>
+      <p>誰もがそう囁き、やがてそれが、柳風庵の伝説になった。</p>
+      <p>まるで春の陽に花が咲き乱れるような賑わいの只中で、薫子は眩いほどの笑顔と、無垢で明るい輝きを振りまいていた。</p>
+    </div></div>
+    <div class="sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">影、忍び寄る</span></div>
+
+
+  <!-- 四 -->
+  <div id="ch4">
+    <div class="chapter-header">
+      <div class="ch-num">第四章</div>
+      <div class="ch-title-main yami-title">鬼塚の影</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>だがその"粋"の裏には、水面下で渦巻く欲望と陰謀が、密やかに進んでいた。</p>
+      <p>北町奉行所・筆頭与力——鬼塚彦十。</p>
+      <p>その名は町の陽の当たる場所では滅多に語られないが、江戸の裏路地、酒肆の闇、料亭の密談の場——"粋と闇を牛耳る陰の黒幕"として、密かに畏怖されてきた。</p>
+      <p>鬼塚が求めるのは「町人社会で今最も喝采を浴びる"絶頂期の水茶屋アイドル"」。まさに"旬の娘"、一番の輝き——その一瞬にしか、鬼塚の血は熱を帯びない。</p>
+      <p>情報網も徹底していた。政商の黒川兵庫、相馬彦三郎をはじめ、小遣いでつないだ町人、女中、小僧、屋台の主——あらゆる層に"耳"と"目"を張り巡らせ、「今一番江戸を賑わす乙女」の噂を逃さず吸い上げていた。</p>
+      <p><span class="yami-line">「一番輝いているうちに——旬のうちに——"江戸一の艶"を味わい尽くす」</span></p>
+      <p>それは鬼塚にとって、美学であり、権力者としての自己証明、そして狂気と紙一重の愉しみでもあった。</p>
+      <p>その目が、今——柳風庵の薫子に向いていた。</p>
+    </div></div>
+    <div class="sep yami-sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">罠、仕掛けられる</span></div>
+
+
+  <!-- 五 -->
+  <div id="ch5">
+    <div class="chapter-header">
+      <div class="ch-num">第五章</div>
+      <div class="ch-title-main yami-title">狙われた柳風庵</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>ある夜、鬼塚は腹心の政商——黒川兵庫、相馬彦三郎、そして写楽筋の絵師・榊原忠秀を密かに呼び集めた。</p>
+      <p>夜更け、茶屋の奥で、鬼塚は冷や酒を一口飲み干すと、静かに言った。</p>
+      <p><span class="yami-line">「いよいよ薫子を手中に収めよ」</span></p>
+      <p>黒川は小さく頷く。</p>
+      <p><span class="koe-kaheei">「心得ております。……店主は弱みを握られておりますゆえ、"奥座敷の宴"の段取りは、ぬかりなく」</span></p>
+      <p>榊原忠秀は内心震えながらも、筆を持つ手を膝の上で握りしめた。</p>
+      <p>こうして、柳風庵の薫子は、見えざる"罠"の只中に、知らず知らず誘い込まれていったのである。</p>
+    </div></div>
+    <div class="sep yami-sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">嘉兵衛の苦悩</span></div>
+
+
+  <!-- 六 -->
+  <div id="ch6">
+    <div class="chapter-header">
+      <div class="ch-num">第六章</div>
+      <div class="ch-title-main yami-title">店主の苦渋</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>柳風庵の店主・嘉兵衛は、本来は情にもろく、町のために生きてきた誠実な男だった。</p>
+      <p>だが鬼塚と政商たちによる締め上げは、じわじわと、しかし確実に柳風庵の首を絞めていった。</p>
+      <p>些細な難癖、妙な取り締まり、取引先への圧力。</p>
+      <p><span class="yami-line">「このままでは店が潰れるぞ」</span></p>
+      <p>耳元で囁かれるたびに、嘉兵衛の背が少しずつ曲がっていく。</p>
+      <p>薫子にだけはつらい思いをさせたくなかった。だが何度も頭を下げて鬼塚に頼み込むしかなく、そのたびに「特別なお座敷だから」と言い含め、薫子を"奥"へと送り出すしかなかった。</p>
+      <p>嘉兵衛は、薫子が奥座敷へ消えていく後ろ姿を見送るたびに、一人で酒を飲んだ。</p>
+      <p>泣かなかった。泣けなかった。泣く資格が、自分にはないと思っていた。</p>
+      <p><span class="kokoro">……すまない。薫子。</span></p>
+    </div></div>
+    <div class="sep yami-sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">仕組まれた夜</span></div>
+
+
+  <!-- 七 -->
+  <div id="ch7">
+    <div class="chapter-header">
+      <div class="ch-num">第七章</div>
+      <div class="ch-title-main yami-title">仕組まれた夜</div>
+    </div>
+
+    <div class="tategumi-container"><div class="tategumi">
+      <p>江戸・天保の宵。</p>
+      <p>薫子は、店主に言われるまま奥座敷へと向かった。</p>
+      <p>「特別な客だから」という言葉を、信じようとしていた。</p>
+      <p>重々しい襖が閉じられると、空気が変わった。</p>
+      <p>行灯の淡い灯に浮かび上がるのは、鬼塚彦十、政商・黒川兵庫、材木問屋・相馬彦三郎、そして絵師・榊原忠秀——江戸の粋も闇も知り尽くした男たちの、獲物を前にしたような視線が、薫子に突き刺さった。</p>
+      <p>薫子は直感した。いつもとは、違う。</p>
+      <p><span class="kokoro">（逃げたい。でも——）</span></p>
+      <p>逃げ場はなかった。</p>
+    </div></div>
+    <div class="sep yami-sep">◆　　◆　　◆</div>
+
+    <div class="yami-container"><div class="tategumi">
+      <p>舞を求められた。</p>
+      <p>薫子は音に従って、静かに動いた。</p>
+      <p>水茶屋で鍛えた芸だが、今宵のそれは違う空気の中にある。男たちの視線が這う。薫子は心を遠くへ飛ばした。</p>
+      <p>信州ではなく、江戸の朝のことを考えた。</p>
+      <p>暖簾をくぐる客の顔。嘉兵衛さんの笑い声。石畳に光が跳ねる朝の景色。</p>
+      <p>やがて鬼塚が盃を差し出した。</p>
+      <p>盃を受けた瞬間、薫子の瞳の奥がかすかに揺れた。</p>
+      <p><span class="kokoro">（なにか、おかしい——）</span></p>
+      <p>意識がじわりと遠のいていく。頬の火照りばかりが際立ち、男たちの声が遠くなる。</p>
+      <p>薫子は、最後の一瞬まで、柳風庵の朝の光を思っていた。</p>
+    </div></div>
+
+    <div class="key-line">散るなら咲いてるうちに稼ぐんだよ——</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+      <p>その言葉だけが、薄れゆく意識の端に残っていた。</p>
+      <p>自分が言ったのか、誰かに言ったのか、もうわからない。</p>
+      <p><span class="kushigiri">〇</span></p>
+      <p>榊原忠秀は、その夜、一枚も絵を描かなかった。</p>
+      <p>筆を持つ手が、震えて止まらなかった。</p>
+      <p>男たちが去った後、奥座敷には行灯だけが残った。</p>
+      <p>炎が揺れる。</p>
+      <p>薫子の着物の裾が、畳の上に静かに広がっている。</p>
+      <p>それだけが、そこにあった。</p>
+    </div></div>
+    <div class="sep yami-sep">◆　　◆　　◆</div>
+  </div>
+
+  <div class="work-sep"><span class="work-sep-text">夜が明ける</span></div>
+
+
+  <!-- 八（第九章）夜明け -->
+  <div id="ch9">
+    <div class="chapter-header">
+      <div class="ch-num">第八章</div>
+      <div class="ch-title-main">江戸の夜明け</div>
+    </div>
+    <div class="tategumi-container"><div class="tategumi">
+      <p>その夜が明けるころ、薫子は深い眠りのなか、ひとすじの涙を流していた。</p>
+      <p>外の空気は、夜明け前の静けさに満ち、柳風庵の屋根に、かすかな朝日が差し込みはじめる。</p>
+      <p>江戸の町は、何事もなかったようにまた目覚めた。</p>
+      <p>どこかで魚河岸の声が聞こえる。遠くで鐘が鳴る。朝市が始まる気配がする。</p>
+      <p>薫子はゆっくりと目を開けた。</p>
+      <p>見知らぬ天井だった。</p>
+      <p>いつもの柳風庵ではない。奥座敷の、冷たい板間の上だった。</p>
+      <p><span class="kokoro">……朝だ。</span></p>
+      <p>それだけを確かめて、薫子は再び目を閉じた。</p>
+      <p>泣くことも、怒ることも、まだできなかった。</p>
+      <p>ただ、朝の光だけが、静かに窓から差し込んでいた。</p>
+    </div></div>
+    <div class="sep">◆　　◆　　◆</div>
+
+    <div class="tategumi-container"><div class="tategumi">
+      <p>その日から、柳風庵に薫子の姿はなかった。</p>
+      <p>嘉兵衛は店を開けるたびに、暖簾の前で立ち止まった。</p>
+      <p>朱塗りの暖簾が、朝風に揺れる。</p>
+      <p>かつてその陰から顔を覗かせた、あの眩しい笑顔を思い出す。</p>
+      <p><span class="kokoro">散るなら咲いてるうちに稼ぐんだよ。</span></p>
+      <p>薫子がよく言っていた言葉だ。</p>
+      <p>嘉兵衛は暖簾をくぐった。</p>
+      <p>何事もなかったように、店を開けた。</p>
+      <p>それしか、できなかった。</p>
+      <p><span class="kushigiri">〇</span></p>
+      <p>深川の河岸。夜明け前。</p>
+      <p>薫子は水の冷たさだけを感じていた。</p>
+      <p>行き場をなくした人間が、たどり着く場所がある。</p>
+      <p>薫子もそこへ来ていた。</p>
+      <p>方向性を失って、ただ真っ暗で、足元がなかった。</p>
+      <p>水面が揺れる。</p>
+      <p>遠くで夜明けの鳥が鳴いた。</p>
+      <p><span class="kushigiri">——第一部　了——</span></p>
+    </div></div>
+    <div class="sep">◆　　◆　　◆</div>
+
+    <div class="key-line">第二部「再生の章」へつづく</div>
+  </div>
+
+
+  <div class="back-top"><a href="#top">▲　目次に戻る</a></div>
+
+  <footer>
+    <div class="colophon">
+      薫子転生物語　第一部<br>
+      utakata-works　／　© 2026　私的創作　非公開
+    </div>
+    <a href="#top" class="btn-top">▲ TOP</a>
+  </footer>
+
+</div>
+</body>
+</html>

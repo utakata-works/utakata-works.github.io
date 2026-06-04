@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* 縦線装飾 */
   body::before {
     content: '';
     position: fixed;
@@ -56,7 +55,6 @@
     padding: 0 24px;
   }
 
-  /* ヘッダー */
   .header {
     text-align: center;
     padding: 80px 0 60px;
@@ -140,7 +138,6 @@
     animation: fadeIn 2s ease both;
   }
 
-  /* メインナビ */
   .nav-section {
     padding: 20px 0 80px;
   }
@@ -180,6 +177,8 @@
   .nav-card:nth-child(2) { animation-delay: 0.35s; }
   .nav-card:nth-child(3) { animation-delay: 0.5s; }
   .nav-card:nth-child(4) { animation-delay: 0.65s; }
+  .nav-card:nth-child(5) { animation-delay: 0.8s; }
+  .nav-card:nth-child(6) { animation-delay: 0.95s; }
 
   .nav-card::before {
     content: '';
@@ -222,6 +221,12 @@
 
   .nav-card-coming:hover::before { opacity: 0; }
 
+  /* 通し読みカード */
+  .nav-card-toshi {
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(245,240,228,0.85);
+  }
+
   .card-tag {
     font-size: 0.68rem;
     color: var(--crimson);
@@ -232,9 +237,8 @@
     display: block;
   }
 
-  .card-tag-coming {
-    color: #8a7a62;
-  }
+  .card-tag-coming { color: #8a7a62; }
+  .card-tag-toshi { color: var(--gold); }
 
   .card-title {
     font-family: 'Shippori Mincho', serif;
@@ -269,16 +273,89 @@
     right: 22px;
   }
 
-  /* 区切り線 */
+  /* セクション区切り */
   .section-divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-    margin: 40px 0;
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 4px;
   }
 
-  /* フッター */
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3));
+  }
+
+  .section-divider::after {
+    background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+  }
+
+  .section-divider-text {
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.4em;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  /* 個別リンク小カード */
+  .sub-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .sub-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(240,235,224,0.5);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 20px 14px 28px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .sub-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .sub-card:hover {
+    border-color: rgba(201,168,76,0.35);
+    transform: translateX(4px);
+  }
+
+  .sub-card:hover::before { opacity: 1; }
+
+  .sub-tag {
+    font-size: 0.6rem;
+    color: #9a8e7c;
+    letter-spacing: 0.35em;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .sub-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+  }
+
   .footer {
     text-align: center;
     padding: 40px 0 60px;
@@ -312,7 +389,6 @@
     font-style: italic;
   }
 
-  /* アニメーション */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
@@ -328,7 +404,6 @@
     to { transform: scaleX(1); }
   }
 
-  /* モバイル調整 */
   @media (max-width: 480px) {
     .header { padding: 60px 0 40px; }
     .nav-card { padding: 24px 28px; }
@@ -340,7 +415,6 @@
 
 <div class="container">
 
-  <!-- ヘッダー -->
   <header class="header">
     <div class="header-mon">❧ ✦ ❧</div>
     <div class="header-title-en">Fragments of a Fleeting Dream</div>
@@ -353,11 +427,11 @@
     </p>
   </header>
 
-  <!-- ナビゲーション -->
   <nav class="nav-section">
     <div class="nav-label">— Works —</div>
     <div class="nav-grid">
 
+      <!-- 二条転生物語 -->
       <a href="nijo.html" class="nav-card">
         <span class="card-tag">転生物語 其の一</span>
         <div class="card-title">銀座奇譚・二条転生物語</div>
@@ -368,56 +442,40 @@
         <span class="card-arrow">→</span>
       </a>
 
-      <a href="yumeji_chiyo_ginza.html" class="nav-card">
-        <span class="card-tag">夢二式美人物語 其の壱</span>
-        <div class="card-title">カルピスと芋娘、銀座の邂逅</div>
+      <!-- 薫子転生物語 第一部 -->
+      <a href="kaoruko.html" class="nav-card">
+        <span class="card-tag">転生物語 其の二　第一部</span>
+        <div class="card-title">薫子転生物語　柳風庵の光と影</div>
         <div class="card-subtitle">
-          カフェ・ライオンでの出逢い<br>
-          大正浪漫・短篇
+          文化文政の江戸。水茶屋アイドルの絶頂と転落。<br>
+          散るなら咲いてるうちに——
         </div>
         <span class="card-arrow">→</span>
       </a>
 
-      <a href="yumeji_chiyo_moga.html" class="nav-card">
-        <span class="card-tag">夢二式美人物語 其の弐</span>
-        <div class="card-title">芋娘、モガになる</div>
+      <!-- 薫子転生物語 第二部 -->
+      <a href="kaoruko2.html" class="nav-card">
+        <span class="card-tag">転生物語 其の二　第二部</span>
+        <div class="card-title">薫子転生物語　再生の章</div>
         <div class="card-subtitle">
-          夏から翌春まで四季をかけた千代の変身譚<br>
-          大正浪漫・短篇
+          深川の河岸から始まる再生の物語。<br>
+          お凛・お歌・お初——女隠密への道
         </div>
         <span class="card-arrow">→</span>
       </a>
 
-      <a href="yokogao_no_neuchi.html" class="nav-card">
-        <span class="card-tag">夢二式美人物語 其の参</span>
-        <div class="card-title">横顔の値打ち</div>
+      <!-- 夢二千代 通し読み -->
+      <a href="yumeji_chiyo_all.html" class="nav-card nav-card-toshi">
+        <span class="card-tag card-tag-toshi">夢二式美人物語　全五篇　通し読み</span>
+        <div class="card-title">夢二と千代　完全版</div>
         <div class="card-subtitle">
-          垣抜けた千代がカルピス持ってアトリエに乗り込む<br>
-          大正浪漫・短篇
+          其の零〜其の四　全篇収録。スクロールで通し読み。<br>
+          カルピスと芋娘、銀座の邂逅から芋娘に還るまで
         </div>
         <span class="card-arrow">→</span>
       </a>
 
-      <a href="yumeji_chiyo_taisho.html" class="nav-card">
-        <span class="card-tag">夢二式美人物語 其の四</span>
-        <div class="card-title">大正美人と呼ばれた日、そして逃走</div>
-        <div class="card-subtitle">
-          震災後の銀座で千代が完成され「大正美人」の記号となる<br>
-          大正浪漫・短篇
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-
-      <a href="yumeji_chiyo_san.html" class="nav-card">
-        <span class="card-tag">夢二式美人物語 其の五</span>
-        <div class="card-title">時代のアイコン、そして芋娘に還る</div>
-        <div class="card-subtitle">
-          飛び立つ千代、時代のアイコンへ——夢二シリーズ完結篇<br>
-          大正浪漫・短篇
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-
+      <!-- 番外読切 -->
       <a href="ginza_cafe_tategumi.html" class="nav-card">
         <span class="card-tag">番外読切</span>
         <div class="card-title">銀座カフェ・刹那の閃光、そして逃避行</div>
@@ -428,15 +486,7 @@
         <span class="card-arrow">→</span>
       </a>
 
-      <div class="nav-card nav-card-coming">
-        <span class="card-tag card-tag-coming">転生物語 其の二　準備中</span>
-        <div class="card-title">薫子転生物語</div>
-        <div class="card-subtitle">
-          水茶屋アイドル、カフェ・ライオンに現る<br>
-          朱と金と乳白——1万ボルトの輝き
-        </div>
-      </div>
-
+      <!-- 放浪記 準備中 -->
       <div class="nav-card nav-card-coming">
         <span class="card-tag card-tag-coming">番外編　準備中</span>
         <div class="card-title">放浪記——二条の転生前夜</div>
@@ -447,11 +497,38 @@
       </div>
 
     </div>
+
+    <!-- 夢二千代 個別リンク -->
+    <div class="section-divider" style="margin-top:32px;">
+      <span class="section-divider-text">夢二式美人物語　個別</span>
+    </div>
+    <div class="sub-grid">
+      <a href="yumeji_chiyo_ginza.html" class="sub-card">
+        <span class="sub-tag">其の零</span>
+        <span class="sub-title">カルピスと芋娘、銀座の邂逅</span>
+      </a>
+      <a href="yumeji_chiyo_moga.html" class="sub-card">
+        <span class="sub-tag">其の壱</span>
+        <span class="sub-title">芋娘、モガになる</span>
+      </a>
+      <a href="yokogao_no_neuchi.html" class="sub-card">
+        <span class="sub-tag">其の弐</span>
+        <span class="sub-title">横顔の値打ち</span>
+      </a>
+      <a href="yumeji_chiyo_taisho.html" class="sub-card">
+        <span class="sub-tag">其の参</span>
+        <span class="sub-title">大正美人と呼ばれた日、そして逃走</span>
+      </a>
+      <a href="yumeji_chiyo_san.html" class="sub-card">
+        <span class="sub-tag">其の四</span>
+        <span class="sub-title">時代のアイコン、そして芋娘に還る</span>
+      </a>
+    </div>
+
   </nav>
 
 </div>
 
-<!-- フッター -->
 <footer class="footer">
   <div class="container">
     <div class="footer-mon">✦</div>

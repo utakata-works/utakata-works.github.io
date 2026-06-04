@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡沫の夢　薫子転生物語　第二部　再生の章</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1208;
+    --paper: #f5f0e8;
+    --accent: #8b2020;
+    --muted: #6b5c4c;
+    --rule: #c8b89a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    line-height: 2.0;
+    padding: 0;
+  }
+
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 60px;
+  }
+
+  header .series {
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  header .subtitle {
+    font-size: 15px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  /* プロローグ */
+  .prologue {
+    margin-bottom: 80px;
+  }
+
+  .prologue-title {
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .scene {
+    background: #ede8de;
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  .narration {
+    padding: 4px 0;
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 2.2;
+  }
+
+  .narration p {
+    margin-bottom: 8px;
+  }
+
+  .part-end {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin: 40px 0 60px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* 章 */
+  .chapter {
+    margin-bottom: 80px;
+  }
+
+  .chapter-number {
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .chapter-title {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p {
+    margin-bottom: 1.4em;
+  }
+
+  /* 地の文 */
+  .text p {
+    text-indent: 1em;
+  }
+
+  /* 短い地の文（情景） */
+  .beat {
+    margin: 28px 0;
+  }
+
+  .beat p {
+    margin-bottom: 0.3em;
+    text-indent: 0;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  /* セリフ */
+  .dialogue {
+    margin: 0 0 0.3em 0;
+    text-indent: 0;
+  }
+
+  /* 強調 */
+  strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* 区切り */
+  .sep {
+    text-align: center;
+    color: var(--rule);
+    margin: 36px 0;
+    font-size: 20px;
+    letter-spacing: 0.5em;
+  }
+
+  /* 小劇場 */
+  .kogekijo {
+    background: #ede8de;
+    border: 1px solid var(--rule);
+    padding: 32px 28px;
+    margin: 0 -4px 80px;
+    border-radius: 2px;
+  }
+
+  .kogekijo .chapter-title {
+    font-size: 18px;
+  }
+
+  /* 核心台詞 */
+  .key-line {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin: 32px 0;
+    padding: 16px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* つづく */
+  .tbc {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* 沈黙 */
+  .silence {
+    text-align: center;
+    color: var(--rule);
+    margin: 24px 0;
+    font-size: 14px;
+    letter-spacing: 0.5em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="series">泡沫の夢　薫子転生物語</div>
+  <h1>第二部　再生の章</h1>
+  <div class="subtitle">散るなら咲いてるうちに稼ぐんだよ♪</div>
+</header>
+
+<div class="container">
+
+<!-- プロローグ -->
+<div class="prologue">
+  <div class="prologue-title">― プロローグ ―</div>
+
+  <div class="scene">画：夜明け前の江戸。深川の川面に、薄い靄が漂っている。屋根の連なりが、藍色の空に黒く浮かんでいる。どこかで鳥が鳴いた。</div>
+
+  <div class="narration">
+    <p>江戸、文化文政の世。</p>
+    <p>八百八町、百万の人が肩を寄せ合って生きるこの街は、最後の輝きの中にあった。</p>
+  </div>
+
+  <div class="scene">画：仲見世の朝。店々が開き始める。水を打つ音。箒の音。威勢のいい掛け声。</div>
+
+  <div class="narration">
+    <p>賑わいの影で、静かに手が伸びていた。</p>
+    <p>旬の娘たちが、音もなく消えていった。</p>
+    <p>笑顔のまま消えた娘もいた。泣きながら消えた娘もいた。誰にも気づかれずに消えた娘もいた。</p>
+  </div>
+
+  <div class="scene">画：柳風庵の朝。縁台に腰掛けた娘が、通りに向かって笑っている。朱色の襷。白い歯。弾けるような笑顔。男たちが吸い寄せられるように足を止める。</div>
+
+  <div class="narration">
+    <p>柳風庵の薫子。</p>
+    <p>深川一と呼ばれた看板娘。</p>
+    <p>その笑顔は、百の言葉より雄弁だった。</p>
+  </div>
+
+  <div class="key-line">散るなら咲いてるうちに稼ぐんだよ。</div>
+
+  <div class="narration">
+    <p>それが薫子の口癖だった。笑って、働いて、また笑って。それだけでよかった。それだけのはずだった。</p>
+  </div>
+
+  <div class="scene">画：夜の柳風庵。灯が消えていく。遠くで犬が吠えた。</div>
+
+  <div class="narration">
+    <p>だがある夜。</p>
+    <p>薫子の笑顔が、闇に飲まれた。</p>
+  </div>
+
+  <div class="scene">画：深川の河岸。暗い水面。靄の中に、人影が揺れる。そして——消える。</div>
+
+  <div class="narration">
+    <p>七人の娘が消えた街で、一人の女が動き始めた。</p>
+  </div>
+
+  <div class="scene">画：三味線屋の灯。夜の深川に、一つだけ灯が揺れている。三味線の音が、細く流れてくる。</div>
+
+  <div class="narration">
+    <p>深川の外れ、三味線屋の奥。そこに、女たちが集まっていた。全員が一度、闇に落ちた女たちが。</p>
+  </div>
+
+  <div class="scene">画：お凛の横顔。行灯の炎を映した、切れ長の目。静かで、深くて、すべてを知っている目。</div>
+
+  <div class="narration">
+    <p>元締めの名はお凛。静かで、深く、すべてを見通す女。傷ついた女の痛みを知っているから、拾える女。</p>
+  </div>
+
+  <div class="scene">画：深川の夜明け。川面に光が差し始める。薫子が歩いている。足音を消して。でも前を向いて。</div>
+
+  <div class="narration">
+    <p>看板娘は死ななかった。陽だまりは消えなかった。</p>
+    <p>散るなら咲いてるうちに——薫子はまだ、咲いている。</p>
+  </div>
+
+  <div class="part-end">第二部　再生の章　始まる。</div>
+</div>
+
+
+<!-- 一 -->
+<div class="chapter">
+  <div class="chapter-number">一</div>
+  <div class="chapter-title">生きてるんだ</div>
+
+  <div class="text">
+    <p>見知らぬ天井だった。</p>
+    <p>太い梁。煤けた板。どこかで三味線の音がしている。低く、ゆっくり、まるで水が流れるように。</p>
+    <p>薫子はしばらく、自分がどこにいるのかわからなかった。</p>
+    <p>体が重い。手足の先がじんじんする。頭の中がまだ、あの夜の暗さを引きずっていた。</p>
+  </div>
+
+  <div class="beat">
+    <p>――柳風庵はもうない。</p>
+    <p>――嘉兵衛さんはもういない。</p>
+    <p>――私はもう、どこにも要らない人間だ。</p>
+  </div>
+
+  <div class="text">
+    <p>そう思った夜のことは、靄の中にある。水の冷たさだけが、妙にはっきり残っていた。</p>
+    <p class="dialogue">「……生きてるんだ」</p>
+    <p>声に出たのは、自分でも驚いた。天井を見たまま、薫子はもう一度繰り返した。</p>
+    <p class="dialogue">「生きてるんだ。有難う御座います」</p>
+    <p>誰に言ったのかわからない。神様か、お天道様か、それとも自分自身か。ただ言わずにいられなかった。</p>
+  </div>
+
+  <div class="beat">
+    <p>――その瞬間。</p>
+  </div>
+
+  <div class="silence">ぐう。</div>
+
+  <div class="text">
+    <p>薫子の腹が、盛大に鳴った。</p>
+  </div>
+
+  <div class="silence">………</div>
+
+  <div class="text">
+    <p class="dialogue">「………あははははは！」</p>
+    <p>障子の向こうから笑い声が飛び込んできた。勢いよく障子が開いて、女が顔を突っ込んでくる。</p>
+    <p>年の頃は三十前後か。目元が明るく、口角が常に上がっている。いかにも世渡り上手そうな、しかし嫌みのない顔だった。</p>
+    <p class="dialogue">「起きたね。腹減ってるね。よし、飯にしよう」</p>
+    <p class="dialogue">「あの、あなたは――」</p>
+    <p class="dialogue">「お歌。口入れ屋やってる。細かい話は飯食ってから」</p>
+    <p>それだけ言って、さっさと引っ込む。</p>
+    <p>薫子は天井を見たまま、もう一度だけ呟いた。</p>
+    <p class="dialogue">「……生きてるんだ、私」</p>
+    <p>今度は、少しだけ笑えた。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>お歌が運んできたのは、麦飯と味噌汁と、沢庵が三切れ。質素だが、湯気が立っていた。</p>
+    <p>薫子は起き上がろうとして、腕がうまく動かないことに気づいた。体中が軋む。膝も腰も、まるで古い蝶番のようだ。</p>
+    <p class="dialogue">「無理しなくていい」</p>
+    <p>お歌が脇に座って、椀を持ち上げる。</p>
+    <p class="dialogue">「飲めるか」</p>
+    <p class="dialogue">「……自分で」</p>
+    <p class="dialogue">「強情だね」</p>
+    <p>笑いながらも、お歌は椀を薫子の手元に置いた。薫子は両手でゆっくり持ち上げて、一口すすった。</p>
+    <p>――しょっぱい。</p>
+    <p>出汁が濃い。塩が強い。江戸前の味噌汁だ。目の奥が、じわりと熱くなった。</p>
+    <p class="dialogue">「……美味しい」</p>
+    <p class="dialogue">「そりゃよかった」</p>
+    <p>お歌はあっさり言って、自分も沢庵をかじる。しばらく、二人とも黙っていた。三味線の音だけが、どこか遠くで続いている。</p>
+    <p class="dialogue">「あの音は」</p>
+    <p class="dialogue">「うちの元締め。朝はああやって弾いてる」</p>
+    <p class="dialogue">「元締め」</p>
+    <p class="dialogue">「細かい話は後でいいって言ったろ」</p>
+    <p>薫子は椀を置いて、お歌の顔をまっすぐ見た。</p>
+    <p class="dialogue">「なんで助けてくれたんですか」</p>
+    <p>お歌は少し間を置いた。沢庵を噛んで、飲み込んで、それから言った。</p>
+    <p class="dialogue">「通りかかったから」</p>
+    <p class="dialogue">「それだけですか」</p>
+    <p class="dialogue">「それだけだよ」</p>
+    <p>嘘ではないだろう。だが全部でもないだろう。薫子にはなんとなく、そう思えた。</p>
+    <p class="dialogue">「……柳風庵の薫子って、知ってますか」</p>
+    <p>お歌は答えない。</p>
+    <p class="dialogue">「私です。元、ですけど」</p>
+    <p class="dialogue">「知ってる」</p>
+    <p>やっぱり。薫子は膝の上で手を握った。</p>
+    <p class="dialogue">「恥ずかしいとこ見せました」</p>
+    <p class="dialogue">「見てない」</p>
+    <p class="dialogue">「見たでしょう」</p>
+    <p class="dialogue">「見てない」</p>
+    <p>お歌はもう一度、きっぱりと言った。</p>
+    <p class="dialogue">「私が見たのは、深川の河岸で倒れてた女だ。それだけ」</p>
+    <p>薫子は、しばらく黙った。喉の奥が詰まって、うまく言葉が出ない。</p>
+    <p class="dialogue">「……有難う御座います」</p>
+    <p class="dialogue">「さっきも言った」</p>
+    <p class="dialogue">「もう一回言います」</p>
+    <p>お歌は鼻を鳴らして、立ち上がった。</p>
+    <p class="dialogue">「飯食ったら、元締めに会わせる。怖くないから安心しな」</p>
+    <p class="dialogue">「怖そうですか、その人」</p>
+    <p class="dialogue">「怖いよ」</p>
+    <p class="dialogue">「怖いんじゃないですか」</p>
+    <p class="dialogue">「でも大丈夫だから安心しな」</p>
+    <p>障子の前で振り返って、お歌はにっと笑った。</p>
+    <p class="dialogue">「あんたみたいな子、元締めは嫌いじゃないから」</p>
+  </div>
+</div>
+
+
+<!-- 二 -->
+<div class="chapter">
+  <div class="chapter-number">二</div>
+  <div class="chapter-title">お凛</div>
+
+  <div class="text">
+    <p>三味線の音が、止んだ。</p>
+    <p>お歌に連れられて廊下を歩きながら、薫子はその静けさが妙に重いと思った。音があった間は気にならなかった。止んだ途端に、空気が変わった気がする。</p>
+    <p class="dialogue">「入るよ」</p>
+    <p>お歌が襖の前で声をかける。返事はなかった。それでもお歌は躊躇なく襖を開けた。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>部屋は思ったより狭かった。</p>
+    <p>床の間に一輪、白い花。文机の前に、女が座っている。</p>
+    <p>年の頃は四十を少し過ぎたか。派手さはない。地味な縞の着物。結い上げた髪に飾りひとつない。</p>
+    <p>だが薫子は、入った瞬間に足が止まった。</p>
+  </div>
+
+  <div class="key-line">重い。</div>
+
+  <div class="text">
+    <p>見た目ではない。部屋全体に、その女の時間が澱んでいる。積み重なった何かが、静かに満ちている。</p>
+    <p>女は文机から目を上げた。切れ長の目が、薫子をまっすぐ見た。値踏みでも品定めでもない。ただ、<strong>見ている</strong>。</p>
+    <p class="dialogue">「お凛さん、連れてきました」</p>
+    <p>お歌が言った。お凛は薫子から目を離さないまま、小さく顎を引いた。</p>
+    <p class="dialogue">「座りな」</p>
+    <p>低い声だった。よく通る。三味線に似た声だと薫子は思った。</p>
+    <p>薫子は黙って座った。しばらく、お凛は何も言わなかった。薫子も何も言えなかった。</p>
+    <p>あの鬼塚の手下に凄まれた時も、悪徳商人に値踏みされた時も、薫子はどこかで笑って躱してきた。なのに今、この静かな女の前で、薫子は妙に身動きが取れない。</p>
+    <p>怖いのではない。<strong>見透かされている</strong>、と思った。</p>
+    <p>過去も、転落も、あの夜の河岸も。言わなくてもわかっている目だ。</p>
+    <p class="dialogue">「柳風庵にいたそうだね」</p>
+    <p class="dialogue">「……はい」</p>
+    <p class="dialogue">「嘉兵衛は達者か」</p>
+    <p>薫子は少し驚いた。</p>
+    <p class="dialogue">「ご存知なんですか」</p>
+    <p class="dialogue">「昔ね」</p>
+    <p>それだけ言って、お凛は文机の上の湯呑みを手に取った。</p>
+    <p class="dialogue">「あんたに聞くことは一つだけだ」</p>
+    <p>湯呑みを両手で包んで、薫子を見る。</p>
+    <p class="dialogue">「これからどうしたい」</p>
+    <p>薫子は、答えに詰まった。柳風庵はない。居場所はない。行く先もない。昨日まで、それすら考えられなかった。</p>
+    <p>だが今朝、麦飯を食べた。味噌汁がしょっぱかった。腹が鳴った。生きてると思った。</p>
+    <p class="dialogue">「……働きたいです。何でもします。お茶でも運びます。掃除でもします」</p>
+    <p class="dialogue">「それだけか」</p>
+    <p class="dialogue">「……もう一回、お天道様の下で笑って働きたいです」</p>
+    <p>言ってから、子供みたいだと思った。だがお凛は笑わなかった。湯呑みを置いて、静かに言った。</p>
+    <p class="dialogue">「ここにいる女は全員、一度死にかけてる。あんたと同じだ」</p>
+    <p>薫子は黙って聞いた。</p>
+    <p class="dialogue">「うちは口入れ屋でも岡場所でもない。ただ、踏み込める場所がある。表の人間には踏み込めない場所が」</p>
+    <p class="dialogue">「……どういう場所ですか」</p>
+    <p class="dialogue">「あんたが一番よく知ってる場所だよ」</p>
+    <p>薫子はゆっくり、意味を飲み込んだ。水茶屋。岡場所。商家の奥。男たちが集まる、華やかで薄暗い場所。</p>
+    <p class="dialogue">「笑顔で入れる女が要る」</p>
+    <p>お凛の目が、静かに光った。</p>
+    <p class="dialogue">「柳風庵一の看板娘なら、その顔は持ってるだろう」</p>
+    <p>薫子は少しの間、膝の上を見つめた。それから顔を上げた。</p>
+    <p class="dialogue">「散るなら咲いてるうちに稼ぐんだよ、って言葉があります」</p>
+    <p class="dialogue">「誰の言葉だ」</p>
+    <p class="dialogue">「私のです」</p>
+    <p>お凛は、初めて口元を緩めた。</p>
+    <p class="dialogue">「合格だ」</p>
+  </div>
+</div>
+
+
+<!-- 三 -->
+<div class="chapter">
+  <div class="chapter-number">三</div>
+  <div class="chapter-title">稽古はじめ</div>
+
+  <div class="text">
+    <p>翌朝から、薫子の日々が変わった。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>夜明け前に起こされる。</p>
+    <p class="dialogue">「早い」</p>
+    <p class="dialogue">「当たり前だ」</p>
+    <p>お歌が布団を剥ぐ。容赦がない。薫子はよろよろと起き上がって、井戸端で顔を洗う。水が冷たい。目が覚める。空がまだ藍色のうちに、稽古が始まる。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>最初の三日は、歩くことだった。</p>
+    <p class="dialogue">「歩くだけですか」</p>
+    <p class="dialogue">「歩くだけだ」</p>
+    <p>お歌が前を歩く。薫子がついていく。深川の路地を、朝の市を、川沿いを。</p>
+    <p class="dialogue">「普通に歩いてるつもりですけど」</p>
+    <p class="dialogue">「足音が聞こえる」</p>
+    <p class="dialogue">「歩いてるんだから当たり前じゃないですか」</p>
+    <p class="dialogue">「聞こえちゃいけない」</p>
+    <p>薫子は首を傾げながら、足の裏に意識を向けた。草履の、どこで地面を踏んでいるか。重心が、どこに乗っているか。</p>
+    <p>柳風庵にいた頃も、薫子はよく歩いた。お茶を運ぶ。客の間を縫う。だがあれは<strong>見せるための歩き</strong>だった。今求められているのは逆だ。<strong>気配を消す。存在を薄くする。</strong></p>
+    <p class="dialogue">「難しいですね」</p>
+    <p class="dialogue">「当たり前だ。でもあんたは有利だよ」</p>
+    <p class="dialogue">「どこがですか」</p>
+    <p class="dialogue">「人の目を引くのが上手いだろ。引き方を知ってる人間は、消し方も覚えられる」</p>
+    <p>薫子はその言葉を、歩きながら噛んだ。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>四日目から、目線の稽古が始まった。お凛が正面に座って、薫子の目を見ている。</p>
+    <p class="dialogue">「見るな」</p>
+    <p class="dialogue">「見てませんよ」</p>
+    <p class="dialogue">「見てる。目が動いてる」</p>
+    <p class="dialogue">「見たいものを、見ないで見る」</p>
+    <p class="dialogue">「日本語ですか、それ」</p>
+    <p class="dialogue">「視野で拾え。目を向けるな」</p>
+    <p>三十回目か四十回目か、薫子の中で何かが変わった。目を向けなくても、部屋の隅が見える。お凛の手元が見える。お歌が廊下を歩く気配が見える。</p>
+    <p class="dialogue">「できた」</p>
+    <p>お凛が静かに言った。</p>
+    <p class="dialogue">「早いね」</p>
+    <p class="dialogue">「看板娘は、客席全部見てますから。一人に笑いかけながら、隣の客がいつ空になるか、ずっと見てます」</p>
+    <p>お凛は微かに目を細めた。</p>
+    <p class="dialogue">「それだ」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>十日が経った頃、お歌が木刀を持ってきた。</p>
+    <p class="dialogue">「え」</p>
+    <p class="dialogue">「やるよ」</p>
+    <p class="dialogue">「振り方も知らないですよ」</p>
+    <p class="dialogue">「知らなくていい。当てなくていい。避けるだけでいい。あんたの仕事は斬ることじゃない」</p>
+    <p>お歌の目が、すっと細くなった。</p>
+    <p class="dialogue">「逃げることと、隙を作ること。それだけだ」</p>
+    <p>木刀が来た。薫子は反射的に身を捻った。風が耳をかすめた。</p>
+    <p class="dialogue">「……避けた」</p>
+    <p class="dialogue">「まぐれだ。もう一回」</p>
+    <p>また来た。今度は避けられなかった。肩に鈍い衝撃。</p>
+    <p class="dialogue">「痛っ」</p>
+    <p class="dialogue">「避けろ」</p>
+    <p class="dialogue">「今のは早すぎる」</p>
+    <p class="dialogue">「敵はもっと早い」</p>
+    <p>薫子は肩をさすりながら、木刀を握り直した。腹が立ってきた。</p>
+    <p><strong>腹が立つのはいいことだ</strong>、と薫子は思った。喪失していたあの夜、腹など立たなかった。怒れるということは、まだ薫子が薫子だということだ。</p>
+    <p class="dialogue">「もう一回お願いします」</p>
+    <p>お歌が少し笑った。</p>
+    <p class="dialogue">「その顔だよ。それがあんたの顔だ」</p>
+  </div>
+</div>
+
+
+<!-- 四 -->
+<div class="chapter">
+  <div class="chapter-number">四</div>
+  <div class="chapter-title">夜、お凛の話</div>
+
+  <div class="text">
+    <p>夜が深くなると、お凛は三味線を弾いた。薫子はいつの間にか、その音を聞きながら眠るようになっていた。</p>
+    <p>ある夜、眠れなかった。肩の痛みではない。体は疲れている。だが頭が静かにならない。</p>
+    <p>薫子は布団を出て、廊下を歩いた。足音を消すように、この十日で覚えた歩き方で。三味線の音がする部屋の前で、薫子は立ち止まった。</p>
+    <p class="dialogue">「入りな」</p>
+    <p>声が来た。薫子は少し驚いて、それでも襖を開けた。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>お凛は行灯の前に座って、三味線を膝に置いていた。弾くのをやめて、薫子を見ている。</p>
+    <p class="dialogue">「眠れないのか」</p>
+    <p class="dialogue">「はい」</p>
+    <p class="dialogue">「座りな」</p>
+    <p>薫子は黙って座った。しばらく、二人とも黙っていた。行灯の炎が、ゆらりと揺れる。</p>
+    <p class="dialogue">「お凛さんは、昔、何をしてたんですか」</p>
+    <p class="dialogue">「御庭番の端っこにいた」</p>
+    <p class="dialogue">「御庭番」</p>
+    <p class="dialogue">「今は違う。端っこから外れた」</p>
+    <p>それ以上は言わなかった。薫子も聞かなかった。黒歴史というものは、話したい時に話すものだ。柳風庵でそれくらいは学んでいた。</p>
+    <p class="dialogue">「お仙さんを知ってますか」</p>
+    <p>薫子は別のことを聞いた。笠森お仙。神田明神下の水茶屋の看板娘。薫子が子供の頃、伝説のように語られていた名前。</p>
+    <p class="dialogue">「知ってる」</p>
+    <p>お凛の声が、少しだけ変わった。</p>
+    <p class="dialogue">「御庭番の男と一緒になって、消えた」</p>
+    <p class="dialogue">「幸せになったんですよね」</p>
+    <p class="dialogue">「そうだね」</p>
+    <p class="dialogue">「でも。お仙さんが消えた後、他の娘たちは誰も助けてもらえなかった」</p>
+    <p>お凛は答えない。</p>
+    <p class="dialogue">「私みたいな娘が、ずっといたはずです。行き場を失くして、真っ暗になって、おかしな方へ転がっていく娘が」</p>
+    <p class="dialogue">「……そうだね」</p>
+    <p>お凛の声は静かだった。静かすぎて、薫子は顔を上げた。お凛の目が、行灯の炎を映している。その奥に何があるか、薫子にはわからなかった。ただ、深いと思った。たくさんのものが沈んでいると思った。</p>
+    <p class="dialogue">「私を拾ったのは、お仙さんを助けた人たちが、他の娘たちを助けられなかったから、ですか」</p>
+    <p>お凛は長い間、黙っていた。それから三味線を持ち上げて、弦を一本だけ鳴らした。低い音が、部屋に広がって、消えた。</p>
+    <p class="dialogue">「賢いね」</p>
+    <p class="dialogue">「看板娘ですから」</p>
+    <p class="dialogue">「看板娘は賢くなくていい、と思ってる男が多い」</p>
+    <p class="dialogue">「だから看板娘は賢くなれるんです」</p>
+    <p>お凛は今夜二度目の、微かな笑みを見せた。</p>
+    <p class="dialogue">「そうだね」</p>
+    <p>三味線がまた鳴り始めた。薫子はそのまま、しばらくそこに座っていた。炎が揺れる。音が流れる。お凛の横顔が、静かにそこにある。</p>
+    <p>――いつかこの人の黒歴史を、聞かせてもらえる日が来るだろうか。</p>
+    <p>そう思いながら、薫子は目を閉じた。</p>
+  </div>
+</div>
+
+
+<!-- 五 -->
+<div class="chapter">
+  <div class="chapter-number">五</div>
+  <div class="chapter-title">実地稽古・両国</div>
+
+  <div class="text">
+    <p class="dialogue">「今日から外に出る」</p>
+    <p>朝餉の最中にお歌が言った。</p>
+    <p class="dialogue">「どこへですか」</p>
+    <p class="dialogue">「両国」</p>
+    <p>両国。橋の東西に広がる盛り場。見世物小屋、食い物屋、香具師、旅人、江戸中の人間が流れ込んでくる場所。</p>
+    <p class="dialogue">「何をするんですか」</p>
+    <p class="dialogue">「何もしない。歩いて、見て、帰ってくる。帰ってきたら報告してもらう。誰が何をしていたか。どこに人が集まっていたか。空気がどう動いていたか」</p>
+    <p class="dialogue">「普通に見てくればいいんですか」</p>
+    <p class="dialogue">「普通に、が一番難しい」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>両国は賑やかだった。初夏の陽気に誘われて、人が溢れている。香具師の口上が飛ぶ。子供が走る。犬が吠える。</p>
+    <p>薫子はその中をゆっくり歩いた。ただの町娘として、流れの中に溶け込む。</p>
+    <p>橋の袂に屯する男たち。三人。羽織の柄が揃っている。目が油断なく動いている。客ではない。食い物屋の前の老爺。物乞いのように見えるが、草履が新しい。</p>
+    <p>薫子は顔に出さないまま、全部を拾った。看板娘の目だ。</p>
+    <p><strong>消えながら、全部見える。</strong></p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>見世物小屋の前を過ぎたところで、薫子は足を止めた。路地の奥。若い女が、男に腕を掴まれている。嫌がっている。だが声を上げられない。</p>
+    <p>薫子の体が、動きかけた。</p>
+    <p>――待て。</p>
+    <p>路地の入口に、もう一人男がいる。見張りだ。二人いる。薫子一人では無理だ。今日は違う。</p>
+    <p>薫子は屋台の前で足を止めて、串を一本買った。何気なく齧りながら、路地を視界の端に収め続けた。</p>
+    <p>女が男に引きずられていく。薫子の手が、串を強く握った。</p>
+    <p><strong>悔しい。</strong></p>
+    <p>だが動かなかった。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p class="dialogue">「よくやった」</p>
+    <p>報告を聞いたお歌が言った。</p>
+    <p class="dialogue">「動かなかったのが、ですか」</p>
+    <p class="dialogue">「そう」</p>
+    <p class="dialogue">「全然よくないです」</p>
+    <p class="dialogue">「あの女の人、どうなったか」</p>
+    <p class="dialogue">「今日のところは大丈夫だ。うちの別の者が後をつけた」</p>
+    <p class="dialogue">「最初から見てたんですか」</p>
+    <p class="dialogue">「当たり前だろ。一人で出すわけないじゃないか、まだ」</p>
+    <p>薫子は少し脱力した。それから、また腹が立ってきた。</p>
+    <p class="dialogue">「次はどうすればよかったんですか」</p>
+    <p class="dialogue">「今日は正解だ。でも——見張りの男を引き離す方法が、あんたにはある。あんたが路地の前を通ったとき、見張りの男の目が動いたの、気づいたか」</p>
+    <p class="dialogue">「……動いてました」</p>
+    <p class="dialogue">「そういうことだ」</p>
+    <p>柳風庵一の看板娘。その顔は、武器だ。薫子はゆっくり、それを飲み込んだ。</p>
+    <p>胸の中で何かが固まっていく感じがした。悲しみでも怒りでもなく。<strong>覚悟、というやつかもしれない。</strong></p>
+  </div>
+</div>
+
+
+<!-- 六 -->
+<div class="chapter">
+  <div class="chapter-number">六</div>
+  <div class="chapter-title">実地稽古・浅草</div>
+
+  <div class="text">
+    <p>浅草は、両国とは空気が違った。仲見世の賑わいは表の顔だ。その裏に、もっと古い、もっと濃い空気が流れている。</p>
+    <p class="dialogue">「今日は二手に分かれる。私は西側を見る。あんたは東側を一人で回れ」</p>
+    <p class="dialogue">「一人ですか」</p>
+    <p class="dialogue">「一人だ」</p>
+    <p class="dialogue">「見てる人はいますか」</p>
+    <p class="dialogue">「いない」</p>
+    <p class="dialogue">「本当ですか」</p>
+    <p class="dialogue">「本当だ。何を見ればいいかって？いつもと違うものを見ろ」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>東側の突き当たりまで来たところで、薫子は立ち止まった。裏手に細い路地がある。だが路地の入口に、荷車が止まっている。布で覆われている。御用聞き風の男が二人、脇に立っている。</p>
+    <p>薫子は通り過ぎるふりをして、視野の端で拾った。荷車の布が、わずかに動いた。風ではない。内側から、動いた。</p>
+    <p>薫子の背中が、さっと冷えた。</p>
+    <p>足を止めてはいけない。顔に出してはいけない。</p>
+    <p>薫子は水茶屋の前まで戻って、床几に座った。お茶を受け取りながら、さりげなく聞いた。</p>
+    <p class="dialogue">「あちらの路地、荷車が止まってましたけど、よく来るんですか」</p>
+    <p>娘の顔が、一瞬止まった。ほんの少し。客には気づかれない程度。だが薫子には見えた。</p>
+    <p class="dialogue">「さあ、私はちょっと」</p>
+    <p class="dialogue">「そうですよね、ごめんなさい。美味しい、ありがとう」</p>
+    <p>娘の顔から、警戒が少し解けた。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>お歌との合流場所に戻ると、お歌が先に来て待っていた。薫子は報告した。荷車のこと。布が動いたこと。水茶屋の娘の顔が止まったこと。</p>
+    <p class="dialogue">「その路地、抜け道がある」</p>
+    <p class="dialogue">「やっぱり」</p>
+    <p class="dialogue">「荷車は昨日もいた。一昨日もいた」</p>
+    <p class="dialogue">「じゃあ、布の中は」</p>
+    <p class="dialogue">「まだわからない。でも今日、あんたが水茶屋の娘に聞いたことで、一個確かめられた。知ってるか、見せられてるか、どちらかだ」</p>
+    <p class="dialogue">「水茶屋の娘たちは、巻き込まれてるんですか」</p>
+    <p class="dialogue">「かもしれない」</p>
+    <p class="dialogue">「助けられますか」</p>
+    <p>お歌は薫子を、少しの間、黙って見ていた。</p>
+    <p class="dialogue">「それを決めるのはお凛だ」</p>
+    <p>仲見世の人波を抜けながら、薫子は前を向いたまま言った。</p>
+    <p class="dialogue">「お歌さん、今日、見てた人、本当にいなかったですか」</p>
+    <p>お歌が振り返らないまま、少し笑った気配がした。</p>
+    <p class="dialogue">「いなかったよ」</p>
+    <p class="dialogue">「……そうですか」</p>
+    <p class="dialogue">「でもよくやった」</p>
+    <p>薫子は小さく息を吐いた。空が夕暮れに染まり始めていた。</p>
+  </div>
+</div>
+
+
+<!-- 七 -->
+<div class="chapter">
+  <div class="chapter-number">七</div>
+  <div class="chapter-title">夜、報告</div>
+
+  <div class="text">
+    <p>夕餉が終わってから、お凛の部屋に呼ばれた。お歌も一緒だった。三人で向かい合って座る。行灯が一つ。部屋が狭く感じる。</p>
+    <p>薫子は今日見たものを、順番に話した。感情を交えず、見たままを。</p>
+    <p>話しながら、薫子は自分が変わったと思った。一月前の薫子なら、こんな話し方はできなかった。今は違う。見たものと、感じたことを、分けて話せる。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p class="dialogue">「布が動いたのは、どのくらいの大きさだった」</p>
+    <p class="dialogue">「……猫より大きい。子供より小さいか、同じくらい」</p>
+    <p class="dialogue">「動き方は」</p>
+    <p class="dialogue">「もがくような、じゃなかったです。寝返りを打つような、動き方でした」</p>
+    <p>お凛の目が、わずかに険しくなった。</p>
+    <p class="dialogue">「意識があるかもしれない」</p>
+    <p>お歌が言った。</p>
+    <p class="dialogue">「あるいは、薬を盛られてる」</p>
+    <p>部屋が静かになった。行灯の炎だけが揺れている。</p>
+    <p class="dialogue">「旬の娘の連続失踪。去年から数えて、七人」</p>
+    <p class="dialogue">「七人」</p>
+    <p class="dialogue">「全員、水茶屋か岡場所の娘か」</p>
+    <p class="dialogue">「六人はそうだ。一人は商家の女中」</p>
+    <p class="dialogue">「どこへ消えたんですか」</p>
+    <p class="dialogue">「わからない。だから探してる」</p>
+    <p class="dialogue">「薫子。あんたも、消えかけた一人だ」</p>
+    <p>薫子は息を止めた。</p>
+    <p class="dialogue">「鬼塚の手が、柳風庵に伸びていたのは知ってるか」</p>
+    <p class="dialogue">「……知ってます」</p>
+    <p class="dialogue">「嘉兵衛が断り続けていた。だから経済的に締め上げられた。あんたが差し出されるはずだった」</p>
+    <p class="dialogue">「わかってました」</p>
+    <p class="dialogue">「それでも逃げなかった」</p>
+    <p class="dialogue">「逃げる場所が」</p>
+    <p class="dialogue">「なかったね」</p>
+    <p>お凛の声に、初めて温度が混じった。責めているのではない。ただ、知っている、という温度だ。</p>
+    <p class="dialogue">「だから私が今ここにいるのは、運がよかっただけで」</p>
+    <p class="dialogue">「そうだ」</p>
+    <p class="dialogue">「他の七人は」</p>
+    <p class="dialogue">「運が悪かった」</p>
+    <p>部屋が静かになった。七人。顔も名前も知らない。でも同じ娘たちだ。笑顔で茶を運んで、客の目を捕まえて、毎日を生きていた娘たちだ。</p>
+    <p class="dialogue">「取り戻せますか。七人、取り戻せますか」</p>
+    <p>お凛は答えなかった。すぐには答えなかった。行灯の炎が、ゆらりと揺れた。</p>
+    <p class="dialogue">「全員は難しいかもしれない。でも一人でも多く、と思ってる」</p>
+    <p class="dialogue">「私も。私も、そう思います」</p>
+    <p>お歌が薫子を見た。お凛が薫子を見た。二人とも、何も言わなかった。言わなくてよかった。薫子にはわかった。これが、この場所に来た理由だ。</p>
+    <p class="dialogue">「明日から稽古の内容が変わる。覚悟しておけ」</p>
+    <p class="dialogue">「はい」</p>
+    <p class="dialogue">「きつくなるよ」</p>
+    <p class="dialogue">「わかってます」</p>
+    <p class="dialogue">「本当にきついよ」</p>
+    <p class="dialogue">「わかってます」</p>
+    <p class="dialogue">「強情だね」</p>
+    <p class="dialogue">「看板娘ですから」</p>
+    <p>お凛の手が、弦を弾いた。低い音が部屋に広がった。今夜の報告は終わりだ。</p>
+    <p>薫子は立ち上がって、一礼して部屋を出た。廊下に出た途端、少し足が震えているのに気づいた。怖いのではない。七人という数が、体の中に入ってきた震えだ。</p>
+    <p>江戸の夜は深い。</p>
+  </div>
+
+  <div class="key-line">散るなら咲いてるうちに稼ぐんだよ。</div>
+
+  <div class="text">
+    <p>薫子は小さく呟いて、自分の部屋へ戻った。</p>
+  </div>
+</div>
+
+
+<!-- 八 -->
+<div class="chapter">
+  <div class="chapter-number">八</div>
+  <div class="chapter-title">稽古、変わる——お初</div>
+
+  <div class="text">
+    <p>翌朝、井戸端に行くと、見知らぬ女が立っていた。三十絡みか。細い。背が高い。目が涼しい。</p>
+    <p class="dialogue">「誰ですか」</p>
+    <p class="dialogue">「お初だ」</p>
+    <p>それだけ言って、女は薫子の周りをゆっくり歩いた。品定めをするように。馬を値踏みするように。</p>
+    <p class="dialogue">「なるほど」</p>
+    <p class="dialogue">「何がなるほどですか」</p>
+    <p class="dialogue">「姿勢が悪い」</p>
+    <p>薫子は思わず背筋を伸ばした。</p>
+    <p class="dialogue">「伸ばすな」</p>
+    <p class="dialogue">「どっちですか」</p>
+    <p class="dialogue">「力を入れるな。抜くな。ただそこにいろ」</p>
+    <p class="dialogue">「お初さんは、何を教えてくれるんですか」</p>
+    <p class="dialogue">「化粧と着付けと、歩き方と、座り方と、笑い方と」</p>
+    <p class="dialogue">「全部知ってます」</p>
+    <p class="dialogue">「知ってると思ってる、だろ。水茶屋の薫子として知ってる。それは捨てろ」</p>
+    <p class="dialogue">「捨てるんですか」</p>
+    <p class="dialogue">「別の女になる稽古だ」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>三日目に、お初が口を開いた。</p>
+    <p class="dialogue">「今日から別の女になる。名前は何がいい」</p>
+    <p class="dialogue">「……お志乃」</p>
+    <p class="dialogue">「なぜ」</p>
+    <p class="dialogue">「……強そうだから」</p>
+    <p>お初が初めて、口元だけで笑った。</p>
+    <p class="dialogue">「お志乃にしよう」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>お志乃は、薫子とは違う女だった。出身は上方。大坂の小間物屋の娘。父親が病で倒れて、江戸の親戚を頼って出てきた。</p>
+    <p>十日かけて、薫子はお志乃を少しずつ作った。歩き方。薫子より少し内股。座り方。膝をきっちり揃える。目線。少し伏し目がちで、時折上目遣いになる。</p>
+    <p class="dialogue">「なんか地味ですね、お志乃さん」</p>
+    <p class="dialogue">「地味でいい。薫子の愛嬌は一里先から見える。お志乃の愛嬌は隣に来て初めてわかる」</p>
+    <p class="dialogue">「人を見るのが好きだろ」</p>
+    <p>薫子は少し驚いた。</p>
+    <p class="dialogue">「……そうかもしれません」</p>
+    <p class="dialogue">「人を見るのが好きな人間は、人を演じるのも上手い。柳風庵で毎日、客を見てたんだろ。あれが全部、稽古になってたんだ。あんたが知らないうちに」</p>
+    <p class="dialogue">「……嘉兵衛さんに感謝しないといけませんね」</p>
+    <p>お初は何も言わなかった。ただ、針を動かす手が、少しだけ止まった。</p>
+  </div>
+</div>
+
+
+<!-- 九 -->
+<div class="chapter">
+  <div class="chapter-number">九</div>
+  <div class="chapter-title">お志乃、初舞台</div>
+
+  <div class="text">
+    <p>朝から曇っていた。薫子はお初に着付けてもらいながら、鏡を見た。見知らぬ女がいた。地味な水色の着物。小さな珊瑚の簪一本。薫子ではない。</p>
+    <p class="dialogue">「……お志乃だ」</p>
+    <p>薫子は鏡の中のお志乃に向かって、小さく頷いた。よろしく。しばらく頼む。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>小間物屋はのれんをくぐった瞬間、女将が顔を上げた。</p>
+    <p class="dialogue">「……綺麗どすなあ」</p>
+    <p>簪の並ぶ棚の前で、薫子は呟いた。声が出た瞬間、自分でも驚いた。薫子の声ではなかった。お志乃の声だった。</p>
+    <p>女将との会話が弾む。身の上話が通じた。人は緩む。うまくいっている。</p>
+    <p>だが油断した、その瞬間だった。</p>
+    <p class="dialogue">「お嬢さん、どこかでお会いしましたかね」</p>
+    <p>女将の目が、少し細くなった。薫子の体が、一瞬固まった。</p>
+    <p>固まったのは、ほんの一瞬だ。だがその一瞬を、薫子は全力で潰した。</p>
+    <p class="dialogue">「さあ、私は江戸に来たばかりで。人違いやおへんか」</p>
+    <p class="dialogue">「よう言われます。大坂にいた頃から、誰かに似てると言われて」</p>
+    <p>女将が笑った。警戒が解けた。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>店を出て、路地を二つ曲がったところで、薫子は立ち止まった。息を吐いた。膝が少しだけ笑っていた。</p>
+    <p class="dialogue">「危なかった」</p>
+    <p>薫子の声で出た。顔が売れている。それは武器でもあり、弱点でもある。</p>
+    <p class="dialogue">「お志乃、よくやった」</p>
+    <p>自分に言い聞かせるように呟いて、薫子は歩き出した。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p class="dialogue">「合格だ」</p>
+    <p>三味線屋に戻ると、お初が言った。</p>
+    <p class="dialogue">「頭で覚えるな。体に覚えさせろ。頭は裏切るが、体は裏切らない」</p>
+    <p class="dialogue">「お初さん、今日、楽しかったです。怖かったけど、楽しかった」</p>
+    <p>お初は少しの間、薫子を見ていた。それから目を落として、針を動かした。</p>
+    <p class="dialogue">「その気持ちを忘れるな。怖くなくなったら、危ない。楽しくなくなっても、危ない」</p>
+    <p class="dialogue">「怖くて楽しい。その両方があるうちは、体が動く。どちらかが消えたら、立ち止まれ」</p>
+    <p>薫子はその言葉を、胸の中にしまった。</p>
+    <p>廊下でお歌とすれ違った。</p>
+    <p class="dialogue">「お初が初日に合格出したの、初めて見た」</p>
+    <p class="dialogue">「看板娘ですから」</p>
+    <p>お歌が笑った。三味線屋の奥で、お凛の三味線が鳴り始めた。夜が来る。明日また、浅草へ行く。</p>
+  </div>
+</div>
+
+
+<!-- 十〜十三は省略せず続く -->
+<div class="chapter">
+  <div class="chapter-number">十</div>
+  <div class="chapter-title">相手役——お才次</div>
+
+  <div class="text">
+    <p>翌朝、稽古場に見知らぬ男がいた。三十前後。細面で、目が鋭い。だが着物は地味で、どこにでもいそうな商家の手代に見える。</p>
+    <p class="dialogue">「お才次だ」</p>
+    <p class="dialogue">「相手役だ。客役。役人役。悪人役。その日による」</p>
+    <p class="dialogue">「お才次は必ず崩しに来る。想定外のことを言う。想定外の動きをする」</p>
+    <p>お初が言った。</p>
+    <p class="dialogue">「現場では誰も台本通りに動かない」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>客役の稽古。役人役の稽古。そして愛想のいい悪人の稽古。</p>
+    <p>役人の時は圧が見えた。この男の圧は見えない。だから怖い。</p>
+    <p>稽古が終わって、薫子は自分の手を見た。震えていた。今度は隠しきれないくらい。</p>
+    <p class="dialogue">「引き延ばせない時は、どうするんですか」</p>
+    <p>薫子は聞いた。</p>
+    <p class="dialogue">「失踪した七人の娘たちは、引き延ばせなかったんだと思うので」</p>
+    <p>お初の目が、細くなった。お才次が畳の上を見た。しばらく誰も喋らなかった。</p>
+    <p class="dialogue">「その話はお凛に聞け」</p>
+    <p>薫子は黙って頷いた。</p>
+    <p class="dialogue">「今日はよくやった」</p>
+    <p>お才次が言った。</p>
+    <p class="dialogue">「震えました」</p>
+    <p class="dialogue">「震えながらよくやった」</p>
+  </div>
+</div>
+
+
+<!-- 小劇場 -->
+<div class="kogekijo">
+  <div class="chapter-number">小劇場</div>
+  <div class="chapter-title">逆手事件</div>
+
+  <div class="text">
+    <p>その日の夕方。稽古が終わって、お才次が帰った後。薫子は台所でお歌と並んで、夕餉の仕込みをしていた。</p>
+    <p>大根を切りながら、薫子はさっきの稽古を反芻していた。逆手。力は要らない。方向だけ。でも最後の一回だけ、うまくいった。あの感触がまだ手に残っている。</p>
+    <p class="dialogue">「薫子、これも切って」</p>
+    <p class="dialogue">「はい」</p>
+    <p>薫子は大根を受け取った。その瞬間だった。お歌の手首が、薫子の手に触れた。体が、動いた。考えるより先に。</p>
+    <p class="dialogue">「ちょっ——」</p>
+    <p>お歌の体が傾いた。派手に傾いた。堪えようとして、足が滑った。</p>
+    <p class="dialogue">「わあっ」</p>
+    <p><em>どすん。</em></p>
+    <p>お歌が台所の板張りに、盛大に尻餅をついた。大根が転がった。薫子が固まった。廊下の奥で、三味線の音が止まった。</p>
+  </div>
+
+  <div class="silence">― 静寂 ―</div>
+
+  <div class="text">
+    <p>お歌が床に座ったまま、薫子を見上げた。薫子が立ったまま、お歌を見下ろした。</p>
+    <p class="dialogue">「……やった」</p>
+    <p class="dialogue">「やったじゃないよ！」</p>
+    <p class="dialogue">「できたんです、逆手！」</p>
+    <p class="dialogue">「台所でやるな！」</p>
+    <p class="dialogue">「体が勝手に」</p>
+    <p class="dialogue">「勝手にやらせるな！」</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>廊下に気配がした。二人が同時に振り返った。お凛が立っていた。無表情で立っていた。薫子とお歌を、交互に見た。転がった大根を見た。お歌の尻をさすっている手を見た。</p>
+    <p class="dialogue">「……何をしてる」</p>
+    <p class="dialogue">「稽古の成果が出まして」</p>
+    <p class="dialogue">「台所で」</p>
+    <p class="dialogue">「はい」</p>
+    <p class="dialogue">「大根を渡された瞬間に」</p>
+    <p class="dialogue">「はい」</p>
+    <p>お凛が少し間を置いた。</p>
+    <p class="dialogue">「お歌。夕餉は」</p>
+    <p class="dialogue">「これから作ります」</p>
+    <p class="dialogue">「そうか」</p>
+    <p>お凛が踵を返した。廊下を歩いていく。三味線の音が、また始まった。</p>
+  </div>
+
+  <div class="sep">* * *</div>
+
+  <div class="text">
+    <p>薫子とお歌が顔を見合わせた。</p>
+    <p class="dialogue">「怒ってますか」</p>
+    <p class="dialogue">「怒ってないと思う。怒ったら三味線弾かない。怒ったら無言で部屋に戻る」</p>
+    <p class="dialogue">「じゃあ呆れてる」</p>
+    <p class="dialogue">「多分ね」</p>
+    <p>お歌が大根を拾い上げた。薫子に突きつけた。</p>
+    <p class="dialogue">「切れ」</p>
+    <p class="dialogue">「はい」</p>
+    <p class="dialogue">「今度やったら私が逆手かけるから」</p>
+    <p>薫子はちょっと試してみたくなった。</p>
+    <p class="dialogue">「駄目だよ。顔に出てる」</p>
+    <p class="dialogue">「出てません」</p>
+    <p class="dialogue">「出てる」</p>
+    <p>薫子は大人しく大根を切り始めた。しばらくして、小さく呟いた。</p>
+    <p class="dialogue">「でも、できたんですよね」</p>
+    <p class="dialogue">「できたね」</p>
+    <p class="dialogue">「やっぱり嬉しい」</p>
+    <p class="dialogue">「そうだね」</p>
+    <p class="dialogue">「……お才次さん、褒めますかね」</p>
+    <p>二人で少し考えた。</p>
+    <p class="dialogue">「褒めないね」「褒めないですよね」</p>
+    <p class="dialogue">「「また」って言うだけだね」「「また」って言うだけですよね」</p>
+    <p>二人が同時に言って、同時に笑った。遠くで三味線が鳴っている。夕餉の仕込みが、再開された。</p>
+  </div>
+</div>
+
+
+<div class="tbc">― つづく ―</div>
+
+</div>
+</body>
+</html>
