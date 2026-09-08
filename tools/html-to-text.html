@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML → TEXT</title>
+<style>
+  :root{
+    --bg:#0e0e0e;
+    --panel:#161616;
+    --green:#39ff6a;
+    --green-dim:#2a9e4a;
+    --text:#e8e8e8;
+    --text-dim:#8a8a8a;
+    --border:#2a2a2a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system, "Helvetica Neue", "Hiragino Sans", sans-serif;
+    min-height:100vh;
+  }
+  header{
+    padding:16px 18px 14px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  h1{
+    font-family:"Courier New", monospace;
+    font-size:19px;
+    letter-spacing:0.12em;
+    margin:0;
+    color:var(--text);
+    font-weight:700;
+  }
+  h1 .arrow{color:var(--green); margin:0 6px;}
+  .charcount{
+    font-size:12px;
+    color:var(--text-dim);
+    font-family:"Courier New", monospace;
+    white-space:nowrap;
+  }
+  .tabs{
+    display:flex;
+    border-bottom:1px solid var(--border);
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:13px 0;
+    font-family:"Courier New", monospace;
+    font-size:14px;
+    letter-spacing:0.1em;
+    color:var(--text-dim);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    cursor:pointer;
+  }
+  .tab.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+  }
+  main{
+    padding:16px 18px 0;
+  }
+  textarea{
+    width:100%;
+    min-height:56vh;
+    background:var(--panel);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:14px;
+    font-family:"Courier New", monospace;
+    font-size:14px;
+    line-height:1.6;
+    resize:vertical;
+  }
+  textarea::placeholder{color:#555;}
+  textarea:focus{outline:1px solid var(--green-dim);}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:16px 18px;
+  }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:9px 14px;
+    border:1px solid var(--green-dim);
+    border-radius:999px;
+    font-family:"Courier New", monospace;
+    font-size:13px;
+    color:var(--green);
+    cursor:pointer;
+    user-select:none;
+  }
+  .opt .dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--green);
+  }
+  .opt.off{
+    color:var(--text-dim);
+    border-color:var(--border);
+  }
+  .opt.off .dot{background:var(--text-dim);}
+  .convert-btn{
+    display:block;
+    width:calc(100% - 36px);
+    margin:4px 18px 22px;
+    padding:16px;
+    background:var(--green);
+    color:#0a0a0a;
+    border:none;
+    border-radius:8px;
+    font-family:"Courier New", monospace;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    cursor:pointer;
+  }
+  .convert-btn:active{background:var(--green-dim);}
+  .copy-btn{
+    display:block;
+    width:calc(100% - 36px);
+    margin:0 18px 22px;
+    padding:12px;
+    background:transparent;
+    color:var(--green);
+    border:1px solid var(--green-dim);
+    border-radius:8px;
+    font-family:"Courier New", monospace;
+    font-size:13px;
+    cursor:pointer;
+  }
+  .status{
+    text-align:center;
+    font-family:"Courier New", monospace;
+    font-size:12px;
+    color:var(--green);
+    padding-bottom:14px;
+    min-height:16px;
+  }
+</style>
+</head>
+<body>
 
+<header>
+  <h1>HTML<span class="arrow">→</span>TEXT</h1>
+  <span class="charcount" id="charcount">- 文字</span>
+</header>
+
+<div class="tabs">
+  <button class="tab active" id="tabInput" onclick="switchTab('input')">INPUT</button>
+  <button class="tab" id="tabOutput" onclick="switchTab('output')">OUTPUT</button>
+</div>
+
+<main>
+  <div class="panel active" id="panelInput">
+    <textarea id="inputArea" placeholder="HTMLをここに貼り付け…" oninput="updateCount()"></textarea>
+  </div>
+  <div class="panel" id="panelOutput">
+    <textarea id="outputArea" placeholder="変換結果がここに表示されます" readonly></textarea>
+  </div>
+</main>
+
+<div class="options">
+  <div class="opt" id="optScript" onclick="toggleOpt('optScript')"><span class="dot"></span>script除去</div>
+  <div class="opt" id="optEntity" onclick="toggleOpt('optEntity')"><span class="dot"></span>エンティティ</div>
+  <div class="opt" id="optWhitespace" onclick="toggleOpt('optWhitespace')"><span class="dot"></span>空白圧縮</div>
+  <div class="opt" id="optTrim" onclick="toggleOpt('optTrim')"><span class="dot"></span>トリム</div>
+</div>
+
+<button class="convert-btn" onclick="convert()">▶ 変 換</button>
+<button class="copy-btn" onclick="copyOutput()">結果をコピー</button>
+<div class="status" id="status"></div>
+
+<script>
+function switchTab(name){
+  document.getElementById('tabInput').classList.toggle('active', name==='input');
+  document.getElementById('tabOutput').classList.toggle('active', name==='output');
+  document.getElementById('panelInput').classList.toggle('active', name==='input');
+  document.getElementById('panelOutput').classList.toggle('active', name==='output');
+}
+
+function toggleOpt(id){
+  document.getElementById(id).classList.toggle('off');
+}
+
+function isOn(id){
+  return !document.getElementById(id).classList.contains('off');
+}
+
+function updateCount(){
+  const len = document.getElementById('inputArea').value.length;
+  document.getElementById('charcount').textContent = len + ' 文字';
+}
+
+function decodeEntities(str){
+  const el = document.createElement('textarea');
+  el.innerHTML = str;
+  return el.value;
+}
+
+function convert(){
+  let html = document.getElementById('inputArea').value;
+
+  if(isOn('optScript')){
+    html = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+    html = html.replace(/<style[\s\S]*?<\/style>/gi, '');
+  }
+
+  html = html.replace(/<br\s*\/?>/gi, '\n');
+  html = html.replace(/<\/(p|div|li|h[1-6]|tr|section|article)>/gi, '\n');
+  html = html.replace(/<[^>]+>/g, '');
+
+  if(isOn('optEntity')){
+    html = decodeEntities(html);
+  }
+
+  if(isOn('optWhitespace')){
+    html = html.replace(/[ \t]+/g, ' ');
+    html = html.replace(/\n{3,}/g, '\n\n');
+  }
+
+  if(isOn('optTrim')){
+    html = html.split('\n').map(l => l.trim()).join('\n').trim();
+  }
+
+  document.getElementById('outputArea').value = html;
+  document.getElementById('status').textContent = '変換完了（' + html.length + ' 文字）';
+  switchTab('output');
+}
+
+async function copyOutput(){
+  const text = document.getElementById('outputArea').value;
+  const statusEl = document.getElementById('status');
+  if(!text){
+    statusEl.textContent = 'まだ変換結果がありません';
+    return;
+  }
+  try{
+    await navigator.clipboard.writeText(text);
+    statusEl.textContent = 'コピーしました';
+  }catch(e){
+    statusEl.textContent = 'コピーに失敗しました（手動で選択し
