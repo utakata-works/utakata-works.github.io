@@ -75,13 +75,13 @@ body.v .foot{padding:0 18px 0 60px}
 <body>
 <div class="frame" id="frame"><img src="tenugui_1_home.jpg" alt="" class="on" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><img src="tenugui_2_tenugui.jpg" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><img src="tenugui_3_shachuu.jpg" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><div class="dots" id="dots"></div></div>
 <div class="scroller" id="scroller">
+<div id="inapp" style="display:none;margin:10px 14px 0;padding:10px 12px;border:1px solid #c9b98f;background:#f7efd9;color:#5a4a2a;font-size:13px;line-height:1.6;border-radius:8px;text-align:center">LINEの中では声が出ません。<br>右下の「⋮」や共有から<b>「ブラウザで開く」</b>（Chrome／Safari）を選ぶと、読み上げできます。</div>
 <div class="head" id="head">
   <div class="kicker">古稀庵綺譚</div>
   <h1 class="s" data-i="0">手拭い</h1>
   <div class="subt">大正十一年二月十六日、小田原の駅・三好とお園</div>
 </div>
-<button type="button" class="bigplay" id="bigPlay">▶ 聴く</button>
-<div class="hint" id="hint">文をタップすると、そこから読みます</div>
+<div class="hint" id="hint" style="margin-top:18px">文をタップすると、そこから読みます</div>
 <div class="text" id="text"></div>
 <details class="notes"><summary>覚え書き</summary><p>三好とお園は、いない。ただ、大正九年に熱海線が国府津から小田原まで通り、小田原の駅から汽車で東海道へ出られるようになっていた。大正十一年二月一日に山縣が古稀庵で没し、九日に日比谷で葬儀があった。</p><p>四分類：骨格は、山縣の没（大正十一年二月一日、古稀庵）、日比谷での葬儀（二月九日）、熱海線の国府津と小田原のあいだの開通（大正九年）、当時の東海道本線が御殿場を回っていたこと。創作は、三好（架空）とお園（架空）、二月十六日という日付、駅の場面と会話のすべて、手拭いとその温み、帳面の書きつけ。山縣の「興津へ行け」は、作中の小品「言伝て」と「三好の手紙」に合わせた創作。熱海線の開通の月は要照合。参照：小品「坂と梅」「大根」、物語「三好の手帳」（昭和二十一年春）。</p><p>挿絵はAIで作成しました。</p></details>
 <div class="foot"><a href="index.html">古稀庵綺譚の扉へ</a></div>
@@ -176,7 +176,7 @@ function sayNext(my){
   synth.speak(u);
 }
 function start(from){
-  if(!synth){ toast('この端末では読み上げが使えません'); return; }
+  if(!synth){ var a=document.getElementById('inapp'); if(a) a.style.display='block'; toast('ここでは読み上げが使えません。ブラウザで開いてね'); window.scrollTo(0,0); return; }
   token++; synth.cancel(); idx = from || 0; playing = true; setBtns();
   sayNext(token);
   if(!start.told && /iPhone|iPad|iPod/.test(navigator.userAgent)){ start.told=true; toast('音が出ないときは、消音スイッチと音量を確かめてください'); }
@@ -189,11 +189,11 @@ function stop(ended){
 }
 function setBtns(){
   document.getElementById('play').textContent = playing ? '❚❚ 止める' : (idx>0 ? '▶ 続きから' : '▶ 聴く');
-  document.getElementById('bigPlay').textContent = playing ? '❚❚ 止める' : '▶ 聴く';
+  
 }
 function toggle(){ if(playing) stop(false); else start(idx); }
 document.getElementById('play').onclick = toggle;
-document.getElementById('bigPlay').onclick = function(){ if(playing) stop(false); else start(0); };
+
 textEl.addEventListener('click', function(ev){
   var sp = ev.target.closest && ev.target.closest('.s'); if(!sp) return;
   if(window.getSelection && String(window.getSelection())) return;
@@ -225,6 +225,7 @@ try{
   if(localStorage.getItem('kokian_dir')==='v'){ document.body.classList.add('v'); document.getElementById('dir').textContent='横書き'; }
   if(localStorage.getItem('kokian_night')==='1'){ document.body.classList.add('night'); document.getElementById('night').textContent='昼'; }
 }catch(e){}
+(function(){ try{ if(/Line\//i.test(navigator.userAgent) || !window.speechSynthesis){ var a=document.getElementById('inapp'); if(a) a.style.display='block'; } }catch(e){} })();
 var tt; function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){ t.classList.remove('show'); }, 1800); }
 document.addEventListener('visibilitychange', function(){ if(document.hidden && playing && /iPhone|iPad|iPod/.test(navigator.userAgent)){ /* iPhoneは画面を消すと止まるので、戻ったら続きから */ stop(false); } });
 window.addEventListener('load', setupIO);
