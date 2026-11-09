@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>手拭い ― 古稀庵綺譚</title>
+<meta name="description" content="大正十一年二月、小田原の駅。興津へ発つ三好に、お園が店の手拭いを押しつける。挿絵つき、読み上げつきの小品。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="古稀庵綺譚">
+<meta property="og:title" content="手拭い ― 古稀庵綺譚">
+<meta property="og:description" content="大正十一年二月、小田原の駅。興津へ発つ三好に、お園が店の手拭いを押しつける。挿絵つき、読み上げつきの小品。">
+<meta property="og:url" content="https://utakata-works.github.io/kokian/tenugui.html">
+<meta property="og:image" content="https://utakata-works.github.io/kokian/tenugui_og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f4efe4">
+<style>
+:root{--bg:#f4efe4;--ink:#2a2622;--sub:#857a68;--aka:#8a2f3a;--rule:#d9cfbd;--hl:rgba(138,47,58,.10);
+  --mincho:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP","BIZ UDPMincho",serif;
+  --fs:18px;--frame:min(38vh,62vw,460px);}
+body.night{--bg:#1f1c19;--ink:#e6dfd2;--sub:#9a8f7c;--rule:#3a342d;--hl:rgba(230,170,150,.14);}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:var(--mincho);-webkit-text-size-adjust:100%}
+.frame{position:sticky;top:0;z-index:5;height:var(--frame);background:var(--bg);overflow:hidden;border-bottom:1px solid var(--rule)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.frame img.on{opacity:1}
+.frame .dots{position:absolute;right:10px;bottom:8px;display:flex;gap:5px}
+.frame .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 2px rgba(0,0,0,.4)}
+.frame .dots i.on{background:#fff}
+.head{text-align:center;padding:26px 22px 8px}
+.head .kicker{font-size:12px;letter-spacing:.3em;color:var(--sub)}
+.head h1{font-size:30px;margin:10px 0 6px;letter-spacing:.08em;font-weight:600}
+.head .subt{font-size:13.5px;color:var(--sub);line-height:1.7}
+.head h1::after{content:"";display:block;width:56px;height:1px;background:var(--aka);margin:16px auto 0}
+.bigplay{display:block;margin:22px auto 6px;padding:14px 34px;font-family:var(--mincho);font-size:19px;letter-spacing:.15em;color:#fff;background:var(--aka);border:0;border-radius:40px;box-shadow:0 3px 10px rgba(138,47,58,.25)}
+.hint{text-align:center;font-size:12px;color:var(--sub);margin:6px 0 4px}
+.text{max-width:640px;margin:0 auto;padding:18px 22px 40px;font-size:var(--fs);line-height:2.05}
+.text p{margin:0 0 1.05em;text-indent:1em}
+.text p.hito{text-indent:0;margin:1.4em 0;padding:.2em 0 .2em 1em;border-left:2px solid var(--rule);color:var(--sub);font-size:.94em}
+.text p.hito::before{content:"ひと掴み　";font-size:.8em;letter-spacing:.1em}
+.text .sep{text-align:center;color:var(--sub);letter-spacing:1.2em;margin:1.6em 0;text-indent:1.2em}
+.s{border-radius:3px;transition:background .25s}
+.s.now{background:var(--hl);box-shadow:0 0 0 2px var(--hl)}
+details.notes{max-width:640px;margin:0 auto;padding:0 22px 20px;font-size:13.5px;line-height:1.9;color:var(--sub)}
+details.notes summary{cursor:pointer;padding:10px 0;border-top:1px solid var(--rule)}
+details.notes p{margin:.4em 0}
+.foot{text-align:center;padding:10px 0 120px;font-size:14px}
+.foot a{color:var(--aka)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;gap:5px;justify-content:center;align-items:center;flex-wrap:nowrap;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 92%,transparent);border-top:1px solid var(--rule);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.bar button{font-family:var(--mincho);font-size:13px;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:18px;padding:7px 9px;min-height:38px;white-space:nowrap;flex:0 0 auto}
+.bar button.play{background:var(--aka);color:#fff;border-color:var(--aka);padding:7px 14px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:rgba(40,34,30,.88);color:#fff;font-size:13px;padding:8px 14px;border-radius:16px;opacity:0;transition:opacity .3s;z-index:20;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+/* 縦書き */
+body.v .frame{position:fixed;left:0;right:0;top:0;height:min(32vh,56vw,380px)}
+body.v .scroller{position:fixed;left:0;right:0;top:calc(min(32vh,56vw,380px) + 1px);bottom:calc(54px + env(safe-area-inset-bottom));
+  writing-mode:vertical-rl;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:18px 20px}
+body.v .head{padding:0 0 0 18px;text-align:left}
+body.v .head h1::after{width:1px;height:48px;margin:14px 0 0 auto}
+body.v .bigplay{margin:0 18px 0 0;padding:28px 12px;letter-spacing:.3em}
+body.v .hint{margin:0 6px}
+body.v .text{max-width:none;margin:0;padding:0 18px;height:100%}
+body.v .text p{margin:0 0 0 1.05em}
+body.v .text p.hito{border-left:0;border-top:2px solid var(--rule);padding:1em 0 0 0;margin:0 1.4em}
+body.v .text .sep{margin:0 1.6em;font-size:.7em}
+body.v details.notes{max-width:none;padding:0 18px;height:100%}
+body.v details.notes summary{border-top:0;border-right:1px solid var(--rule);padding:0 10px}
+body.v .foot{padding:0 18px 0 60px}
+</style>
+</head>
+<body>
+<div class="frame" id="frame"><img src="tenugui_1_home.jpg" alt="" class="on" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><img src="tenugui_2_tenugui.jpg" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><img src="tenugui_3_shachuu.jpg" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/'+this.getAttribute('src')}"><div class="dots" id="dots"></div></div>
+<div class="scroller" id="scroller">
+<div class="head" id="head">
+  <div class="kicker">古稀庵綺譚</div>
+  <h1 class="s" data-i="0">手拭い</h1>
+  <div class="subt">大正十一年二月十六日、小田原の駅・三好とお園</div>
+</div>
+<button type="button" class="bigplay" id="bigPlay">▶ 聴く</button>
+<div class="hint" id="hint">文をタップすると、そこから読みます</div>
+<div class="text" id="text"></div>
+<details class="notes"><summary>覚え書き</summary><p>三好とお園は、いない。ただ、大正九年に熱海線が国府津から小田原まで通り、小田原の駅から汽車で東海道へ出られるようになっていた。大正十一年二月一日に山縣が古稀庵で没し、九日に日比谷で葬儀があった。</p><p>四分類：骨格は、山縣の没（大正十一年二月一日、古稀庵）、日比谷での葬儀（二月九日）、熱海線の国府津と小田原のあいだの開通（大正九年）、当時の東海道本線が御殿場を回っていたこと。創作は、三好（架空）とお園（架空）、二月十六日という日付、駅の場面と会話のすべて、手拭いとその温み、帳面の書きつけ。山縣の「興津へ行け」は、作中の小品「言伝て」と「三好の手紙」に合わせた創作。熱海線の開通の月は要照合。参照：小品「坂と梅」「大根」、物語「三好の手帳」（昭和二十一年春）。</p><p>挿絵はAIで作成しました。</p></details>
+<div class="foot"><a href="index.html">古稀庵綺譚の扉へ</a></div>
+</div>
+<div class="bar">
+  <button type="button" class="play" id="play">▶ 聴く</button>
+  <button type="button" id="rate">普通</button>
+  <button type="button" id="voice">声</button>
+  <button type="button" id="dir">縦書き</button>
+  <button type="button" id="size">文字</button>
+  <button type="button" id="night">夜</button>
+</div>
+<div class="toast" id="toast"></div>
+<script id="story" type="application/json">{"title": "手拭い", "speakSub": "大正十一年二月十六日、小田原の駅。", "paras": [{"t": "p", "x": "大正十一年、二月十六日の朝。小田原の駅。"}, {"t": "p", "x": "箱根の山から下りてくる風が、まだ冷たかった。駅の屋根の向こうに、雪をかぶった二子山が白く光っている。ホームの端の植え込みでは、梅が三つ四つ、ほころびかけていた。九年前の坂の梅は、終わりかけだった。今年の梅は、これからである。"}, {"t": "p", "x": "三好は、柳行李を一つ足もとに置いて、ホームに立っていた。"}, {"t": "p", "x": "法皇が古稀庵で息を引き取ったのは、二月一日の朝だった。九日に、東京の日比谷で葬儀があった。それから一週間、三好は、古稀庵の書類を片づけ、封筒の束を紐でくくり、帳面を風呂敷に包んだ。"}, {"t": "p", "x": "最後の夜、法皇は、三好に一つだけ言いつけていた。興津へ行け。"}, {"t": "p", "x": "国府津で乗り換えて、御殿場を回り、興津へ。昼過ぎには着く。"}, {"t": "p", "x": "汽車が来るまで、まだ少しあった。"}, {"t": "p", "x": "そのとき、改札の向こうで、鈴の音がした。"}, {"t": "p", "x": "ちりん、ちりん。"}, {"t": "p", "x": "三好は、振り返った。"}, {"t": "p", "x": "駅へ続く通りを、自転車が一台、まっすぐこちらへ走ってくる。紺の前掛けをかけた女が、立ち漕ぎで、ペダルを踏んでいた。自転車は改札の手前で、猫が鳴くような音を立てて止まった。"}, {"t": "p", "x": "お園だった。"}, {"t": "p", "x": "九年のあいだに、娘は女将の顔になっていた。父親が倒れてから、角の店は、お園が一人で回している。袴はもう穿いていない。けれど、自転車の止め方だけは、あの坂の日と少しも変わらなかった。"}, {"t": "p", "x": "お園は、駅員に何か言って、するりと改札を抜けてきた。息が白かった。"}, {"t": "p", "x": "「行くんでしょう。興津」"}, {"t": "p", "x": "「はい」"}, {"t": "p", "x": "「店に、一度も挨拶に来ないで」"}, {"t": "p", "x": "「何度か、伺いました」"}, {"t": "p", "x": "「一杯だけ飲んで、黙って帰るのを、挨拶とは言いません」"}, {"t": "p", "x": "三好は、返事ができなかった。"}, {"t": "p", "x": "お園は、前掛けのかくしから、畳んだ布を一枚取り出した。紺の地に、白く店の名が染め抜いてある。店の暖簾と同じ色の、手拭いだった。"}, {"t": "p", "x": "お園は、それを三好の手に押しつけた。"}, {"t": "p", "x": "「興津は、海の風が強いそうよ。首に巻くといいわ」"}, {"t": "p", "x": "三好は、手拭いを握ったまま、立っていた。何か言わなければならないと思った。法皇のところにいた九年、言うべきことは全部、帳面に書いてきた。言わないことのほうが、ずっと多かった。"}, {"t": "p", "x": "遠くで、汽笛が鳴った。"}, {"t": "p", "x": "「来なくてもいいけど」"}, {"t": "p", "x": "お園は、九年前と同じことを言った。それから、少しだけ笑った。"}, {"t": "p", "x": "「お盆と暮れくらいは、帰ってきなさいよ。煮物、作っておくから」"}, {"t": "hito", "x": "惚れた男に物を渡すとき、なぜ女は、少し怒った顔をするのか。この問いに答えられた男は、大正の小田原には、一人もいなかった。たぶん、今もいない。"}, {"t": "p", "x": "汽車が、白い煙を引いて、ホームに入ってきた。"}, {"t": "p", "x": "三好は、柳行李を持ち上げた。乗り込む前に、一度だけ振り返った。お園は、改札の向こうに戻って、もう自転車の柄を握っていた。こちらを見ていなかった。見ていないふりをしているのかどうか、三好には分からなかった。"}, {"t": "p", "x": "汽車が動き出した。窓の外で、梅の植え込みが流れていった。"}, {"t": "sep"}, {"t": "p", "x": "国府津で乗り換えた車中で、三好は帳面を開いた。"}, {"t": "p", "x": "二月十六日。小田原を発つ。"}, {"t": "p", "x": "その下に、一語足した。"}, {"t": "p", "x": "手拭い。"}, {"t": "p", "x": "それから、帳面を閉じて、膝の上の手拭いを広げた。"}, {"t": "p", "x": "手拭いの端の、お園が握っていたところだけが、まだ少し温かかった。"}, {"t": "p", "x": "三好は、その端を内側にして、手拭いを首に巻いた。"}, {"t": "sep"}, {"t": "p", "x": "その年の暮れ、興津の坐漁荘で、三好は一年分の帳面を締めた。最後の頁の端に、小さく、こう書いた。"}, {"t": "p", "x": "小田原、お園の店。"}, {"t": "p", "x": "翌年の暮れにも、同じ一行を書いた。その次の年も、その次の年も。"}, {"t": "p", "x": "それが、帳面の中で、三好がただ一つ、自分のために書いた行だった。"}], "imgAt": [0, 20, 33]}</script>
+<script>
+(function(){
+var D = JSON.parse(document.getElementById('story').textContent);
+var textEl = document.getElementById('text');
+var frame = document.getElementById('frame');
+var imgs = [].slice.call(frame.querySelectorAll('img'));
+var dots = document.getElementById('dots');
+imgs.forEach(function(_,k){ var i=document.createElement('i'); if(k===0) i.className='on'; dots.appendChild(i); });
+if(imgs.length < 2) dots.style.display='none';
+var S = [{text: D.title + '。' + (D.speakSub || ''), el: document.querySelector('.head h1'), para: -1}];
+var paraEls = [];
+D.paras.forEach(function(p, pi){
+  var el;
+  if(p.t === 'sep'){ el = document.createElement('div'); el.className='sep'; el.textContent='◆◆◆'; textEl.appendChild(el); paraEls.push(el); return; }
+  el = document.createElement('p'); if(p.t === 'hito') el.className='hito';
+  var parts = p.x.match(/[^。！？]*[。！？]+」?|[^。！？]+$/g) || [p.x];
+  parts.forEach(function(t){
+    if(!t.trim()) return;
+    var sp = document.createElement('span'); sp.className='s'; sp.textContent=t; sp.dataset.i=S.length;
+    S.push({text:t, el:sp, para:pi}); el.appendChild(sp);
+  });
+  textEl.appendChild(el); paraEls.push(el);
+});
+var imgAt = D.imgAt; // 絵ごとの段落番号
+function imgForPara(pi){ var k=0; for(var j=0;j<imgAt.length;j++){ if(imgAt[j] <= pi) k=j; } return k; }
+var curImg = 0;
+function showImg(k){ if(k===curImg || !imgs[k]) return; imgs[curImg].classList.remove('on'); dots.children[curImg].classList.remove('on'); curImg=k; imgs[k].classList.add('on'); dots.children[k].classList.add('on'); }
+
+// 読まずに眺めているときも、段落に合わせて絵を替える
+var io;
+function setupIO(){
+  if(io) io.disconnect();
+  var vert = document.body.classList.contains('v');
+  io = new IntersectionObserver(function(ents){
+    if(playing) return;
+    var best = null;
+    ents.forEach(function(e){ if(e.isIntersecting){ var pi = paraEls.indexOf(e.target); if(best===null || pi>best) best=pi; } });
+    if(best!==null) showImg(imgForPara(best));
+  }, vert ? {root: document.getElementById('scroller'), rootMargin:'0px -40% 0px 0px'} : {rootMargin:'-' + Math.round(frame.offsetHeight) + 'px 0px -55% 0px'});
+  paraEls.forEach(function(el){ io.observe(el); });
+}
+
+// ---- 読み上げ ----
+var synth = window.speechSynthesis;
+var voices = [], vIdx = 0, rateIdx = 1, RATES=[0.85,1.0,1.15], RATEN=['ゆっくり','普通','速め'];
+function rank(v){ var n=v.name;
+  if(/Nanami|Keita|Natural/i.test(n)) return 0;
+  if(/Kyoko|O-ren|Otoya|Hattori|Enhanced|拡張|プレミアム|Premium/i.test(n)) return 1;
+  if(/Google/i.test(n)) return 2; return 3; }
+function loadVoices(){
+  if(!synth) return;
+  voices = synth.getVoices().filter(function(v){ return /^ja/i.test(v.lang); });
+  voices.sort(function(a,b){ return rank(a)-rank(b); });
+  var saved = null; try{ saved = localStorage.getItem('kokian_voice'); }catch(e){}
+  vIdx = 0; for(var k=0;k<voices.length;k++){ if(voices[k].name===saved){ vIdx=k; break; } }
+}
+if(synth){ loadVoices(); if('onvoiceschanged' in synth) synth.onvoiceschanged = loadVoices; }
+try{ var r = +localStorage.getItem('kokian_rate'); if(r>=0 && r<3 && localStorage.getItem('kokian_rate')!==null) rateIdx=r; }catch(e){}
+document.getElementById('rate').textContent = RATEN[rateIdx];
+
+var playing = false, idx = 0, token = 0, wake = null;
+function clean(t){ return t.replace(/（ひと掴み）|（語り）/g,'').replace(/[「」『』]/g,''); }
+function mark(i){
+  var o = document.querySelector('.s.now'); if(o) o.classList.remove('now');
+  var s = S[i]; if(!s) return; s.el.classList.add('now');
+  if(s.para >= 0) showImg(imgForPara(s.para));
+  var vert = document.body.classList.contains('v');
+  try{ s.el.scrollIntoView({behavior:'smooth', block:'center', inline:'nearest'}); }catch(e){ s.el.scrollIntoView(); }
+}
+function sayNext(my){
+  if(!playing || my !== token) return;
+  if(idx >= S.length){ stop(true); return; }
+  var u = new SpeechSynthesisUtterance(clean(S[idx].text));
+  u.lang = 'ja-JP'; if(voices[vIdx]) u.voice = voices[vIdx]; u.rate = RATES[rateIdx];
+  u.onend = function(){ if(my===token && playing){ idx++; sayNext(my); } };
+  u.onerror = function(ev){ if(ev && (ev.error==='interrupted' || ev.error==='canceled')) return; if(my===token && playing){ idx++; sayNext(my); } };
+  mark(idx);
+  synth.speak(u);
+}
+function start(from){
+  if(!synth){ toast('この端末では読み上げが使えません'); return; }
+  token++; synth.cancel(); idx = from || 0; playing = true; setBtns();
+  sayNext(token);
+  if(!start.told && /iPhone|iPad|iPod/.test(navigator.userAgent)){ start.told=true; toast('音が出ないときは、消音スイッチと音量を確かめてください'); }
+  if('wakeLock' in navigator){ navigator.wakeLock.request('screen').then(function(w){ wake=w; }).catch(function(){}); }
+}
+function stop(ended){
+  token++; playing = false; if(synth) synth.cancel(); setBtns();
+  if(wake){ try{ wake.release(); }catch(e){} wake=null; }
+  if(ended){ var o=document.querySelector('.s.now'); if(o) o.classList.remove('now'); idx=0; toast('おしまい'); }
+}
+function setBtns(){
+  document.getElementById('play').textContent = playing ? '❚❚ 止める' : (idx>0 ? '▶ 続きから' : '▶ 聴く');
+  document.getElementById('bigPlay').textContent = playing ? '❚❚ 止める' : '▶ 聴く';
+}
+function toggle(){ if(playing) stop(false); else start(idx); }
+document.getElementById('play').onclick = toggle;
+document.getElementById('bigPlay').onclick = function(){ if(playing) stop(false); else start(0); };
+textEl.addEventListener('click', function(ev){
+  var sp = ev.target.closest && ev.target.closest('.s'); if(!sp) return;
+  if(window.getSelection && String(window.getSelection())) return;
+  start(+sp.dataset.i);
+});
+document.getElementById('rate').onclick = function(){
+  rateIdx = (rateIdx+1)%3; this.textContent=RATEN[rateIdx]; try{ localStorage.setItem('kokian_rate', rateIdx); }catch(e){}
+  if(playing) start(idx);
+};
+document.getElementById('voice').onclick = function(){
+  if(!voices.length){ loadVoices(); }
+  if(!voices.length){ toast('日本語の声が見つかりません'); return; }
+  vIdx = (vIdx+1)%voices.length; try{ localStorage.setItem('kokian_voice', voices[vIdx].name); }catch(e){}
+  toast('声：' + voices[vIdx].name.replace(/Microsoft |Online|\(Natural\)|- Japanese \(Japan\)/g,'').trim());
+  if(playing) start(idx);
+};
+var sizes=[16,18,20,23], sIdx=1;
+try{ var sv=localStorage.getItem('kokian_size'); if(sv!==null) sIdx=+sv; }catch(e){}
+function applySize(){ document.documentElement.style.setProperty('--fs', sizes[sIdx]+'px'); }
+applySize();
+document.getElementById('size').onclick = function(){ sIdx=(sIdx+1)%sizes.length; applySize(); try{ localStorage.setItem('kokian_size', sIdx); }catch(e){} toast('文字 ' + ['小','中','大','特大'][sIdx]); };
+document.getElementById('dir').onclick = function(){
+  var v = document.body.classList.toggle('v'); this.textContent = v ? '横書き' : '縦書き';
+  try{ localStorage.setItem('kokian_dir', v?'v':'h'); }catch(e){}
+  setupIO(); var s=S[idx]; if(s) setTimeout(function(){ try{ s.el.scrollIntoView({block:'center',inline:'nearest'}); }catch(e){} }, 60);
+};
+document.getElementById('night').onclick = function(){ var n=document.body.classList.toggle('night'); this.textContent = n ? '昼' : '夜'; try{ localStorage.setItem('kokian_night', n?'1':'0'); }catch(e){} };
+try{
+  if(localStorage.getItem('kokian_dir')==='v'){ document.body.classList.add('v'); document.getElementById('dir').textContent='横書き'; }
+  if(localStorage.getItem('kokian_night')==='1'){ document.body.classList.add('night'); document.getElementById('night').textContent='昼'; }
+}catch(e){}
+var tt; function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){ t.classList.remove('show'); }, 1800); }
+document.addEventListener('visibilitychange', function(){ if(document.hidden && playing && /iPhone|iPad|iPod/.test(navigator.userAgent)){ /* iPhoneは画面を消すと止まるので、戻ったら続きから */ stop(false); } });
+window.addEventListener('load', setupIO);
+setupIO();
+})();
+</script>
+</body>
+</html>

@@ -1,28 +1,64 @@
 <!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>古稀庵綺譚</title>
+<meta name="description" content="明治から大正、昭和のはじめ。小田原の古稀庵の主と、そのまわりの名もない人たちの小品集。挿絵つき、読み上げつき。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="古稀庵綺譚">
+<meta property="og:title" content="古稀庵綺譚">
+<meta property="og:description" content="明治から大正、昭和のはじめ。小田原の古稀庵の主と、そのまわりの名もない人たちの小品集。挿絵つき、読み上げつき。">
+<meta property="og:url" content="https://utakata-works.github.io/kokian/">
+<meta property="og:image" content="https://utakata-works.github.io/kokian/tenugui_og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f4efe4">
 <style>
-:root{--bg:#f4efe4;--ink:#2b2622;--red:#9b3b2e}
-@media (prefers-color-scheme:dark){:root{--bg:#1d1b19;--ink:#e6dfd2}}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
-main{max-width:34em;margin:0 auto;padding:2em 1.1em 4em;text-align:center}
-.pic{width:100%;border-radius:2px;box-shadow:0 1px 8px #0003}
-h1{font-size:2em;letter-spacing:.3em;margin:1em 0 .2em;text-indent:.3em}
-.lead{font-size:.9em;opacity:.75;line-height:1.9;margin-bottom:2em}
-.lead::after{content:"";display:block;width:3em;height:2px;background:var(--red);margin:1em auto 0}
-ul{list-style:none;padding:0;margin:0}
-li{margin:1em 0}
-a.card{display:block;padding:.9em 1em;border:1px solid #0003;border-radius:4px;text-decoration:none;color:inherit;text-align:left}
-a.card b{display:block;font-size:1.1em;color:var(--red)}
-a.card span{font-size:.85em;opacity:.75}
-.credit{margin-top:3em;font-size:.75em;opacity:.6}
-</style></head><body><main>
-<img class="pic" src="sakatoume_1_saka_mukae.jpg" alt="梅の咲く坂道">
-<h1>古稀庵綺譚</h1>
-<div class="lead">明治から大正、昭和のはじめ。<br>山縣有朋をモデルにした「古稀庵の法皇」と、<br>その庭先を通りすぎていく人たちの小さな話。</div>
-<ul>
-<li><a class="card" href="saka_to_ume.html"><b>坂と梅</b><span>大正二年三月、古稀庵の門前。三好とお園（絵つき・一枚で読める）</span></a></li>
-<li><a class="card" href="nigirimeshi.html"><b>握り飯</b><span>明治十年四月十八日、焼け跡の熊本。従卒と豆腐屋の娘（絵つき・一枚で読める）</span></a></li>
-</ul>
-<div class="credit">歴史を足場にした創作です。挿絵はAIで作成。<br>つづきの話は、少しずつ足していきます。</div>
-</main></body></html>
+:root{--bg:#f4efe4;--ink:#2a2622;--sub:#857a68;--aka:#8a2f3a;--rule:#d9cfbd;
+  --mincho:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mincho)}
+.hero{position:relative;height:min(52vh,70vw,520px);overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero .ttl{position:absolute;left:0;right:0;bottom:0;padding:60px 22px 18px;background:linear-gradient(transparent,rgba(30,24,20,.62));color:#fff}
+.hero h1{margin:0;font-size:34px;letter-spacing:.18em;font-weight:600}
+.hero p{margin:6px 0 0;font-size:13px;letter-spacing:.12em;opacity:.92}
+.intro{max-width:640px;margin:0 auto;padding:22px 22px 6px;font-size:15.5px;line-height:2}
+.list{max-width:640px;margin:0 auto;padding:8px 16px 30px;display:grid;gap:14px}
+a.card{display:flex;gap:14px;align-items:stretch;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.45);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+a.card .th{flex:0 0 38%;min-height:96px;background:#e7dfcf center/cover no-repeat}
+a.card .th.none{display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:26px;letter-spacing:.2em}
+a.card .bd{padding:12px 12px 12px 0;display:flex;flex-direction:column;justify-content:center}
+a.card .when{font-size:11.5px;color:var(--sub);letter-spacing:.05em}
+a.card h2{margin:4px 0 4px;font-size:20px;letter-spacing:.1em;font-weight:600}
+a.card .one{font-size:13px;color:var(--sub);line-height:1.6}
+a.card .tag{display:inline-block;margin-top:6px;font-size:11px;color:#fff;background:var(--aka);border-radius:10px;padding:1px 8px;align-self:flex-start}
+.foot{max-width:640px;margin:0 auto;padding:6px 22px 50px;font-size:12px;color:var(--sub);line-height:1.9}
+</style>
+</head>
+<body>
+<div class="hero">
+  <img src="tenugui_1_home.jpg" alt="" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='img/tenugui_1_home.jpg'}">
+  <div class="ttl"><h1>古稀庵綺譚</h1><p>明治・大正・昭和のはじめ　小品集</p></div>
+</div>
+<div class="intro">小田原の山裾に、古稀庵という屋敷があった。主は、明治の国を作った老人のひとり。物語は、その屋敷に出入りした、名もない人たちの手もとから始まる。</div>
+<div class="list">
+  <a class="card" href="tenugui.html">
+    <div class="th" style="background-image:url(tenugui_2_tenugui.jpg)"></div>
+    <div class="bd"><div class="when">大正十一年二月・小田原の駅</div><h2>手拭い</h2><div class="one">興津へ発つ三好に、お園が店の手拭いを押しつける。</div><span class="tag">▶ 聴ける</span></div>
+  </a>
+  <a class="card" href="saka_to_ume.html">
+    <div class="th" style="background-image:url(sakatoume_1_saka_mukae.jpg)"></div>
+    <div class="bd"><div class="when">大正二年三月・古稀庵の坂</div><h2>坂と梅</h2><div class="one">梅の坂を自転車で下りてきた娘と、書類を抱えた若い男。</div></div>
+  </a>
+  <a class="card" href="nigirimeshi.html">
+    <div class="th none">握</div>
+    <div class="bd"><div class="when">明治十年四月・熊本の城下</div><h2>握り飯</h2><div class="one">戦のあとの城下で、豆腐屋の娘が兵隊に握り飯を差し出す。</div></div>
+  </a>
+</div>
+<div class="foot">挿絵はAIで作成しました。登場する人物の多くは架空です。<br>「▶ 聴ける」の話は、ボタンを押すと読み上げます。iPhoneは消音スイッチを切って、音量を上げてお聴きください。</div>
+<script>document.querySelectorAll(".th[style]").forEach(function(d){var u=d.style.backgroundImage.replace(/^url\(["']?|["']?\)$/g,"");var t=new Image();t.onerror=function(){d.style.backgroundImage="url(img/"+u+")";};t.src=u;});</script>
+</body>
+</html>
